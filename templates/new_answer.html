@@ -5,6 +5,13 @@
     <title>Title</title>
 </head>
 <body>
+<h1>Add a new answer</h1>
+<form method="POST" action="/question/{{ question_id }}/new-answer">
+    <label for="message">Message:</label>
+    <textarea id="message" name="message" rows="20" cols="40"></textarea>
+    <button type="submit">Submit</button>
+</form>
+
 
 </body>
 </html>
