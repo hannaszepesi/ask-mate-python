@@ -33,11 +33,3 @@ def write_quiestions(questions):
         dictwriter_object.writeheader()
         for question in questions:
             dictwriter_object.writerow(question)
-
-def generate_id(ids): # ids listában tárolt id-k
-    if len(ids) == 0:
-        new_id = "0"
-    else:
-        new_id = str(int(max(ids))) + 1
-        ids.append(new_id)
-    return new_id

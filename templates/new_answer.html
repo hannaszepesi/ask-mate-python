@@ -9,9 +9,12 @@
 <form method="POST" action="/question/{{ question_id }}/new-answer">
     <label for="message">Message:</label>
     <textarea id="message" name="message" rows="20" cols="40"></textarea>
+
+    <label for = "image">Add an image</label>
+    <input type="url" name="image" id="image">
+
     <button type="submit">Submit</button>
 </form>
-
 
 </body>
 </html>
