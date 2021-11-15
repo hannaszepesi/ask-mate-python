@@ -15,7 +15,7 @@ def get_questions():
 def get_answers():
     answer_list = []
     with open('sample_data/answer.csv'):
-        input_file = csv.DictReader(open('sample_data/answer.csv'))
+        input_file = csv.DictReader('sample_data/answer.csv')
     for answers in input_file:
         answer_list.append(answers)
     return answer_list
@@ -27,7 +27,7 @@ def write_answers(answers):
         for answer in answers:
             dictwriter_object.writerow(answer)
 
-def write_answers(questions):
+def write_quiestions(questions):
     with open('sample_data/answer.csv', 'w', newline='') as file:
         dictwriter_object = csv.DictWriter(file, fieldnames=QUESTION_HEADER)
         dictwriter_object.writeheader()
