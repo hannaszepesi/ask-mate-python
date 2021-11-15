@@ -32,8 +32,33 @@ def new_answer(question_id):
         data_manager.write_answers((new_answer))
         return redirect("/question"+str(question_id))
     return render_template("new_answer.html", question_id = question_id)
+
+@app.route('/add_question', method = ["POST", "GET"])
+def add_question():
+    from datetime import datetime
+    now = datetime.now()
+    now_timestamp = datetime.timestamp(now)
+    if method == "POST":
+        new_question = {
+            "id": data_manager.get_max_id()+1  #A unique identifier for the question.
+            "submission_time":now_timestamp #The UNIX timestamp when the question is posted.
+            "view_number": #The number of times this question is displayed in the single question view.
+            "vote_number": #The sum of votes this question receives.
+            "title": #The title of the question.
+            "message":request.form.get("message") #The question text.
+            "image":request.form.get("url")#The path to the image for this question.
+        }
+        data_manager.write_quiestions()
+        return redirect(="/list")
+    return render_template("add_question.html")
+
+
 #Berni
 #Vero
+@app.route('/question/<question_id>', methods = ['GET', 'POST'])
+def display_question():
+
+
 #Vero
 #Luti
 #Luti
