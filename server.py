@@ -14,6 +14,10 @@ def hello():
 #Hanna
 #Hanna
 #Berni
+#new answer / post an answer
+@app.route('/question/<question_id>/new-answer', methods = ['GET', 'POST'])
+def new_answer():
+    return render_template("new_answer.html")
 #Berni
 #Vero
 #Vero
