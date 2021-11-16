@@ -1,10 +1,10 @@
 import csv
 import os
-
+dirname = os.path.dirname(__file__)
 QUESTION_HEADER = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
-ANSWER_HEADER = ['id', 'submission_time', 'vote_number', 'question_id', 'message', 'image']
-ANSWER_PATH = "sample_data/answer.csv"
-QUESTION_PATH = "sample_data/question.csv"
+ANSWER_HEADER = ['id', 'submission_time', 'vote_number', 'question_id', 'message,image']
+ANSWER_PATH = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else dirname + '/sample_data/answer.csv'
+QUESTION_PATH = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else dirname + '/sample_data/question.csv'
 SORTING_OPTIONS = ['title', 'submission_time', 'message', 'view_number', 'vote_number']
 
 def get_max_id():
