@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Question and answer</title>
 </head>
 <body>
-
+    <h1> {{ title }} </h1>
+        <h2> {{ message }} </h2>
+             {% for answer in answers %}
+                 <p> {{ answer }} </p>
+            {% endfor %}
 </body>
 </html>

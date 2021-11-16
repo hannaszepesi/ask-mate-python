@@ -17,6 +17,19 @@ def list_questions():
 #Berni
 #Berni
 #Vero
+@app.route("/question/<question_id>")
+def display_question(question_id):
+    questions = data_manager.get_questions()
+    for question in questions:
+        if question['id'] == question_id:
+            title = question['title']
+            message = question ['message']
+    list_of_answers = data_manager.get_answers()  #cserélve lesz!
+    answers=[]
+    for answer in list_of_answers:
+        if answer['question_id'] == question_id:
+            answers.append(answer['message'])
+    return render_template("display_question.html", title=title, message=message, answers=answers)
 #Vero
 #Luti
 now = datetime.now()

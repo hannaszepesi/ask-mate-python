@@ -17,8 +17,7 @@ def get_max_id():
 
 def get_questions():
     question_list = []
-    with open(QUESTION_PATH):
-        input_file = csv.DictReader(QUESTION_PATH)
+    input_file = csv.DictReader(open(QUESTION_PATH))
     for questions in input_file:
         question_list.append(questions)
     return question_list
@@ -26,8 +25,7 @@ def get_questions():
 
 def get_answers():
     answer_list = []
-    with open(ANSWER_PATH):
-        input_file = csv.DictReader(ANSWER_PATH)
+    input_file = csv.DictReader(open(ANSWER_PATH))
     for answers in input_file:
         answer_list.append(answers)
     return answer_list
