@@ -25,8 +25,7 @@ def get_questions():
 
 def get_answers():
     answer_list = []
-    with open(ANSWER_PATH):
-        input_file = csv.DictReader(ANSWER_PATH)
+    input_file = csv.DictReader(open(ANSWER_PATH))
     for answers in input_file:
         answer_list.append(answers)
     return answer_list
