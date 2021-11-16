@@ -6,6 +6,7 @@ app = Flask(__name__)
 
 #Hanna
 @app.route("/list")
+@app.route("/list")
 def list_questions():
     questions = data_manager.get_questions()
     question_dict = {}
@@ -51,7 +52,7 @@ def add_question():
         question['image'] = vote_number
         questions.append(question)
         data_manager.write_questions(questions)
-        return redirect('/question/<question_id>')
+        return redirect(f'/question/{question["id"]}')
     return render_template('add-question.html', id=id, question=question)
 #Luti
 

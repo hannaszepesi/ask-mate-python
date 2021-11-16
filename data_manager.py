@@ -2,7 +2,7 @@ import csv
 import os
 
 QUESTION_HEADER = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
-ANSWER_HEADER = ['id', 'submission_time', 'vote_number', 'question_id', 'message,image']
+ANSWER_HEADER = ['id', 'submission_time', 'vote_number', 'question_id', 'message', 'image']
 ANSWER_PATH = "sample_data/answer.csv"
 QUESTION_PATH = "sample_data/question.csv"
 SORTING_OPTIONS = ['title', 'submission_time', 'message', 'view_number', 'vote_number']
@@ -40,7 +40,8 @@ def write_answers(answers):
 
 
 def write_questions(questions):
-    with open(QUESTION_PATH, 'a', newline='') as file:
-        dictwriter_object = csv.DictWriter(file, fieldnames=QUESTION_HEADER)
-        dictwriter_object.writeheader()
-        dictwriter_object.writerow(questions)
+    with open(QUESTION_PATH, "w") as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=QUESTION_HEADER)
+        writer.writeheader()
+        for question in questions:
+            writer.writerow(question)
