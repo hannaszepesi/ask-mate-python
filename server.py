@@ -12,6 +12,14 @@ def hello():
 
 
 #Hanna
+@app.route("/list")
+def list_questions():
+    questions = data_manager.get_questions()
+    question_dict = {}
+    for question in questions:
+        question_dict[question['title']] = question['id']
+    sorted_question_dict = dict(sorted(question_dict.items(), key=lambda item: item[1]))
+    return render_template('list.html', questions=sorted_question_dict)
 #Hanna
 #Berni
 #Berni
@@ -21,4 +29,8 @@ def hello():
 #Luti
 
 if __name__ == "__main__":
-    app.run()
+    app.run(
+        debug=True, # Allow verbose error reports
+        port=5000 # Set custom port
+    )
+

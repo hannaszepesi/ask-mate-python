@@ -6,8 +6,8 @@ ANSWER_HEADER = ['id','submission_time','vote_number','question_id','message,ima
 
 def get_questions():
     question_list = []
-    with open('sample_data/question.csv'):
-        input_file = csv.DictReader(open('sample_data/question.csv'))
+    with open('/home/hannaszepesi/Documents/Projects/WEB/WEEK 1/1st TW Week/ask-mate-1-python-HaruNoKitsune/sample_data/question.csv'):
+        input_file = csv.DictReader(open('/home/hannaszepesi/Documents/Projects/WEB/WEEK 1/1st TW Week/ask-mate-1-python-HaruNoKitsune/sample_data/question.csv'))
     for questions in input_file:
         question_list.append(questions)
     return question_list

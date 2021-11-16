@@ -2,9 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Question list</title>
 </head>
 <body>
-    {{ question }}
+    <h1>Questions</h1>
+    {% for question, id in questions.items() %}
+    <a href="/question/{{id}}" >{{ question }} <br></a>
+    {% endfor %}
+    <br>
+    <br>
+    <br>
+    <a  href="/add-question" >Ask a question!</a>
 </body>
 </html>
