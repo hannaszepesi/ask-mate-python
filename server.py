@@ -34,7 +34,7 @@ def new_answer(question_id):
             }
         data_manager.write_answers(new_answer)
         return redirect("/question/"+str(question_id))
-    return render_template(f"/question/{question_id}/new_answer.html", question_id = question_id)
+    return render_template("new_answer.html", question_id = question_id)
 
 
 #Berni
