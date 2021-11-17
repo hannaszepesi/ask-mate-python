@@ -11,7 +11,7 @@
     <h3><strong>Answers:</strong></h3>
         {% for answer in answers %}
            <ul>
-            <li><p> {{ answer }} </p> <input type="submit" value="Delete answer" method="POST"> <img src="{{ url_for("static", filename='like.jpg') }}" width="40"><img src="{{ url_for("static", filename='dislike.jpg') }}" width="40"></li>
+            <li><p> {{ answer }} </p> <input type="submit" value="Delete answer" method="POST"> <button><img src="{{ url_for("static", filename='like.jpg') }}" width="40"></button><button><img src="{{ url_for("static", filename='dislike.jpg') }}" width="40"></button></li>
             </ul>
         {% endfor %}
     <a href="/question/{{ question_id }}/new-answer">Add a new answer</a>
