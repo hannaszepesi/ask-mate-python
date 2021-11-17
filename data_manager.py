@@ -45,4 +45,11 @@ def write_questions(questions):
         for question in questions:
             writer.writerow(question)
 
+def delete_an_answer(answer_id):
+    answer_file = get_answers()
+    with open(answer_file, 'w') as csv_file:
+        for i in range(len(answer_file)):
+            if answer_file[i]['id'] == answer_id:
+                del answer_file[i]
+            write_answers(answer_file[i])
 
