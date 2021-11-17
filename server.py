@@ -37,6 +37,11 @@ def new_answer(question_id):
         return redirect("/question/"+str(question_id))
     return render_template("new_answer.html", question_id = question_id)
 
+@app.route('/answer/<answer_id>/delete')
+def delete_an_answer(answer_id, data_header):
+    data_manager.delete_an_answer(answer_id)
+    return redirect("/question/<question_id>")
+
 
 #Berni
 #Vero
