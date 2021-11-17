@@ -5,13 +5,14 @@
     <title>Question and answer</title>
 </head>
 <body>
-    <h1> {{ title }} </h1>
-         {{ message }}
+    <h1>Question:</h1>
+    <h2> {{ title }} </h2>
+         - {{ message }}
     <br>
     <h3><strong>Answers:</strong></h3>
         {% for answer in answers %}
            <ul>
-            <li><p> {{ answer }} </p> <input type="submit" value="Delete answer" method="POST"> <button><img src="{{ url_for("static", filename='like.jpg') }}" width="40"></button><button><img src="{{ url_for("static", filename='dislike.jpg') }}" width="40"></button></li>
+            <li><p> {{ answer }} </p> <button><img src="{{ url_for("static", filename='bin.png') }}" width="50"></button> <button><img src="{{ url_for("static", filename='like.jpg') }}" width="40"></button> <button><img src="{{ url_for("static", filename='dislike.jpg') }}" width="40"></button></li>
             </ul>
         {% endfor %}
     <a href="/question/{{ question_id }}/new-answer">Add a new answer</a><br>
