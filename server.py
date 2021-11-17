@@ -9,12 +9,13 @@ like_button = '/home/luti/codecool/Web/Projects/ask-mate/like.jpeg'
 @app.route("/list")
 @app.route("/")
 def list_questions():
+    sort_by = request.args['sort_by']
     questions = data_manager.get_questions()
     question_dict = {}
     for question in questions:
         question_dict[question['title']] = question['id']
     sorted_question_dict = dict(sorted(question_dict.items(), key=lambda item: item[1]))
-    return render_template('list.html', questions=sorted_question_dict, like=like_button)
+    return render_template('list.html', questions=sorted_question_dict, like=like_button, options=data_manager.SORTING_OPTIONS, sort_by=sort_by)
 #Hanna
 #Berni
 #new answer / post an answer
