@@ -28,7 +28,7 @@ def new_answer(question_id):
             "id": data_manager.get_max_id()+1, #A unique identifier for the answer.
             "submission_time":int(now_timestamp), #floatot ad ki alapból, The UNIX timestamp when the answer is posted.
             "vote_number":str(0), #The sum of votes the answer receives.
-            "question_id": 15,#Ide majd az az ID kell, ami ami a View Questionből jön, Verótól
+            "question_id": question_id,#Ide majd az az ID kell, ami ami a View Questionből jön, Verótól
             "message": request.form.get("message"), #The answer text.
             "image":request.form.get("image") #The path to the image for this answer.
             }
