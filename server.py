@@ -3,6 +3,7 @@ import data_manager
 from datetime import datetime
 
 app = Flask(__name__)
+like_button = '/home/luti/codecool/Web/Projects/ask-mate/like.jpeg'
 
 #Hanna
 @app.route("/list")
@@ -13,7 +14,7 @@ def list_questions():
     for question in questions:
         question_dict[question['title']] = question['id']
     sorted_question_dict = dict(sorted(question_dict.items(), key=lambda item: item[1]))
-    return render_template('list.html', questions=sorted_question_dict)
+    return render_template('list.html', questions=sorted_question_dict, like=like_button)
 #Hanna
 #Berni
 #new answer / post an answer
@@ -50,7 +51,7 @@ def display_question(question_id):
     for answer in list_of_answers:
         if answer['question_id'] == question_id:
             answers.append(answer['message'])
-    return render_template("display_question.html", title=title, message=message, answers=answers, question_id = question_id)
+    return render_template("display_question.html", title=title, message=message, answers=answers)
 #Vero
 #Luti
 now = datetime.now()
