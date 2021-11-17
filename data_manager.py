@@ -40,7 +40,8 @@ def write_answers(answers):
 
 
 def write_questions(questions):
-    with open(QUESTION_PATH, 'a', newline='') as file:
-        dictwriter_object = csv.DictWriter(file, fieldnames=QUESTION_HEADER)
-        dictwriter_object.writeheader()
-        dictwriter_object.writerow(questions)
+    with open(QUESTION_PATH, "w") as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=QUESTION_HEADER)
+        writer.writeheader()
+        for question in questions:
+            writer.writerow(question)
