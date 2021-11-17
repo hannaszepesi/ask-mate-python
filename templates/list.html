@@ -6,14 +6,18 @@
 </head>
 <body>
     <h1>Questions</h1>
+    sorting by:</br>
+            <label for="sorting"></label>
+                <select id="sorting" name="sorting">
+                    {% for sort in SORTING_OPTIONS %}
+                        <option value={{ sorting }}>{{ sorting }}</option></br>
+                    {%  endfor %}
+                </select>
     <table>
         {% for question, id in questions.items() %}
          <tr>
          <td>
              <a href="/question/{{id}}" >{{ question }}<br></a>
-         </td>
-         <td>
-             <a href="/question/{{ id }}/edit">Edit question </a>
          </td>
          <td>
              <input type="submit" value="Delete question" method="POST">
@@ -26,6 +30,9 @@
          </td>
          <td>
             <button><img src="{{ url_for("static", filename='dislike.jpg') }}" width="40"></button>
+         </td>
+         <td>
+             Image:
          </td>
          </tr>
 
