@@ -7,43 +7,29 @@ ANSWER_PATH = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else
 QUESTION_PATH = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else dirname + '/sample_data/question.csv'
 SORTING_OPTIONS = ['title', 'submission_time', 'message', 'view_number', 'vote_number']
 
-def get_max_id():
-    input_file = csv.DictReader(open(QUESTION_PATH))
+def get_max_id(path):
+    input_file = csv.DictReader(open(path))
     max_id = 0
     for row in input_file:
         max_id += 1
     return max_id
 
 
-def get_questions():
+def get_data(path):
     question_list = []
-    input_file = csv.DictReader(open(QUESTION_PATH))
+    input_file = csv.DictReader(open(path))
     for questions in input_file:
         question_list.append(questions)
     return question_list
 
 
-def get_answers():
-    answer_list = []
-    input_file = csv.DictReader(open(ANSWER_PATH))
-    for answers in input_file:
-        answer_list.append(answers)
-    return answer_list
-
-
-def write_answers(answers):
-    with open(ANSWER_PATH, 'a', newline='') as file:
-        dictwriter_object = csv.DictWriter(file, fieldnames=ANSWER_HEADER)
-        dictwriter_object.writeheader()
-        dictwriter_object.writerow(answers)
-
-
-def write_questions(questions):
-    with open(QUESTION_PATH, "w") as csv_file:
-        writer = csv.DictWriter(csv_file, fieldnames=QUESTION_HEADER)
+def write_data(type, PATH, HEADER):
+    with open(PATH, 'w') as file:
+        writer = csv.DictWriter(file, fieldnames=HEADER)
         writer.writeheader()
-        for question in questions:
-            writer.writerow(question)
+        for answer in type:
+            writer.writerow(answer)
+
 
 def delete_an_answer(answer_id):
     answer_file = get_answers()

@@ -9,7 +9,7 @@ like_button = '/home/luti/codecool/Web/Projects/ask-mate/like.jpeg'
 @app.route("/list")
 @app.route("/")
 def list_questions():
-    questions = data_manager.get_questions()
+    questions = data_manager.get_data(data_manager.QUESTION_PATH)
     question_dict = {}
     SORTING_OPTIONS = data_manager.SORTING_OPTIONS
     for question in questions:
@@ -21,19 +21,21 @@ def list_questions():
 #new answer / post an answer
 @app.route('/question/<question_id>/new-answer', methods = ['GET', 'POST'])
 def new_answer(question_id):
+    answers = data_manager.get_data(data_manager.ANSWER_PATH)
     from datetime import datetime
     now = datetime.now()
     now_timestamp = datetime.timestamp(now)
     if request.method == "POST":
         new_answer = {
-            "id": data_manager.get_max_id()+1, #A unique identifier for the answer.
+            "id": data_manager.get_max_id(data_manager.ANSWER_PATH)+1, #A unique identifier for the answer.
             "submission_time":int(now_timestamp), #floatot ad ki alapból, The UNIX timestamp when the answer is posted.
             "vote_number":str(0), #The sum of votes the answer receives.
             "question_id": question_id,#Ide majd az az ID kell, ami ami a View Questionből jön, Verótól
             "message": request.form.get("message"), #The answer text.
             "image":request.form.get("image") #The path to the image for this answer.
             }
-        data_manager.write_answers(new_answer)
+        answers.append(new_answer)
+        data_manager.write_data(answers, data_manager.ANSWER_PATH, data_manager.ANSWER_HEADER)
         return redirect("/question/"+str(question_id))
     return render_template("new_answer.html", question_id = question_id)
 
@@ -47,12 +49,12 @@ def delete_an_answer(answer_id, data_header):
 #Vero
 @app.route("/question/<question_id>")
 def display_question(question_id):
-    questions = data_manager.get_questions()
+    questions = data_manager.get_data(data_manager.QUESTION_PATH)
     for question in questions:
         if question['id'] == question_id:
             title = question['title']
             message = question ['message']
-    list_of_answers = data_manager.get_answers()  #cserélve lesz!
+    list_of_answers = data_manager.get_data(data_manager.ANSWER_PATH)  #cserélve lesz!
     answers=[]
     for answer in list_of_answers:
         if answer['question_id'] == question_id:
@@ -66,12 +68,12 @@ now_timestamp = datetime.timestamp(now)
 
 @app.route("/add-question", methods=['POST', 'GET'])
 def add_question():
-    questions = data_manager.get_questions()
+    questions = data_manager.get_data(data_manager.QUESTION_PATH)
     question = {}
     view_number = 0
     vote_number = 0
     if request.method == 'POST':
-        question['id'] = data_manager.get_max_id() + 1
+        question['id'] = data_manager.get_max_id(data_manager.QUESTION_PATH) + 1
         question['submission_time'] = int(now_timestamp)
         question['view_number'] = view_number
         question['vote_number'] = vote_number
@@ -79,7 +81,7 @@ def add_question():
         question['message'] = request.form['message']
         question['image'] = vote_number
         questions.append(question)
-        data_manager.write_questions(questions)
+        data_manager.write_data(questions, data_manager.QUESTION_PATH, data_manager.QUESTION_HEADER)
         return redirect(f'/question/{question["id"]}')
     return render_template('add-question.html', id=id, question=question)
 #Luti
