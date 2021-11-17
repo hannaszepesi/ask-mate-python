@@ -51,7 +51,8 @@ def display_question(question_id):
     for answer in list_of_answers:
         if answer['question_id'] == question_id:
             answers.append(answer['message'])
-    return render_template("display_question.html", title=title, message=message, answers=answers)
+    return render_template("display_question.html", title=title, message=message, answers=answers, question_id = question_id)
+
 #Vero
 #Luti
 now = datetime.now()

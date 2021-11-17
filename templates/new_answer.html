@@ -7,13 +7,13 @@
 <body>
 <h1>Add a new answer</h1>
 <form method="POST" action="/question/{{ question_id }}/new-answer">
-    <label for="message">Message:</label>
-    <textarea id="message" name="message" rows="20" cols="40"></textarea>
+    <label for="message">Message:</label><br>
+    <textarea id="message" name="message" rows="20" cols="40"></textarea><br>
 
-    <label for = "image">Add an image</label>
-    <input type="url" name="image" id="image">
+    <label for = "image">Add an image</label><br>
+    <input type="url" name="image" id="image"><br>
 
-    <button type="submit">Submit</button>
+    <button type="submit">Submit</button><br><br>
 </form>
 <a href="/list">Cancel</a>
 </body>
