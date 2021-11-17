@@ -15,30 +15,27 @@
     </select>
     <button type="submit">SORT</button>
 </form>
-
-
-<table>
-    {% for question, id in questions.items() %}
-        <tr>
-            <td>
-                <a href="/question/{{ id }}">{{ question }}<br></a>
-            </td>
-            <td>
-                <input type="submit" value="Delete question" method="POST">
-            </td>
-            <td>
-                Image:
-            </td>
-            <td>
-                <button><img src="{{ url_for("static", filename='like.jpg') }}" width="40"></button>
-            </td>
-            <td>
-                <button><img src="{{ url_for("static", filename='dislike.jpg') }}" width="40"></button>
-            </td>
-        </tr>
-
-    {% endfor %}
-</table>
+    <table>
+        {% for question, id in questions.items() %}
+         <tr>
+         <td>
+             <a href="/question/{{id}}" >{{ question }}<br></a>
+         </td>
+         <td>
+             <button><img src="{{ url_for("static", filename='bin.png') }}" width="50"></button>
+         </td>
+         <td>
+            <button><img src="{{ url_for("static", filename='like.jpg') }}" width="40"></button>
+         </td>
+         <td>
+            <button><img src="{{ url_for("static", filename='dislike.jpg') }}" width="40"></button>
+         </td>
+         <td>
+             Image:
+         </td>
+         </tr>
+        {% endfor %}
+    </table>
 <br>
 <br>
 <br>
