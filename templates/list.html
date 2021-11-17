@@ -5,44 +5,42 @@
     <title>Question list</title>
 </head>
 <body>
-    <h1>Questions</h1>
-    sorting by:</br>
-            <label for="sorting"></label>
-                <select id="sorting" name="sorting">
-                    {% for sort in SORTING_OPTIONS %}
-                        <option value={{ sorting }}>{{ sorting }}</option></br>
-                    {%  endfor %}
-                </select>
-    <table>
-        {% for question, id in questions.items() %}
-         <tr>
-         <td>
-             <a href="/question/{{id}}" >{{ question }}<br></a>
-         </td>
-         <td><form action="{{ url_for("question_vote", id = id) }}" method="POST">
-             <button type="submit"><img src="{{ url_for("static", filename='bin.png') }}" width="50"></button>
-            </form>
-         </td>
-         <td>
-             <form action="/question-vote/{{ question['id'] }}" method="POST">
-            <button type="submit"><img src="{{ url_for("static", filename='like.jpg') }}" width="40"></button>
-             </form>
-         </td>
-         <td>
-             <form action="/question-vote/{{ question['id'] }}" method="POST">
-            <button type="submit"><img src="{{ url_for("static", filename='dislike.jpg') }}" width="40"></button>
-             </form>
-         </td>
-         <td>
-             Image:
-         </td>
-         </tr>
+<h1>Questions</h1>
+sorting by:</br>
+<label for="sorting"></label>
+<select id="sorting" name="sorting">
+    {% for sort in SORTING_OPTIONS %}
+        <option value={{ sorting }}>{{ sorting }}</option></br>
+    {% endfor %}
+</select>
+<table>
+    {% for question, id in questions.items() %}
+        <tr>
+            <td>
+                <a href="/question/{{ id }}">{{ question }}<br></a>
+            </td>
+            <td>
+                    <button type="submit"><img src="{{ url_for("static", filename='bin.png') }}" width="40"></button>
+                </form>
+            </td>
+            <td>
+                <form action="{{ url_for("question_vote", id = id) }}" method="POST">
+                    <button type="submit"><img src="{{ url_for("static", filename='like.jpg') }}" width="30"></button>
+                </form>
+            </td>
+            <td>
+                <form action="{{ url_for("question_vote", id = id) }}" method="POST">
+                    <button type="submit"><img src="{{ url_for("static", filename='dislike.jpg') }}" width="30">
+                    </button>
+                </form>
+            </td>
+        </tr>
 
     {% endfor %}
-    </table>
-    <br>
-    <br>
-    <br>
-    <a  href="/add-question" >Ask a question!</a>
+</table>
+<br>
+<br>
+<br>
+<a href="/add-question">Ask a question!</a>
 </body>
 </html>

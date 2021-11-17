@@ -94,17 +94,18 @@ def add_question():
     return render_template('add-question.html', id=id, question=question)
 
 
-# Luti
-
 @app.route('/answer-vote/<id>', methods=['POST'])
 def answer_vote(id):
     data_manager.modify_vote(id, 1)
     return redirect('/')
 
+
 @app.route('/question-vote/<id>', methods=['POST'])
 def question_vote(id):
     data_manager.modify_vote(id, 1)
     return redirect('/')
+
+# Luti
 
 if __name__ == "__main__":
     app.run(
