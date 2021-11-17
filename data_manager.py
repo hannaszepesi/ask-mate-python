@@ -44,3 +44,16 @@ def write_questions(questions):
         writer.writeheader()
         for question in questions:
             writer.writerow(question)
+
+def get_question_by_id(id):
+    questions = get_questions()
+    for question in questions:
+        if question['id'] == id:
+            return question #returns question as dictionary
+
+def modify_question(id, new_title, new_message): #modifies question in question.csv
+    question=get_question_by_id(id)
+    edited_question={}
+    edited_question['id'] = quesion ['id']
+    write_data(questions) #a dictionary-k listáját kell visszaadjam neki
+    pass #visszaadhat egy TRUE-t, ha beleirok hibakezelést, elég most ha semmit nem ad vissza

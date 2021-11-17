@@ -53,10 +53,22 @@ def display_question(question_id):
             answers.append(answer['message'])
     return render_template("display_question.html", title=title, message=message, answers=answers, question_id = question_id)
 
+
+@app.route("/question/<question_id>/edit", methods=["GET", "POST"])
+def edit_question(question_id):
+    question=data_manager.get_question_by_id(question_id)
+    edited_question = {}
+    if request.method == 'POST':
+        new_title = request.form['title']
+        new_message = request.form['message']
+        data_manager.modify_question(question_id, new_title, new_message) #ez írja át a question.csv-t
+        return redirect(f'/question/{question["id"]}')
+    return render_template("edit.html", current_title=question['title'], current_message=question['message'])
+
 #Vero
 #Luti
 now = datetime.now()
-now_timestamp = datetime.timestamp(now)
+#now_timestamp = datetime.timestamp(now)
 
 @app.route("/add-question", methods=['POST', 'GET'])
 def add_question():

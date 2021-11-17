@@ -1,22 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% extends "add-question.html" %}
 {% block head %}
-    <title>Add Question</title>
+    <title>Edit Question</title>
 {% endblock %}
-</head>
-<body>
+
 {% block title %}
-    <h1>Add question</h1>
+    <h1>Edit question</h1>
 {% endblock %}
 {% block content %}
-    <form action="/add-question" method="POST">
-        Title:<br>
+    <form action="/edit" method="POST">
+        <h2>Current title:</h2>
+        <p>{{ current_title }} </p>
+        <h2>New title: </h2>
         <label for="title"></label>
-        <input type=""text id="title" name="title" required>
-    <br>
-        Question:<br>
+        <input type=""text id="title" name="title" required> <br>
+        <p>{{ current_message }}
         <label for="message"></label>
     <textarea name=message id="message" rows="5" cols="40" required></textarea></br>
     <br>
@@ -24,6 +21,3 @@
 
     </form>
 {% endblock %}
-
-</body>
-</html>
