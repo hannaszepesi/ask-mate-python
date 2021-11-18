@@ -19,9 +19,13 @@
          <td>
              <a href="/question/{{id}}" >{{ question }}<br></a>
          </td>
+
          <td><form action="{{ url_for("question_vote", id = id) }}" method="POST">
              <button type="submit"><img src="{{ url_for("static", filename='bin.png') }}" width="50"></button>
             </form>
+
+         <td>
+             <input type="submit" value="Delete question" method="POST">
          </td>
          <td>
              <form action="/question-vote/{{ question['id'] }}" method="POST">
