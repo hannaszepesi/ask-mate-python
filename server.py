@@ -40,10 +40,15 @@ def new_answer(question_id):
     return render_template("new_answer.html", question_id = question_id)
 
 @app.route('/answer/<answer_id>/delete')
-def delete_an_answer(answer_id, data_header):
-    data_manager.delete_an_answer(answer_id)
+def delete_an_answer(answer_id):
+    data_manager.delete_an_answer(str(answer_id))
     return redirect("/question/<question_id>")
 
+#MÉÉÉÉG NEM MŰKSZIK:
+@app.route('/question/<question_id>/delete')
+def delete_a_question(question_id):
+    data_manager.delete_a_question(str(question_id))
+    return redirect("/")
 
 #Berni
 #Vero
@@ -60,6 +65,7 @@ def display_question(question_id):
         if answer['question_id'] == question_id:
             answers.append(answer['message'])
     return render_template("display_question.html", title=title, message=message, answers=answers, question_id = question_id)
+
 
 #Vero
 #Luti

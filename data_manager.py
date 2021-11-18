@@ -32,10 +32,10 @@ def write_data(type, PATH, HEADER):
 
 
 def delete_an_answer(answer_id):
-    answer_file = get_answers()
-    with open(answer_file, 'w') as csv_file:
-        for i in range(len(answer_file)):
-            if answer_file[i]['id'] == answer_id:
-                del answer_file[i]
-            write_answers(answer_file[i])
+    answer_file = get_data(ANSWER_PATH)
+    # with open(answer_file, 'r') as list_of_dict:
+    for dict in range(len(answer_file)-1):
+        if answer_file[dict]['id'] == answer_id:
+            del answer_file[dict]
+        write_data(answer_file, ANSWER_PATH, ANSWER_HEADER)
 
