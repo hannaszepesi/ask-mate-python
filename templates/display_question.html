@@ -13,15 +13,24 @@
 {% for answer in answers %}
     <ul>
         <li><p> {{ answer }} </p></li>
-            <form action="/answer-vote/1" method="POST">
-                <button type="submit"><img src="{{ url_for("static", filename='bin.png') }}" width="50"></button>
-            </form>
-            <form action="{{ url_for("answer_vote", id = id) }}" method="POST">
-                <button type="submit"><img src="{{ url_for("static", filename='like.jpg') }}" width="40"></button>
-            </form>
-            <form action="{{ url_for("answer_vote", id = id) }}" method="POST">
-                <button type="submit">><img src="{{ url_for("static", filename='dislike.jpg') }}" width="40"></button>
-            </form>
+        <table>
+            <td>
+                <form action="/answer-vote/1" method="POST">
+                    <button type="submit"><img src="{{ url_for("static", filename='bin.png') }}" width="40"></button>
+                </form>
+            </td>
+            <td>
+                <form action="{{ url_for("answer_vote", id = id) }}" method="POST">
+                    <button type="submit"><img src="{{ url_for("static", filename='like.jpg') }}" width="30"></button>
+                </form>
+            </td>
+            <td>
+                <form action="{{ url_for("answer_vote", id = id) }}" method="POST">
+                    <button type="submit"><img src="{{ url_for("static", filename='dislike.jpg') }}" width="30">
+                    </button>
+                </form>
+            </td>
+        </table>
     </ul>
 {% endfor %}
 <a href="/question/{{ question_id }}/new-answer">Add a new answer</a><br>

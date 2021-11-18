@@ -96,13 +96,13 @@ def add_question():
 
 @app.route('/answer-vote/<id>', methods=['POST'])
 def answer_vote(id):
-    data_manager.modify_vote(id, 1)
+    data_manager.modify_vote(id, 1, data_manager.ANSWER_PATH, data_manager.ANSWER_HEADER)
     return redirect('/')
 
 
 @app.route('/question-vote/<id>', methods=['POST'])
 def question_vote(id):
-    data_manager.modify_vote(id, 1)
+    data_manager.modify_vote(id, 1, data_manager.QUESTION_PATH, data_manager.QUESTION_HEADER)
     return redirect('/')
 
 # Luti

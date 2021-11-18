@@ -20,8 +20,10 @@ sorting by:</br>
                 <a href="/question/{{ id }}">{{ question }}<br></a>
             </td>
             <td>
-                    <button type="submit"><img src="{{ url_for("static", filename='bin.png') }}" width="40"></button>
-                </form>
+                <button type="submit"><img src="{{ url_for("static", filename='bin.png') }}" width="35"></button>
+            </td>
+            <td>
+                <button type="submit"><img src="{{ url_for("static", filename='edit.jpg') }}" width="30"></button>
             </td>
             <td>
                 <form action="{{ url_for("question_vote", id = id) }}" method="POST">
@@ -41,6 +43,6 @@ sorting by:</br>
 <br>
 <br>
 <br>
-<a href="/add-question">Ask a question!</a>
+<button type="submit"><img src="{{ url_for("static", filename='ask.jpg') }}" width="120"><a href="/add-question"></a></button>
 </body>
 </html>

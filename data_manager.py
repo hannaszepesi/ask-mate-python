@@ -33,12 +33,12 @@ def write_data(type, PATH, HEADER):
             writer.writerow(answer)
 
 
-def modify_vote(id, vote):
-    lines = get_data(QUESTION_PATH)
+def modify_vote(id, vote, path, header):
+    lines = get_data(path)
     for line in lines:
         if line['id'] == id:
             line['vote_number'] = int(line['vote_number']) + vote
-    write_data(lines, QUESTION_PATH, QUESTION_HEADER)
+    write_data(lines, path, header)
 
 
 def delete_an_answer(answer_id):
