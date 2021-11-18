@@ -8,12 +8,15 @@
 {% endblock %}
 {% block content %}
     <form action="/question/{{ question_id }}/edit" method="POST">
-        <h2>Title: </h2>
+        <h2>Current title:</h2>
+        <p>{{ current_title }} </p>
+        <h2>New title: </h2>
         <label for="title"></label>
-        <input value="{{ current_title }}" type="text" id="title" name="title" required> <br>
-        <h2> Message: </h2>
+        <input type="text" id="title" name="title" required> <br>
+        <p> Current message: {{ current_message }} </p>
+        <h2> New Message: </h2>
         <label for="message"></label>
-    <textarea name="message" id="message" rows="5" cols="40" required>{{ current_message }}</textarea></br>
+    <textarea name="message" id="message" rows="5" cols="40" required></textarea></br>
     <br>
         <input type="submit" value="Submit question">
     </form>
