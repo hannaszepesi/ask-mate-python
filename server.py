@@ -5,8 +5,7 @@ from datetime import datetime
 app = Flask(__name__)
 like_button = '/home/luti/codecool/Web/Projects/ask-mate/like.jpeg'
 
-
-# Hanna
+#Hanna
 @app.route("/list")
 @app.route("/")
 def list_questions():
@@ -30,14 +29,13 @@ def new_answer(question_id):
     now_timestamp = datetime.timestamp(now)
     if request.method == "POST":
         new_answer = {
-            "id": data_manager.get_max_id(data_manager.ANSWER_PATH) + 1,  # A unique identifier for the answer.
-            "submission_time": int(now_timestamp),
-            # floatot ad ki alapból, The UNIX timestamp when the answer is posted.
-            "vote_number": str(0),  # The sum of votes the answer receives.
-            "question_id": question_id,  # Ide majd az az ID kell, ami ami a View Questionből jön, Verótól
-            "message": request.form.get("message"),  # The answer text.
-            "image": request.form.get("image")  # The path to the image for this answer.
-        }
+            "id": data_manager.get_max_id(data_manager.ANSWER_PATH)+1, #A unique identifier for the answer.
+            "submission_time":int(now_timestamp), #floatot ad ki alapból, The UNIX timestamp when the answer is posted.
+            "vote_number":str(0), #The sum of votes the answer receives.
+            "question_id": question_id,#Ide majd az az ID kell, ami ami a View Questionből jön, Verótól
+            "message": request.form.get("message"), #The answer text.
+            "image":request.form.get("image") #The path to the image for this answer.
+            }
         answers.append(new_answer)
         data_manager.write_data(answers, data_manager.ANSWER_PATH, data_manager.ANSWER_HEADER)
         return redirect("/question/" + str(question_id))
@@ -45,13 +43,18 @@ def new_answer(question_id):
 
 
 @app.route('/answer/<answer_id>/delete')
-def delete_an_answer(answer_id, data_header):
-    data_manager.delete_an_answer(answer_id)
+def delete_an_answer(answer_id):
+    data_manager.delete_an_answer(str(answer_id))
     return redirect("/question/<question_id>")
 
+#MÉÉÉÉG NEM MŰKSZIK:
+@app.route('/question/<question_id>/delete')
+def delete_a_question(question_id):
+    data_manager.delete_a_question(str(question_id))
+    return redirect("/")
 
-# Berni
-# Vero
+#Berni
+#Vero
 @app.route("/question/<question_id>")
 def display_question(question_id):
     questions = data_manager.get_data(data_manager.QUESTION_PATH)
