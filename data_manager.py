@@ -17,11 +17,11 @@ def get_max_id(path):
 
 
 def get_data(path):
-    question_list = []
+    data_list = []
     input_file = csv.DictReader(open(path))
     for questions in input_file:
-        question_list.append(questions)
-    return question_list
+        data_list.append(questions)
+    return data_list
 
 
 def write_data(type, PATH, HEADER):
@@ -30,6 +30,16 @@ def write_data(type, PATH, HEADER):
         writer.writeheader()
         for answer in type:
             writer.writerow(answer)
+
+
+def modify_vote(id, vote):
+    lines = get_data(QUESTION_PATH)
+    for line in lines:
+        if line['id'] == id:
+            line['vote_number'] = int(line['vote_number']) + vote
+    write_data(lines, QUESTION_PATH, QUESTION_HEADER)
+
+
 
 
 def delete_an_answer(answer_id):
