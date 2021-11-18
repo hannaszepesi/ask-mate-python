@@ -123,7 +123,7 @@ def add_question():
     view_number = 0
     vote_number = 0
     if request.method == 'POST':
-        question['id'] = data_manager.get_max_id(data_manager.QUESTION_PATH) + 1
+        question['id'] = data_manager.get_next_id(data_manager.QUESTION_PATH)
         question['submission_time'] = int(now_timestamp)
         question['view_number'] = view_number
         question['vote_number'] = vote_number

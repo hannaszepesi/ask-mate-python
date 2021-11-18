@@ -10,12 +10,10 @@ SORTING_OPTIONS = ['title', 'submission_time', 'message', 'view_number', 'vote_n
 ORDER_OPTIONS = ['ascending', 'descending']
 
 
-def get_max_id(path):
-    input_file = csv.DictReader(open(path))
-    max_id = 0
-    for row in input_file:
-        max_id += 1
-    return max_id
+def get_next_id(path):
+    input_file = list(csv.DictReader(open(path)))
+    next_id = int(input_file[-1]['id'])+1
+    return next_id
 
 
 def get_data(path):
