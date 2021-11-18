@@ -16,10 +16,12 @@ def list_questions():
         question_dict[question['title']] = question['id']
     sorted_question_dict = dict(sorted(question_dict.items(), key=lambda item: item[1]))
     return render_template('list.html', questions=sorted_question_dict, like=like_button, sorting=SORTING_OPTIONS)
-#Hanna
-#Berni
-#new answer / post an answer
-@app.route('/question/<question_id>/new-answer', methods = ['GET', 'POST'])
+
+
+# Hanna
+# Berni
+# new answer / post an answer
+@app.route('/question/<question_id>/new-answer', methods=['GET', 'POST'])
 def new_answer(question_id):
     answers = data_manager.get_data(data_manager.ANSWER_PATH)
     from datetime import datetime
@@ -36,8 +38,8 @@ def new_answer(question_id):
             }
         answers.append(new_answer)
         data_manager.write_data(answers, data_manager.ANSWER_PATH, data_manager.ANSWER_HEADER)
-        return redirect("/question/"+str(question_id))
-    return render_template("new_answer.html", question_id = question_id)
+        return redirect("/question/" + str(question_id))
+    return render_template("new_answer.html", question_id=question_id)
 
 @app.route('/answer/<answer_id>/delete')
 def delete_an_answer(answer_id):
@@ -58,19 +60,21 @@ def display_question(question_id):
     for question in questions:
         if question['id'] == question_id:
             title = question['title']
-            message = question ['message']
-    list_of_answers = data_manager.get_data(data_manager.ANSWER_PATH)  #cserélve lesz!
-    answers=[]
+            message = question['message']
+    list_of_answers = data_manager.get_data(data_manager.ANSWER_PATH)  # cserélve lesz!
+    answers = []
     for answer in list_of_answers:
         if answer['question_id'] == question_id:
             answers.append(answer['message'])
-    return render_template("display_question.html", title=title, message=message, answers=answers, question_id = question_id)
+    return render_template("display_question.html", title=title, message=message, answers=answers,
+                           question_id=question_id)
 
 
 #Vero
 #Luti
 now = datetime.now()
 now_timestamp = datetime.timestamp(now)
+
 
 @app.route("/add-question", methods=['POST', 'GET'])
 def add_question():
@@ -91,6 +95,16 @@ def add_question():
         return redirect(f'/question/{question["id"]}')
     return render_template('add-question.html', id=id, question=question)
 #Luti
+
+@app.route('/answer-vote/<id>', methods=['POST'])
+def answer_vote(id):
+    data_manager.modify_vote(id, 1)
+    return redirect('/')
+
+@app.route('/question-vote/<id>', methods=['POST'])
+def question_vote(id):
+    data_manager.modify_vote(id, 1)
+    return redirect('/')
 
 if __name__ == "__main__":
     app.run(

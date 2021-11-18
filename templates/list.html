@@ -20,15 +20,17 @@
              <a href="/question/{{id}}" >{{ question }}<br></a>
          </td>
          <td>
-             <a href = "/question/{{id}}/delete">
              <button><img src="{{ url_for("static", filename='bin.png') }}" width="50"></button>
-             </a>
          </td>
          <td>
-            <button><img src="{{ url_for("static", filename='like.jpg') }}" width="40"></button>
+             <form action="/question-vote/{{ question['id'] }}" method="POST">
+            <button type="submit"><img src="{{ url_for("static", filename='like.jpg') }}" width="40"></button>
+             </form>
          </td>
          <td>
-            <button><img src="{{ url_for("static", filename='dislike.jpg') }}" width="40"></button>
+             <form action="/question-vote/{{ question['id'] }}" method="POST">
+            <button type="submit"><img src="{{ url_for("static", filename='dislike.jpg') }}" width="40"></button>
+             </form>
          </td>
          <td>
              Image:
