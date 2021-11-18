@@ -60,10 +60,10 @@ def delete_an_answer(answer_id):
 
 def delete_a_question(question_id):
     question_file = get_data(QUESTION_PATH)
-    for i in range(len(question_file)-1):
+    for i in range(len(question_file)):
         if question_file[i]['id'] == question_id:
            question_file.pop(i)
-    write_data(question_file, QUESTION_PATH, QUESTION_HEADER)
+        write_data(question_file, QUESTION_PATH, QUESTION_HEADER)
 
 
 def get_question_by_id(id):
