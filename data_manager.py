@@ -52,3 +52,29 @@ def delete_an_answer(answer_id):
 
 
 
+
+def get_question_by_id(id):
+    questions = get_data(QUESTION_PATH)
+    for question in questions:
+        if question['id'] == id:
+            return question #returns question as dictionary
+
+def modify_question(id, new_title, new_message):
+    #changes 'title' and 'message' of question_to_edit, and writes it back to questions.csv
+    question_to_edit = get_question_by_id(id)
+    edited_question = {}
+    edited_question['id'] = question_to_edit ['id']
+    edited_question['submission_time'] = question_to_edit['submission_time']
+    edited_question['view_number'] = question_to_edit['view_number']
+    edited_question['vote_number'] = question_to_edit['vote_number']
+    edited_question['title'] = new_title
+    edited_question['message'] = new_message
+    questions = get_data(QUESTION_PATH)
+    edited_questions = []
+    for question in questions:
+        if question['id'] == id:
+            edited_questions.append(edited_question)
+        else:
+            edited_questions.append(question)
+    write_data(edited_questions, QUESTION_PATH, QUESTION_HEADER) #a dictionary-k listáját kell visszaadjam neki
+
