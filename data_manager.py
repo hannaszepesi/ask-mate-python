@@ -1,11 +1,14 @@
 import csv
 import os
+
 dirname = os.path.dirname(__file__)
 QUESTION_HEADER = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
 ANSWER_HEADER = ['id', 'submission_time', 'vote_number', 'question_id', 'message', 'image']
 ANSWER_PATH = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else dirname + '/sample_data/answer.csv'
 QUESTION_PATH = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else dirname + '/sample_data/question.csv'
 SORTING_OPTIONS = ['title', 'submission_time', 'message', 'view_number', 'vote_number']
+ORDER_OPTIONS = ['ascending', 'descending']
+
 
 def get_max_id(path):
     input_file = csv.DictReader(open(path))
@@ -31,23 +34,23 @@ def write_data(type, PATH, HEADER):
             writer.writerow(answer)
 
 
-def modify_vote(id, vote):
-    lines = get_data(QUESTION_PATH)
+def modify_vote(id, vote, path, header):
+    lines = get_data(path)
     for line in lines:
         if line['id'] == id:
             line['vote_number'] = int(line['vote_number']) + vote
-    write_data(lines, QUESTION_PATH, QUESTION_HEADER)
-
-
+    write_data(lines, path, header)
 
 
 def delete_an_answer(answer_id):
-    answer_file = get_answers()
-    with open(answer_file, 'w') as csv_file:
-        for i in range(len(answer_file)):
-            if answer_file[i]['id'] == answer_id:
-                del answer_file[i]
-            write_answers(answer_file[i])
+    answer_file = get_data(ANSWER_PATH)
+    # with open(answer_file, 'r') as list_of_dict:
+    for dict in range(len(answer_file)-1):
+        if answer_file[dict]['id'] == answer_id:
+            del answer_file[dict]
+        write_data(answer_file, ANSWER_PATH, ANSWER_HEADER)
+
+
 
 
 def get_question_by_id(id):
