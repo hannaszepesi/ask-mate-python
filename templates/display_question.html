@@ -12,13 +12,17 @@
 <h3><strong>Answers:</strong></h3>
 {% for answer in answers %}
     <ul>
+
+        <li><p> {{ answer }} </p></li>
         <table>
             <td>
-                <li><p> {{ answer }} </p> <button><a href = "/answer/{{question_id}}/delete"><img src="{{ url_for("static", filename='bin.png') }}" width="50"></a></button>
+                <button><a href="/answer/{{ question_id }}/delete"><img
+                        src="{{ url_for("static", filename='bin.png') }}" width="35"></a></button>
             </td>
             <td>
-                <form action="{{ url_for("answer_vote", id = id) }}" method="POST">
-                    <button type="submit"><img src="{{ url_for("static", filename='like.jpg') }}" width="30"></button>
+                <form action="/answer-vote/4" method="POST">
+                    <button type="submit"><img src="{{ url_for("static", filename='like.jpg') }}" width="30" alt="">
+                    </button>
                 </form>
             </td>
             <td>
