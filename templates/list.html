@@ -35,12 +35,12 @@
                 <button type="submit"><img src="{{ url_for("static", filename='edit.jpg') }}" width="30"></button>
             </td>
             <td>
-                <form action="{{ url_for("question_vote", id = id) }}" method="POST">
+                <form action="{{ url_for("question_vote", id = id[1], vote='vote_up') }}" method="POST">
                     <button type="submit"><img src="{{ url_for("static", filename='like.jpg') }}" width="30"></button>
                 </form>
             </td>
             <td>
-                <form action="{{ url_for("question_vote", id = id) }}" method="POST">
+                <form action="{{ url_for("question_vote", id = id[1], vote='vote_down') }}" method="POST">
                     <button type="submit"><img src="{{ url_for("static", filename='dislike.jpg') }}" width="30">
                     </button>
                 </form>

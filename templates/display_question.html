@@ -13,20 +13,20 @@
 {% for answer in answers %}
     <ul>
 
-        <li><p> {{ answer }} </p></li>
+        <li><p> {{ answer['message'] }} </p></li>
         <table>
             <td>
                 <button><a href="/answer/{{ question_id }}/delete"><img
                         src="{{ url_for("static", filename='bin.png') }}" width="35"></a></button>
             </td>
             <td>
-                <form action="/answer-vote/{{ question_id }}" method="POST">
+                <form action="/answer-vote/{{ answer['id']}} /'vote_up'" method="POST">
                     <button type="submit"><img src="{{ url_for("static", filename='like.jpg') }}" width="30" alt="">
                     </button>
                 </form>
             </td>
             <td>
-                <form action="{{ url_for("answer_vote", id = id) }}" method="POST">
+                <form action="/answer-vote/{{ answer['id'] }}/'vote_down'" method="POST">
                     <button type="submit"><img src="{{ url_for("static", filename='dislike.jpg') }}" width="30">
                     </button>
                 </form>

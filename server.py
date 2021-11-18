@@ -73,7 +73,11 @@ def display_question(question_id):
     answers = []
     for answer in list_of_answers:
         if answer['question_id'] == question_id:
-            answers.append(answer['message'])
+            answer_dict = {}
+            answer_dict['id'] = answer['id']
+            answer_dict['message'] = answer['message']
+            answers.append(answer_dict)
+
     return render_template("display_question.html", title=title, message=message, answers=answers,
                            question_id=question_id)
 
@@ -94,6 +98,8 @@ def edit_question(question_id):
 
 @app.route("/add-question", methods=['POST', 'GET'])
 def add_question():
+    now = datetime.now()
+    now_timestamp = datetime.timestamp(now)
     questions = data_manager.get_data(data_manager.QUESTION_PATH)
     question = {}
     view_number = 0
@@ -112,15 +118,17 @@ def add_question():
     return render_template('add-question.html', id=id, question=question)
 
 
-@app.route('/answer-vote/<id>', methods=['POST'])
-def answer_vote(id):
-    data_manager.modify_vote(id, 1, data_manager.ANSWER_PATH, data_manager.ANSWER_HEADER)
+@app.route('/answer-vote/<answer_id>/<vote>', methods=['POST'])
+def answer_vote(answer_id, vote):
+    increment = 1 if vote == 'vote_up' else -1
+    data_manager.modify_answer_vote(answer_id, increment, data_manager.ANSWER_PATH, data_manager.ANSWER_HEADER)
     return redirect('/')
 
 
-@app.route('/question-vote/<id>', methods=['POST'])
-def question_vote(id):
-    data_manager.modify_vote(id, 1, data_manager.QUESTION_PATH, data_manager.QUESTION_HEADER)
+@app.route('/question-vote/<id>/<vote>', methods=['POST'])
+def question_vote(id, vote):
+    increment = 1 if vote == 'vote_up' else -1
+    data_manager.modify_question_vote(id, increment, data_manager.QUESTION_PATH, data_manager.QUESTION_HEADER)
     return redirect('/')
 
 # Luti
