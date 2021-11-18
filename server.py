@@ -78,11 +78,19 @@ def display_question(question_id):
                            question_id=question_id)
 
 
-# Vero
-# Luti
-now = datetime.now()
-now_timestamp = datetime.timestamp(now)
 
+@app.route("/question/<question_id>/edit", methods=["GET", "POST"]) #get amikor megjelenít, ha rányom a submit gombra, akkor Post
+def edit_question(question_id):
+    question=data_manager.get_question_by_id(question_id) #vedd ki a szükséges kérdést
+    if request.method == 'POST': #ha rányom a submit-ra, akkor az új infót küldd el a d_m.py-nak
+        new_title = request.form['title']
+        new_message = request.form['message']
+        data_manager.modify_question(question_id, new_title, new_message) #ez írja át a question.csv-t
+        return redirect(f'/question/{question_id}') #jelenítsd meg a frissült kérdést
+    return render_template("edit.html", question_id=question_id, current_title=question['title'], current_message=question['message'])
+
+#Vero
+#Luti
 
 @app.route("/add-question", methods=['POST', 'GET'])
 def add_question():

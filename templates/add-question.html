@@ -2,10 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+{% block head %}
     <title>Add Question</title>
-
+{% endblock %}
+</head>
+<body>
+{% block title %}
     <h1>Add question</h1>
-
+{% endblock %}
+{% block content %}
     <form action="/add-question" method="POST">
         Title:<br>
         <label for="title"></label>
@@ -18,9 +23,7 @@
         <input type="submit" value="Submit question" method="POST">
 
     </form>
-
-</head>
-<body>
+{% endblock %}
 
 </body>
 </html>
