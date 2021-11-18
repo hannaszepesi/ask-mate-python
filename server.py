@@ -18,7 +18,7 @@ def list_questions():
         sort_by = 'submission_time'
         order = 'descending'
     for question in questions:
-        question_dict[question['title']] = question[sort_by]
+        question_dict[question['title']] = [ question[sort_by],question["id"] ]
     sorted_question_dict = dict(sorted(question_dict.items(), key=lambda item: item[1], reverse=True))
     if order == 'ascending':
         sorted_question_dict = dict(sorted(question_dict.items(), key=lambda item: item[1]))

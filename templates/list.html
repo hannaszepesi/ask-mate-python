@@ -17,7 +17,7 @@ sorting by:</br>
     {% for question, id in questions.items() %}
         <tr>
             <td>
-                <a href="/question/{{ id }}">{{ question }}<br></a>
+                <a href="/question/{{ id[1] }}">{{ question }}<br></a>
             </td>
             <td>
                 <button type="submit"><img src="{{ url_for("static", filename='bin.png') }}" width="35"></button>

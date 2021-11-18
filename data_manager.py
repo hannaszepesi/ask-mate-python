@@ -49,6 +49,7 @@ def delete_an_answer(answer_id):
         if answer_file[dict]['id'] == answer_id:
             del answer_file[dict]
         write_data(answer_file, ANSWER_PATH, ANSWER_HEADER)
+        return "Deleted."
 
 
 
