@@ -7,6 +7,7 @@ ANSWER_HEADER = ['id', 'submission_time', 'vote_number', 'question_id', 'message
 ANSWER_PATH = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else dirname + '/sample_data/answer.csv'
 QUESTION_PATH = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else dirname + '/sample_data/question.csv'
 SORTING_OPTIONS = ['title', 'submission_time', 'message', 'view_number', 'vote_number']
+ORDER_OPTIONS = ['ascending', 'descending']
 
 
 def get_max_id(path):
@@ -48,4 +49,6 @@ def delete_an_answer(answer_id):
         if answer_file[dict]['id'] == answer_id:
             del answer_file[dict]
         write_data(answer_file, ANSWER_PATH, ANSWER_HEADER)
+
+
 

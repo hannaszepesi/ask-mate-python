@@ -7,21 +7,28 @@ like_button = '/home/luti/codecool/Web/Projects/ask-mate/like.jpeg'
 
 #Hanna
 @app.route("/list")
-@app.route("/")
+@app.route("/", methods=['GET'])
 def list_questions():
     questions = data_manager.get_data(data_manager.QUESTION_PATH)
     question_dict = {}
-    SORTING_OPTIONS = data_manager.SORTING_OPTIONS
+    if request.args:
+        sort_by = request.args['sort_by']
+        order = request.args['order']
+    else:
+        sort_by = 'submission_time'
+        order = 'descending'
     for question in questions:
-        question_dict[question['title']] = question['id']
-    sorted_question_dict = dict(sorted(question_dict.items(), key=lambda item: item[1]))
-    return render_template('list.html', questions=sorted_question_dict, like=like_button, sorting=SORTING_OPTIONS)
-
-
-# Hanna
-# Berni
-# new answer / post an answer
-@app.route('/question/<question_id>/new-answer', methods=['GET', 'POST'])
+        question_dict[question['title']] = question[sort_by]
+    sorted_question_dict = dict(sorted(question_dict.items(), key=lambda item: item[1], reverse=True))
+    if order == 'ascending':
+        sorted_question_dict = dict(sorted(question_dict.items(), key=lambda item: item[1]))
+    order_options = data_manager.ORDER_OPTIONS
+    return render_template('list.html', questions=sorted_question_dict, like=like_button,
+        sort_options=data_manager.SORTING_OPTIONS, sort_by=sort_by, order_options=order_options, order=order)
+#Hanna
+#Berni
+#new answer / post an answer
+@app.route('/question/<question_id>/new-answer', methods = ['GET', 'POST'])
 def new_answer(question_id):
     answers = data_manager.get_data(data_manager.ANSWER_PATH)
     from datetime import datetime
