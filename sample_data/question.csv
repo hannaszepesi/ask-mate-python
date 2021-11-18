@@ -1,9 +1,18 @@
 id,submission_time,view_number,vote_number,title,message,image
-1,1493368154,29,18,How to make lists in Python?,"I am totally new to this, any hints?",
-2,1493068124,15,1, Versions,I don't know,
-3,1637152395,0,1,Matisz papa,MAtisz papa,0
-4,1637153396,0,12,lkjlhkjh0kjhkjh,kjhkjhkjh,0
-4,1637152994,0,12,sdfsdf,sdsd,0
-5,1637155944,0,5,Ötödik,"Ötödik kérdés, Ötödik kérdésÖtödik kérdésÖtödik kérdésÖtödik kérdés",0
-7,1637160666,0,9,Mi a fasz,mi a picsa,0
-8,1637171996,0,5,ki az aki mit akar,Pipi az aki mit akar,0
+1,1493368154,29,2,How to make lists in Python?,"I am totally new to this, any hints?",
+2,1493068124,15,2,Wordpress loading multiple jQuery Versions,"I developed a plugin that uses the jquery booklet plugin (http://builtbywill.com/booklet/#/) this plugin binds a function to $ so I cann call $('.myBook').booklet();
+
+I could easy managing the loading order with wp_enqueue_script so first I load jquery then I load booklet so everything is fine.
+
+BUT in my theme i also using jquery via webpack so the loading order is now following:
+
+jquery
+booklet
+app.js (bundled file with webpack, including jquery)",images/image1.png
+3,1637152395,0,2,Matisz papa,MAtisz papa,0
+4,1637153396,0,2,lkjlhkjh0kjhkjh,kjhkjhkjh,0
+5,1637152994,0,2,sdfsdf,sdsd,0
+6,1637155944,0,10,Ötödik,"Ötödik kérdés, Ötödik kérdésÖtödik kérdésÖtödik kérdésÖtödik kérdés",0
+7,1637160666,0,2,Mi a fasz,mi a picsa,0
+8,1637171996,0,2,ki az aki mit akar?,Noki az aki mit akar,
+9,1637240800,0,2,Mi az élet értelme?????,Kettőt és könnyebbet!!!!!,
