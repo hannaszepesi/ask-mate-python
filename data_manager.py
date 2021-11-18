@@ -72,7 +72,7 @@ def get_question_by_id(id):
         if question['id'] == id:
             return question #returns question as dictionary
 
-def modify_question(id, new_title, new_message):
+def modify_question(id, new_title, new_message, image_path):
     #changes 'title' and 'message' of question_to_edit, and writes it back to questions.csv
     question_to_edit = get_question_by_id(id)
     edited_question = {}
@@ -82,6 +82,7 @@ def modify_question(id, new_title, new_message):
     edited_question['vote_number'] = question_to_edit['vote_number']
     edited_question['title'] = new_title
     edited_question['message'] = new_message
+    edited_question['image'] = image_path
     questions = get_data(QUESTION_PATH)
     edited_questions = []
     for question in questions:

@@ -1,9 +1,16 @@
 from flask import Flask, render_template, request, redirect, url_for
+from werkzeug.utils import secure_filename
+import os
 import data_manager
 from datetime import datetime
 
 app = Flask(__name__)
+UPLOAD_FOLDER = 'static/images'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'} #not compulsory to define extensions
+
 like_button = '/home/luti/codecool/Web/Projects/ask-mate/like.jpeg'
+
 
 #Hanna
 @app.route("/list")
@@ -71,6 +78,7 @@ def display_question(question_id):
         if question['id'] == question_id:
             title = question['title']
             message = question['message']
+            image_path = question['image']
     list_of_answers = data_manager.get_data(data_manager.ANSWER_PATH)  # cserélve lesz!
     answers = []
     for answer in list_of_answers:
@@ -81,7 +89,7 @@ def display_question(question_id):
             answers.append(answer_dict)
 
     return render_template("display_question.html", title=title, message=message, answers=answers,
-                           question_id=question_id)
+                           question_id=question_id, image_path=image_path)
 
 
 
@@ -91,9 +99,17 @@ def edit_question(question_id):
     if request.method == 'POST': #ha rányom a submit-ra, akkor az új infót küldd el a d_m.py-nak
         new_title = request.form['title']
         new_message = request.form['message']
-        data_manager.modify_question(question_id, new_title, new_message) #ez írja át a question.csv-t
+        filename = ''
+        if 'image' in request.files:
+            image = request.files['image']
+            filename = secure_filename(image.filename)
+            image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            image.save(image_path)
+        data_manager.modify_question(question_id, new_title, new_message, filename)  # ez írja át a question.csv-t
         return redirect(f'/question/{question_id}') #jelenítsd meg a frissült kérdést
-    return render_template("edit.html", question_id=question_id, current_title=question['title'], current_message=question['message'])
+    return render_template("edit.html", question_id=question_id,
+                           current_title=question['title'],
+                           current_message=question['message'])
 
 #Vero
 #Luti

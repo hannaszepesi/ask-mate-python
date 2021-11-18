@@ -8,6 +8,9 @@
 <h1>Question:</h1>
 <h2> {{ title }} </h2>
 - {{ message }}
+{% if image_path != '' %}
+<img src="{{ url_for('static',filename='images/'~image_path) }}" width="150px">
+{% endif %}
 <br>
 <h3><strong>Answers:</strong></h3>
 {% for answer in answers %}

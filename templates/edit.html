@@ -7,17 +7,17 @@
     <h1>Edit question</h1>
 {% endblock %}
 {% block content %}
-    <form action="/question/{{ question_id }}/edit" method="POST">
-        <h2>Current title:</h2>
-        <p>{{ current_title }} </p>
+    <form action="/question/{{ question_id }}/edit" method="POST" enctype="multipart/form-data"> {# titkosítási forma nem kötelező, de jó ha van #}
+        <h2>Current title:<em>"{{ current_title }}"</em></h2>
         <h2>New title: </h2>
         <label for="title"></label>
         <input type="text" id="title" name="title" required> <br>
-        <p> Current message: {{ current_message }} </p>
+        <h2> Current message:<em> "{{ current_message }}" </em> </h2>
         <h2> New Message: </h2>
         <label for="message"></label>
     <textarea name="message" id="message" rows="5" cols="40" required></textarea></br>
-    <br>
+        <p> Upload image: </p>
+        <p> <input accept="image/*" type="file" name="image"> {# this is  comment not seen on the web #}</p>
         <input type="submit" value="Submit question">
     </form>
 {% endblock %}
