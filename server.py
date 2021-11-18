@@ -52,9 +52,9 @@ def new_answer(question_id):
 @app.route('/answer/<answer_id>/delete')
 def delete_an_answer(answer_id):
     data_manager.delete_an_answer(str(answer_id))
-    return redirect("/question/<question_id>")
+    # return redirect("/question/" + str(question_id))
+    return redirect("/")
 
-#MÉÉÉÉG NEM MŰKSZIK:
 @app.route('/question/<question_id>/delete')
 def delete_a_question(question_id):
     data_manager.delete_a_question(str(question_id))
@@ -65,6 +65,8 @@ def delete_a_question(question_id):
 @app.route("/question/<question_id>")
 def display_question(question_id):
     questions = data_manager.get_data(data_manager.QUESTION_PATH)
+    title = ""
+    message = ""
     for question in questions:
         if question['id'] == question_id:
             title = question['title']

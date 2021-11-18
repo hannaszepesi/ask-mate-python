@@ -28,8 +28,9 @@
             <td>
                 <a href="/question/{{ id[1] }}">{{ question }}<br></a>
             </td>
-            <td>
+            <td><a href="question/{{ id[1] }}/delete">
                 <button type="submit"><img src="{{ url_for("static", filename='bin.png') }}" width="35"></button>
+                </a>
             </td>
             <td>
                 <button type="submit"><img src="{{ url_for("static", filename='edit.jpg') }}" width="30"></button>

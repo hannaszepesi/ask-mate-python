@@ -53,13 +53,17 @@ def modify_answer_vote(answer_id, vote, path, header):
 def delete_an_answer(answer_id):
     answer_file = get_data(ANSWER_PATH)
     # with open(answer_file, 'r') as list_of_dict:
-    for dict in range(len(answer_file)-1):
-        if answer_file[dict]['id'] == answer_id:
-            del answer_file[dict]
+    for i in range(len(answer_file)-1):
+        if answer_file[i]['id'] == answer_id:
+            answer_file.pop(i)
         write_data(answer_file, ANSWER_PATH, ANSWER_HEADER)
-        return "Deleted."
 
-
+def delete_a_question(question_id):
+    question_file = get_data(QUESTION_PATH)
+    for i in range(len(question_file)-1):
+        if question_file[i]['id'] == question_id:
+           question_file.pop(i)
+    write_data(question_file, QUESTION_PATH, QUESTION_HEADER)
 
 
 def get_question_by_id(id):

@@ -16,7 +16,7 @@
         <li><p> {{ answer['message'] }} </p></li>
         <table>
             <td>
-                <button><a href="/answer/{{ question_id }}/delete"><img
+                <button><a href="/answer/{{ answer['id'] }}/delete"><img
                         src="{{ url_for("static", filename='bin.png') }}" width="35"></a></button>
             </td>
             <td>
