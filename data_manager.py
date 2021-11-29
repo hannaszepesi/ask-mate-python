@@ -9,8 +9,7 @@ QUESTION_PATH = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ el
 SORTING_OPTIONS = ['title', 'submission_time', 'message', 'view_number', 'vote_number']
 ORDER_OPTIONS = ['ascending', 'descending']
 
-
-def get_next_id(path):
+def get_max_id(path):
     input_file = list(csv.DictReader(open(path)))
     next_id = int(input_file[-1]['id'])+1
     return next_id
