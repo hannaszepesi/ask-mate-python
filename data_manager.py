@@ -17,11 +17,17 @@ def get_max_id(cursor):
     return next_id
 
 @database_common.connection_handler
-def get_data(cursor):
-    query = """
-        SELECT *
-        FROM question
-        """
+def get_data(cursor, table):
+    if table == 'question':
+        query = """
+            SELECT *
+            FROM question
+            """
+    if table == 'answer':
+        query = """
+            SELECT *
+            FROM answer
+            """
     cursor.execute(query)
     return cursor.fetchall()
 
@@ -105,7 +111,7 @@ def get_question_by_id(cursor, id):
         WHERE id = %(id)s
         """
     cursor.execute(query, {"id": id})
-    return cursor.fetchall()
+    return cursor.fetchone()
 
 
 @database_common.connection_handler
