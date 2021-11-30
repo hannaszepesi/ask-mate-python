@@ -122,12 +122,12 @@ def get_answer_by_id(cursor, id):
 
 
 @database_common.connection_handler
-def modify_question(cursor,  new_title, new_message, image_path, question_id):
+def modify_question(cursor,  title, message, image_path, question_id):
     query = """
             UPDATE question
-            SET new_title, new_message, image_path = %s, %s, %s
+            SET title, message, image_path = %s, %s, %s
             WHERE question_id = %s;"""
-    cursor.execute(query, (new_title, new_message, image_path, question_id,))
+    cursor.execute(query, (title, message, image_path, question_id,))
 
 
 @database_common.connection_handler
