@@ -1,5 +1,7 @@
 import csv
 import os
+import database_common
+
 
 dirname = os.path.dirname(__file__)
 QUESTION_HEADER = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
@@ -57,12 +59,13 @@ def delete_an_answer(answer_id):
             answer_file.pop(i)
         write_data(answer_file, ANSWER_PATH, ANSWER_HEADER)
 
-def delete_a_question(question_id):
-    question_file = get_data(QUESTION_PATH)
-    for i in range(len(question_file)):
-        if question_file[i]['id'] == question_id:
-           question_file.pop(i)
-        write_data(question_file, QUESTION_PATH, QUESTION_HEADER)
+
+@database_common.connection_handler
+def delete_a_question(cursor, question_id):
+    query = """
+        DELETE from question
+        WHERE question_id = %s;"""
+    cursor.execute(query, (question_id,))
 
 @database_common.connection_handler
 def get_question_by_id(cursor, id):
@@ -74,23 +77,11 @@ def get_question_by_id(cursor, id):
     cursor.execute(query, {"id": id})
     return cursor.fetchall()
 
-def modify_question(id, new_title, new_message, image_path):
-    #changes 'title' and 'message' of question_to_edit, and writes it back to questions.csv
-    question_to_edit = get_question_by_id(id)
-    edited_question = {}
-    edited_question['id'] = question_to_edit ['id']
-    edited_question['submission_time'] = question_to_edit['submission_time']
-    edited_question['view_number'] = question_to_edit['view_number']
-    edited_question['vote_number'] = question_to_edit['vote_number']
-    edited_question['title'] = new_title
-    edited_question['message'] = new_message
-    edited_question['image'] = image_path
-    questions = get_data(QUESTION_PATH)
-    edited_questions = []
-    for question in questions:
-        if question['id'] == id:
-            edited_questions.append(edited_question)
-        else:
-            edited_questions.append(question)
-    write_data(edited_questions, QUESTION_PATH, QUESTION_HEADER) #a dictionary-k listáját kell visszaadjam neki
 
+@database_common.connection_handler
+def modify_question(cursor,  new_title, new_message, image_path, question_id):
+    query = """
+            UPDATE question
+            SET new_title, new_message, image_path = %s, %s, %s
+            WHERE question_id = %s;"""
+    cursor.execute(query, (new_title, new_message, image_path, question_id,))
