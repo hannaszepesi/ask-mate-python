@@ -49,14 +49,14 @@ def write_comment(cursor):
 @database_common.connection_handler
 def write_answer(cursor, submission_time, vote_number, question_id, message, image):
     query = """
-    INSERT INTO question (submission_time, vote_number, question_id, message, image) 
+    INSERT INTO answer (submission_time, vote_number, question_id, message, image) 
     VALUES (%s, %s, %s, %s, %s);"""
     cursor.execute(query, (submission_time, vote_number, question_id, message, image))
 
 @database_common.connection_handler
 def write_tag(cursor):
     query = """
-    INSERT INTO question (submission_time, view_number, vote_number, title, message, image) 
+    INSERT INTO tag (submission_time, view_number, vote_number, title, message, image) 
     VALUES (%s, %s, %s, %s, %s, %s);"""
     cursor.execute(query, (submission_time, view_number, vote_number, title, message, image))
 
