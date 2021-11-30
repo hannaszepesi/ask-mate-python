@@ -126,17 +126,17 @@ def add_question():
     return render_template('add-question.html', id=id, question=data_manager.get_data('question'))
 
 
-@app.route('/answer-vote/<answer_id>/<vote>', methods=['POST'])
-def answer_vote(answer_id, vote):
+@app.route('/answer-vote/<id>/<vote>', methods=['POST'])
+def answer_vote(id, vote):
     increment = 1 if vote == 'vote_up' else -1
-    data_manager.modify_answer_vote(answer_id, increment)
+    data_manager.modify_answer_vote(increment, id)
     return redirect('/')
 
 
 @app.route('/question-vote/<id>/<vote>', methods=['POST'])
 def question_vote(id, vote):
     increment = 1 if vote == 'vote_up' else -1
-    data_manager.modify_question_vote(id, increment, data_manager.QUESTION_PATH, data_manager.QUESTION_HEADER)
+    data_manager.modify_question_vote(id, increment)
     return redirect('/')
 
 # Luti

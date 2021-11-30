@@ -50,32 +50,35 @@ def write_comment(cursor):
 @database_common.connection_handler
 def write_answer(cursor, submission_time, vote_number, question_id, message, image):
     query = """
-    INSERT INTO question (submission_time, vote_number, question_id, message, image) 
+    INSERT INTO answer (submission_time, vote_number, question_id, message, image) 
     VALUES (%s, %s, %s, %s, %s);"""
     cursor.execute(query, (submission_time, vote_number, question_id, message, image))
 
 @database_common.connection_handler
 def write_tag(cursor):
     query = """
-    INSERT INTO question (submission_time, view_number, vote_number, title, message, image) 
+    INSERT INTO tag (submission_time, view_number, vote_number, title, message, image) 
     VALUES (%s, %s, %s, %s, %s, %s);"""
     cursor.execute(query, (submission_time, view_number, vote_number, title, message, image))
 
-def modify_question_vote(id, vote, path, header):
-    lines = get_data(path)
-    for line in lines:
-        if line['id'] == id:
-            line['vote_number'] = int(line['vote_number']) + vote
-    write_data(lines, path, header)
 
 @database_common.connection_handler
-def modify_answer_vote(cursor, answer_id, vote):
+def modify_question_vote(cursor, question_id, vote):
+    query = """
+        UPDATE question
+        SET vote_number = vote_number + %(vote)s
+        WHERE id = %(question_id)s;
+        """
+    cursor.execute(query, {"vote": vote, "question_id": question_id})
+
+@database_common.connection_handler
+def modify_answer_vote(cursor, vote, answer_id):
     query = """
         UPDATE answer
-        SET vote_number = vote_number + %(vote)s
-        WHERE answer_id = %(answer_id)s;
+        SET vote_number = vote_number + %s
+        WHERE id = %s;
         """
-    cursor.execute(query, {"vote": vote, "answer_id": answer_id})
+    cursor.execute(query, (vote, answer_id,))
 
 @database_common.connection_handler
 def delete_an_answer(cursor, answer_id):

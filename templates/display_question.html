@@ -23,13 +23,13 @@
                         src="{{ url_for("static", filename='bin.png') }}" width="35"></a></button>
             </td>
             <td>
-                <form action="/answer-vote/{{ answer['id']}} /'vote_up'" method="POST">
+                <form action= {{ url_for("answer_vote", id = answer['id'], vote='vote_up') }} method="POST">
                     <button type="submit"><img src="{{ url_for("static", filename='like.jpg') }}" width="30" alt="">
                     </button>
                 </form>
             </td>
             <td>
-                <form action="/answer-vote/{{ answer['id'] }}/'vote_down'" method="POST">
+                <form action= {{ url_for("answer_vote", id = answer['id'], vote='vote_down') }}  method="POST">
                     <button type="submit"><img src="{{ url_for("static", filename='dislike.jpg') }}" width="30">
                     </button>
                 </form>
