@@ -85,8 +85,7 @@ def display_question(question_id):
 @app.route("/answer/<answer_id>/edit", methods=['POST'])
 def edit_answer(answer_id):
     answer = data_manager.get_answer_by_id(answer_id)
-    for i in answer:
-        original_message = i['message']
+    original_message = answer['message']
     print(original_message)
     new_message = request.form.get("new_message")
     data_manager.edit_answer(new_message, answer_id)

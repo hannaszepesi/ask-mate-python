@@ -108,7 +108,7 @@ def get_question_by_id(cursor, id):
         WHERE id = %(id)s
         """
     cursor.execute(query, {"id": id})
-    return cursor.fetchall()
+    return cursor.fetchone()
 
 
 @database_common.connection_handler
@@ -119,7 +119,7 @@ def get_answer_by_id(cursor, id):
         WHERE id = %(id)s
         """
     cursor.execute(query, {"id": id})
-    return cursor.fetchall()
+    return cursor.fetchone()
 
 
 @database_common.connection_handler
