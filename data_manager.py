@@ -1,6 +1,7 @@
 import csv
 import os
 import database_common
+from psycopg2 import sql
 
 
 dirname = os.path.dirname(__file__)
@@ -121,3 +122,13 @@ def modify_question(cursor,  new_title, new_message, image_path, question_id):
             SET new_title, new_message, image_path = %s, %s, %s
             WHERE question_id = %s;"""
     cursor.execute(query, (new_title, new_message, image_path, question_id,))
+
+
+@database_common.connection_handler
+def sort_questions(cursor, sortby='submission_time', order='DESC'):
+    query = sql.SQL("SELECT title FROM question ORDER BY {} {}")
+    cursor.execute(query.format(sql.Identifier(sortby), sql.Identifier(order))) #ezzel segített Balázs, hogy ne kelljen
+                                                                                #if-et vagy f-stringet használni
+
+
+
