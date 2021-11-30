@@ -4,19 +4,6 @@ import database_common
 from psycopg2 import sql
 
 
-dirname = os.path.dirname(__file__)
-QUESTION_HEADER = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
-ANSWER_HEADER = ['id', 'submission_time', 'vote_number', 'question_id', 'message', 'image']
-ANSWER_PATH = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else dirname + '/sample_data/answer.csv'
-QUESTION_PATH = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else dirname + '/sample_data/question.csv'
-SORTING_OPTIONS = ['title', 'submission_time', 'message', 'view_number', 'vote_number']
-ORDER_OPTIONS = ['ascending', 'descending']
-
-def get_max_id(cursor):
-    input_file = list(csv.DictReader(open(path)))
-    next_id = int(input_file[-1]['id'])+1
-    return next_id
-
 @database_common.connection_handler
 def get_data(cursor, table):
     if table == 'question':
@@ -40,6 +27,7 @@ def write_question(cursor, submission_time, view_number, vote_number, title, mes
     VALUES (%s, %s, %s, %s, %s, %s);"""
     cursor.execute(query, (submission_time, view_number, vote_number, title, message, image))
 
+
 @database_common.connection_handler
 def write_comment(cursor):
     query = """
@@ -47,12 +35,14 @@ def write_comment(cursor):
     VALUES (%s, %s, %s, %s, %s);"""
     cursor.execute(query, (question_id, answer_id, message, submission_time, edited_count))
 
+
 @database_common.connection_handler
 def write_answer(cursor, submission_time, vote_number, question_id, message, image):
     query = """
     INSERT INTO answer (submission_time, vote_number, question_id, message, image) 
     VALUES (%s, %s, %s, %s, %s);"""
     cursor.execute(query, (submission_time, vote_number, question_id, message, image))
+
 
 @database_common.connection_handler
 def write_tag(cursor):
@@ -71,6 +61,7 @@ def modify_question_vote(cursor, question_id, vote):
         """
     cursor.execute(query, {"vote": vote, "question_id": question_id})
 
+
 @database_common.connection_handler
 def modify_answer_vote(cursor, vote, answer_id):
     query = """
@@ -79,6 +70,7 @@ def modify_answer_vote(cursor, vote, answer_id):
         WHERE id = %s;
         """
     cursor.execute(query, (vote, answer_id,))
+
 
 @database_common.connection_handler
 def delete_an_answer(cursor, answer_id):
@@ -115,7 +107,18 @@ def get_question_by_id(cursor, id):
         WHERE id = %(id)s
         """
     cursor.execute(query, {"id": id})
-    return cursor.fetchone()
+    return cursor.fetchall()
+
+
+@database_common.connection_handler
+def get_answer_by_id(cursor, id):
+    query = """
+        SELECT *
+        FROM answer
+        WHERE id = %(id)s
+        """
+    cursor.execute(query, {"id": id})
+    return cursor.fetchall()
 
 
 @database_common.connection_handler
