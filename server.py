@@ -16,7 +16,7 @@ like_button = '/home/luti/codecool/Web/Projects/ask-mate/like.jpeg'
 @app.route("/list")
 @app.route("/", methods=['GET'])
 def list_questions():
-    questions = data_manager.get_data('question')
+    questions = data_manager.sort_questions()
     question_dict = {}
     if request.args:
         sort_by = request.args['sort_by']

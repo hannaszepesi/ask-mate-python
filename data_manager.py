@@ -126,8 +126,12 @@ def modify_question(cursor,  new_title, new_message, image_path, question_id):
 
 @database_common.connection_handler
 def sort_questions(cursor, sortby='submission_time', order='DESC'):
-    query = sql.SQL("SELECT title FROM question ORDER BY {} {}")
-    cursor.execute(query.format(sql.Identifier(sortby), sql.Identifier(order))) #ezzel segített Balázs, hogy ne kelljen
+    if order == 'ASC':
+        query = sql.SQL("SELECT title FROM question ORDER BY {sort_by} ASC ;")
+    if order == 'DESC':
+        query = sql.SQL("SELECT title FROM question ORDER BY {sort_by} DESC ;")
+        cursor.execute(query.format(sort_by=sql.Identifier(sortby)))
+    return cursor.fetchall()                                                    #ezzel segített Balázs, hogy ne kelljen
                                                                                 #if-et vagy f-stringet használni
 
 
