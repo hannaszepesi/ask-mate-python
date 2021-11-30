@@ -136,7 +136,7 @@ def answer_vote(answer_id, vote):
 @app.route('/question-vote/<id>/<vote>', methods=['POST'])
 def question_vote(id, vote):
     increment = 1 if vote == 'vote_up' else -1
-    data_manager.modify_question_vote(id, increment, data_manager.QUESTION_PATH, data_manager.QUESTION_HEADER)
+    data_manager.modify_question_vote(id, increment)
     return redirect('/')
 
 # Luti
