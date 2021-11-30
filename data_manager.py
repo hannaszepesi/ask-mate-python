@@ -77,7 +77,7 @@ def modify_answer_vote(cursor, vote, answer_id):
 def delete_an_answer(cursor, answer_id):
     query = """
         DELETE from answer
-        WHERE answer_id = %s;"""
+        WHERE id = %s;"""
     cursor.execute(query, (answer_id,))
 
 
