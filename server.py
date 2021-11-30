@@ -42,15 +42,11 @@ def new_answer(question_id):
     now = datetime.now()
     now_timestamp = datetime.timestamp(now)
     if request.method == "POST":
-        new_answer = {
-            "id": data_manager.get_max_id(data_manager.ANSWER_PATH)+1, #A unique identifier for the answer.
-            "submission_time":int(now_timestamp), #floatot ad ki alapból, The UNIX timestamp when the answer is posted.
-            "vote_number":str(0), #The sum of votes the answer receives.
-            "question_id": question_id,#Ide majd az az ID kell, ami ami a View Questionből jön, Verótól
-            "message": request.form.get("message"), #The answer text.
-            "image":request.form.get("image") #The path to the image for this answer.
-            }
-        answers.append(new_answer)
+        submission_time = int(now_timestamp)
+        vote_number =str(0)
+        question_id = question_id
+        message = request.form.get("message")
+        image = request.form.get("image")
         data_manager.write_answer(submission_time, vote_number, question_id, message, image)
         return redirect("/question/" + str(question_id))
     return render_template("new_answer.html", question_id=question_id)
@@ -119,21 +115,19 @@ def add_question():
     now = datetime.now()
     now_timestamp = datetime.timestamp(now)
     questions = data_manager.get_data()
-    question = {}
     view_number = 0
     vote_number = 0
     if request.method == 'POST':
-        question['id'] = data_manager.get_max_id(data_manager.QUESTION_PATH)
-        question['submission_time'] = int(now_timestamp)
-        question['view_number'] = view_number
-        question['vote_number'] = vote_number
-        question['title'] = request.form['title']
-        question['message'] = request.form['message']
-        question['image'] = vote_number
-        questions.append(question)
-        data_manager.write_data(questions, data_manager.QUESTION_PATH, data_manager.QUESTION_HEADER)
-        return redirect(f'/question/{question["id"]}')
-    return render_template('add-question.html', id=id, question=question)
+        question_id = data_manager.get_data[-1][0]
+        submission_time = int(now_timestamp)
+        view_number = view_number
+        vote_number = vote_number
+        title = request.form['title']
+        message= request.form['message']
+        image = vote_number
+        data_manager.write_question(submission_time, view_number, vote_number, title, message, image)
+        return redirect(f'/question/{question_id}')
+    return render_template('add-question.html', id=id, question=data_manager.get_data)
 
 
 @app.route('/answer-vote/<answer_id>/<vote>', methods=['POST'])
