@@ -57,7 +57,7 @@ def write_answer(cursor, submission_time, vote_number, question_id, message, ima
 @database_common.connection_handler
 def write_tag(cursor):
     query = """
-    INSERT INTO question (submission_time, view_number, vote_number, title, message, image) 
+    INSERT INTO tag (submission_time, view_number, vote_number, title, message, image) 
     VALUES (%s, %s, %s, %s, %s, %s);"""
     cursor.execute(query, (submission_time, view_number, vote_number, title, message, image))
 
