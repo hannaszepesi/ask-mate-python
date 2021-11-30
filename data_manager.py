@@ -26,13 +26,33 @@ def get_data(cursor):
     return cursor.fetchall()
 
 
-def write_data(type, PATH, HEADER):
-    with open(PATH, 'w') as file:
-        writer = csv.DictWriter(file, fieldnames=HEADER)
-        writer.writeheader()
-        for answer in type:
-            writer.writerow(answer)
+@database_common.connection_handler
+def write_question(cursor):
+    query = """
+    INSERT INTO question (submission_time, view_number, vote_number, title, message, image) 
+    VALUES (%s, %s, %s, %s, %s, %s);"""
+    cursor.execute(query, (submission_time, view_number, vote_number, title, message, image))
 
+@database_common.connection_handler
+def write_comment(cursor):
+    query = """
+    INSERT INTO question (question_id, answer_id, message, submission_time, edited_count) 
+    VALUES (%s, %s, %s, %s, %s);"""
+    cursor.execute(query, (question_id, answer_id, message, submission_time, edited_count))
+
+@database_common.connection_handler
+def write_answer(cursor):
+    query = """
+    INSERT INTO question (submission_time, vote_number, question_id, message, image) 
+    VALUES (%s, %s, %s, %s, %s);"""
+    cursor.execute(query, (submission_time, vote_number, question_id, message, image))
+
+@database_common.connection_handler
+def write_tag(cursor):
+    query = """
+    INSERT INTO question (submission_time, view_number, vote_number, title, message, image) 
+    VALUES (%s, %s, %s, %s, %s, %s);"""
+    cursor.execute(query, (submission_time, view_number, vote_number, title, message, image))
 
 def modify_question_vote(id, vote, path, header):
     lines = get_data(path)
@@ -50,14 +70,12 @@ def modify_answer_vote(cursor, answer_id, vote):
         """
     cursor.execute(query, {"vote": vote, "answer_id": answer_id})
 
-
-def delete_an_answer(answer_id):
-    answer_file = get_data(ANSWER_PATH)
-    # with open(answer_file, 'r') as list_of_dict:
-    for i in range(len(answer_file)-1):
-        if answer_file[i]['id'] == answer_id:
-            answer_file.pop(i)
-        write_data(answer_file, ANSWER_PATH, ANSWER_HEADER)
+@database_common.connection_handler
+def delete_an_answer(cursor, answer_id):
+    query = """
+        DELETE from answer
+        WHERE answer_id = %s;"""
+    cursor.execute(query, (answer_id,))
 
 
 @database_common.connection_handler
