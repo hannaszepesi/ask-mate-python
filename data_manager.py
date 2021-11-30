@@ -95,6 +95,8 @@ def delete_a_question(cursor, question_id):
     cursor.execute(query3, (question_id,))
     cursor.execute(query2, (question_id,))
     cursor.execute(query1, (question_id,))
+
+
 @database_common.connection_handler
 def get_question_by_id(cursor, id):
     query = """
