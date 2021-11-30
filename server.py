@@ -110,12 +110,10 @@ def edit_question(question_id):
 
 @app.route("/add-question", methods=['POST', 'GET'])
 def add_question():
-    questions = data_manager.get_data()
     view_number = 0
     vote_number = 0
     if request.method == 'POST':
-        questions = data_manager.get_data()
-        question_id = questions[-1]['id']
+        questions = data_manager.get_data('question')
         submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         view_number = view_number
         vote_number = vote_number
@@ -123,8 +121,9 @@ def add_question():
         message= request.form['message']
         image = vote_number
         data_manager.write_question(submission_time, view_number, vote_number, title, message, image)
-        return redirect(f'/question/{question_id}')
-    return render_template('add-question.html', id=id, question=data_manager.get_data)
+        question_id = questions[-1]['id'] #itt -1, köv. sorban +1, mert csak így tudtuk összehozni azt, hogy utolsó ID-val rendelkezőt jelenítse meg
+        return redirect(f'/question/{question_id+1}')
+    return render_template('add-question.html', id=id, question=data_manager.get_data('question'))
 
 
 @app.route('/answer-vote/<answer_id>/<vote>', methods=['POST'])
