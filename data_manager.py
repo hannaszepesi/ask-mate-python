@@ -72,13 +72,13 @@ def modify_question_vote(cursor, question_id, vote):
     cursor.execute(query, {"vote": vote, "question_id": question_id})
 
 @database_common.connection_handler
-def modify_answer_vote(cursor, answer_id, vote):
+def modify_answer_vote(cursor, vote, answer_id):
     query = """
         UPDATE answer
-        SET vote_number = vote_number + %(vote)s
-        WHERE answer_id = %(answer_id)s;
+        SET vote_number = vote_number + %s
+        WHERE id = %s;
         """
-    cursor.execute(query, {"vote": vote, "answer_id": answer_id})
+    cursor.execute(query, (vote, answer_id,))
 
 @database_common.connection_handler
 def delete_an_answer(cursor, answer_id):
