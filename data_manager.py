@@ -25,12 +25,12 @@ def get_data(path):
     return data_list
 
 
-def write_data(type, PATH, HEADER):
-    with open(PATH, 'w') as file:
-        writer = csv.DictWriter(file, fieldnames=HEADER)
-        writer.writeheader()
-        for answer in type:
-            writer.writerow(answer)
+@database_common.connection_handler
+def write_data(cursor):
+    query = """
+    INSERT INTO tablename (submission_time, view_number, vote_number, title, message, image) 
+    VALUES (%s, %s, %s, %s, %s, %s);"""
+    cursor.execute(query, (submission_time, view_number, vote_number, title, message, image))
 
 
 def modify_question_vote(id, vote, path, header):
