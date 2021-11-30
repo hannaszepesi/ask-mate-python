@@ -112,14 +112,13 @@ def edit_question(question_id):
 
 @app.route("/add-question", methods=['POST', 'GET'])
 def add_question():
-    now = datetime.now()
-    now_timestamp = datetime.timestamp(now)
     questions = data_manager.get_data()
     view_number = 0
     vote_number = 0
     if request.method == 'POST':
-        question_id = data_manager.get_data[-1][0]
-        submission_time = int(now_timestamp)
+        questions = data_manager.get_data()
+        question_id = questions[-1]['id']
+        submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         view_number = view_number
         vote_number = vote_number
         title = request.form['title']
