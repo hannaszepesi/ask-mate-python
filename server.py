@@ -16,7 +16,7 @@ like_button = '/home/luti/codecool/Web/Projects/ask-mate/like.jpeg'
 @app.route("/list")
 @app.route("/", methods=['GET'])
 def list_questions():
-    questions = data_manager.sort_questions()
+    questions = data_manager.get_data("question")
     question_dict = {}
     if request.args:
         sort_by = request.args['sort_by']
@@ -86,14 +86,15 @@ def display_question(question_id):
                            question_id=question_id, image_path=image_path)
 
 
-@app.route("/answer/<answer_id>/edit", methods=['GET','POST'])
+@app.route("/answer/<answer_id>/edit", methods=['POST'])
 def edit_answer(answer_id):
     answer = data_manager.get_answer_by_id(answer_id)
-    original_message = answer['message']
-    if request.method == 'POST':
-        new_message = request.form.get("new_message")
-        data_manager.write_answer(anwser_id, )
-        return render_template("edit_answer.html" original_message = original_message)
+    for i in answer:
+        original_message = i['message']
+    print(original_message)
+    new_message = request.form.get("new_message")
+    data_manager.edit_answer(new_message, answer_id)
+    return render_template("edit_answer.html", original_message = original_message)
 
 
 

@@ -2,7 +2,8 @@ import csv
 import os
 import database_common
 from psycopg2 import sql
-
+SORTING_OPTIONS = ['title', 'submission_time', 'message', 'view_number', 'vote_number']
+ORDER_OPTIONS = ['ascending', 'descending']
 
 @database_common.connection_handler
 def get_data(cursor, table):
@@ -145,6 +146,6 @@ def edit_answer(cursor, message, answer_id):
     query = """
             UPDATE answer
             SET message = %s
-            WHERE answer_id = %s;"""
+            WHERE id = %s;"""
     cursor.execute(query, (message, answer_id,))
 
