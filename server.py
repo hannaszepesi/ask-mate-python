@@ -89,8 +89,11 @@ def display_question(question_id):
 @app.route("/answer/<answer_id>/edit", methods=['GET','POST'])
 def edit_answer(answer_id):
     answer = data_manager.get_answer_by_id(answer_id)
+    original_message = answer['message']
     if request.method == 'POST':
-        question_id = answer['question_id']
+        new_message = request.form.get("new_message")
+        data_manager.write_answer(anwser_id, )
+        return render_template("edit_answer.html" original_message = original_message)
 
 
 

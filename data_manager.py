@@ -140,5 +140,11 @@ def sort_questions(cursor, sortby='submission_time', order='DESC'):
     return cursor.fetchall()                                                    #ezzel segített Balázs, hogy ne kelljen
                                                                                 #if-et vagy f-stringet használni
 
-
+@database_common.connection_handler
+def edit_answer(cursor, message, answer_id):
+    query = """
+            UPDATE answer
+            SET message = %s
+            WHERE answer_id = %s;"""
+    cursor.execute(query, (message, answer_id,))
 
