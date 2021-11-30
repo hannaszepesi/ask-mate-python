@@ -27,12 +27,32 @@ def get_data(cursor):
 
 
 @database_common.connection_handler
-def write_data(cursor):
+def write_question(cursor):
     query = """
-    INSERT INTO tablename (submission_time, view_number, vote_number, title, message, image) 
+    INSERT INTO question (submission_time, view_number, vote_number, title, message, image) 
     VALUES (%s, %s, %s, %s, %s, %s);"""
     cursor.execute(query, (submission_time, view_number, vote_number, title, message, image))
 
+@database_common.connection_handler
+def write_comment(cursor):
+    query = """
+    INSERT INTO question (question_id, answer_id, message, submission_time, edited_count) 
+    VALUES (%s, %s, %s, %s, %s);"""
+    cursor.execute(query, (question_id, answer_id, message, submission_time, edited_count))
+
+@database_common.connection_handler
+def write_answer(cursor):
+    query = """
+    INSERT INTO question (submission_time, vote_number, question_id, message, image) 
+    VALUES (%s, %s, %s, %s, %s);"""
+    cursor.execute(query, (submission_time, vote_number, question_id, message, image))
+
+@database_common.connection_handler
+def write_tag(cursor):
+    query = """
+    INSERT INTO question (submission_time, view_number, vote_number, title, message, image) 
+    VALUES (%s, %s, %s, %s, %s, %s);"""
+    cursor.execute(query, (submission_time, view_number, vote_number, title, message, image))
 
 def modify_question_vote(id, vote, path, header):
     lines = get_data(path)
