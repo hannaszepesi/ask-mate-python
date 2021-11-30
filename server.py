@@ -58,7 +58,7 @@ def new_answer(question_id):
 
 @app.route('/answer/<answer_id>/delete')
 def delete_an_answer(answer_id):
-    data_manager.delete_an_answer(str(answer_id))
+    data_manager.delete_an_answer(answer_id)
     # return redirect("/question/" + str(question_id))
     return redirect("/")
 
