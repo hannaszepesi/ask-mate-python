@@ -16,7 +16,7 @@ like_button = '/home/luti/codecool/Web/Projects/ask-mate/like.jpeg'
 @app.route("/list")
 @app.route("/", methods=['GET'])
 def list_questions():
-    questions = data_manager.get_data()
+    questions = data_manager.get_data('question')
     question_dict = {}
     if request.args:
         sort_by = request.args['sort_by']
@@ -37,7 +37,7 @@ def list_questions():
 #new answer / post an answer
 @app.route('/question/<question_id>/new-answer', methods = ['GET', 'POST'])
 def new_answer(question_id):
-    answers = data_manager.get_data()
+    answers = data_manager.get_data('answer')
     from datetime import datetime
     now = datetime.now()
     now_timestamp = datetime.timestamp(now)
@@ -71,18 +71,18 @@ def delete_a_question(question_id):
 #Vero
 @app.route("/question/<question_id>")
 def display_question(question_id):
-    questions = data_manager.get_data()
+    questions = data_manager.get_data('question')
     title = ""
     message = ""
     for question in questions:
-        if question['id'] == question_id:
+        if question['id'] == int(question_id):
             title = question['title']
             message = question['message']
             image_path = question['image']
-    list_of_answers = data_manager.get_data()  # cserélve lesz!
+    list_of_answers = data_manager.get_data('answer')  # cserélve lesz!
     answers = []
     for answer in list_of_answers:
-        if answer['question_id'] == question_id:
+        if answer['question_id'] == int(question_id):
             answer_dict = {}
             answer_dict['id'] = answer['id']
             answer_dict['message'] = answer['message']
@@ -118,7 +118,7 @@ def edit_question(question_id):
 def add_question():
     now = datetime.now()
     now_timestamp = datetime.timestamp(now)
-    questions = data_manager.get_data()
+    questions = data_manager.get_data('question')
     question = {}
     view_number = 0
     vote_number = 0
