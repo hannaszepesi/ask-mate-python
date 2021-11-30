@@ -70,14 +70,12 @@ def modify_answer_vote(cursor, answer_id, vote):
         """
     cursor.execute(query, {"vote": vote, "answer_id": answer_id})
 
-
-def delete_an_answer(answer_id):
-    answer_file = get_data(ANSWER_PATH)
-    # with open(answer_file, 'r') as list_of_dict:
-    for i in range(len(answer_file)-1):
-        if answer_file[i]['id'] == answer_id:
-            answer_file.pop(i)
-        write_data(answer_file, ANSWER_PATH, ANSWER_HEADER)
+@database_common.connection_handler
+def delete_an_answer(cursor, answer_id):
+    query = """
+        DELETE from answer
+        WHERE answer_id = %s;"""
+    cursor.execute(query, (answer_id,))
 
 
 @database_common.connection_handler
