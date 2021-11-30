@@ -51,7 +51,7 @@ def new_answer(question_id):
             "image":request.form.get("image") #The path to the image for this answer.
             }
         answers.append(new_answer)
-        data_manager.write_data(answers, data_manager.ANSWER_PATH, data_manager.ANSWER_HEADER)
+        data_manager.write_answer(submission_time, vote_number, question_id, message, image)
         return redirect("/question/" + str(question_id))
     return render_template("new_answer.html", question_id=question_id)
 

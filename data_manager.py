@@ -36,7 +36,7 @@ def write_question(cursor):
 @database_common.connection_handler
 def write_comment(cursor):
     query = """
-    INSERT INTO question (question_id, answer_id, message, submission_time, edited_count) 
+    INSERT INTO comment (question_id, answer_id, message, submission_time, edited_count) 
     VALUES (%s, %s, %s, %s, %s);"""
     cursor.execute(query, (question_id, answer_id, message, submission_time, edited_count))
 
