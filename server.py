@@ -39,10 +39,8 @@ def list_questions():
 def new_answer(question_id):
     answers = data_manager.get_data('answer')
     from datetime import datetime
-    now = datetime.now()
-    now_timestamp = datetime.timestamp(now)
     if request.method == "POST":
-        submission_time = int(now_timestamp)
+        submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         vote_number =str(0)
         question_id = question_id
         message = request.form.get("message")
