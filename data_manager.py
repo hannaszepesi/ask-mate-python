@@ -34,7 +34,7 @@ def get_data(cursor, table):
 
 
 @database_common.connection_handler
-def write_question(cursor):
+def write_question(cursor, submission_time, view_number, vote_number, title, message, image):
     query = """
     INSERT INTO question (submission_time, view_number, vote_number, title, message, image) 
     VALUES (%s, %s, %s, %s, %s, %s);"""
@@ -43,12 +43,12 @@ def write_question(cursor):
 @database_common.connection_handler
 def write_comment(cursor):
     query = """
-    INSERT INTO question (question_id, answer_id, message, submission_time, edited_count) 
+    INSERT INTO comment (question_id, answer_id, message, submission_time, edited_count) 
     VALUES (%s, %s, %s, %s, %s);"""
     cursor.execute(query, (question_id, answer_id, message, submission_time, edited_count))
 
 @database_common.connection_handler
-def write_answer(cursor):
+def write_answer(cursor, submission_time, vote_number, question_id, message, image):
     query = """
     INSERT INTO question (submission_time, vote_number, question_id, message, image) 
     VALUES (%s, %s, %s, %s, %s);"""
