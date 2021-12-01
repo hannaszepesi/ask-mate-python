@@ -82,14 +82,18 @@ def display_question(question_id):
                            question_id=question_id, image_path=image_path)
 
 
-@app.route("/answer/<answer_id>/edit", methods=['POST'])
+@app.route("/answer/<answer_id>/edit", methods=['POST', 'GET']) #ide mégis kéne a get is, hiszen gettel is élünk; lekérjük az url-t, az egy get hívás
 def edit_answer(answer_id):
     answer = data_manager.get_answer_by_id(answer_id)
-    original_message = answer['message']
-    new_message = request.form.get("new_message")
-    data_manager.edit_answer(new_message, answer_id)
-    return render_template("edit_answer.html", original_message = original_message)
+    answer_id = answer_id
+    if request.method == "POST":
+        original_message = answer['message']
+        new_message = request.form.get("new_message")
+        data_manager.edit_answer(new_message, answer_id)
+        return redirect("/")
+    else:
 
+        return render_template("edit_answer.html", answer_id = answer_id, original_answer = original_answer) #ide redirect question/question<id> kéne, hogy amikor posttal beküldöd a formot, vigyen vissza a kérdéshez
 
 
 
