@@ -161,3 +161,11 @@ def search_question(cursor, search_phrase):
             """
     cursor.execute(query, {'found_data':search_phrase})
     return cursor.fetchone()
+
+@database_common.connection_handler
+def delete_comment(cursor, comment_id):
+    query = """
+    DELETE FROM comment
+    WHERE id = %s;
+    """
+    cursor.execute(query, (comment_id,))

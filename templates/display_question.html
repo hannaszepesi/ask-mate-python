@@ -14,6 +14,9 @@
 <ul>
     <li> {{ comment['message'] }} - {{ comment['submission_time'] }}</li>
 </ul>
+    <button><a href="/comment/{{ comment['id'] }}/delete">
+        <img src="{{ url_for("static", filename='bin.png') }}" width="35"></a></button>
+
 {% endfor %}
 <form action="/question/{{ question_id }}/new-comment" method="POST">
     <label for="new-comment"> Add a comment: </label><br>
