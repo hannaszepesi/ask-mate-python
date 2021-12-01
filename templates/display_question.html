@@ -7,7 +7,20 @@
 <body>
 <h1>Question:</h1>
 <h2> {{ title }} </h2>
- {{ message }}
+<h4> {{ message }} </h4>
+<p> <strong> Comments: </strong> </p>
+
+{% for comment in comments %}
+<ul>
+    <li> {{ comment['message'] }} - {{ comment['submission_time'] }}</li>
+</ul>
+{% endfor %}
+<form action="/question/{{ question_id }}/new-comment" method="POST">
+    <label for="new-comment"> Add a comment: </label><br>
+  <textarea name="new-comment" id="new-comment" rows="3" cols="110" required></textarea></br>
+<input type="submit" value="Submit comment" method="POST">
+</form>
+
 {% if image_path != '0' %}
 <img src="{{ url_for('static',filename='images/'~image_path) }}" width="150px">
 {% endif %}

@@ -17,6 +17,11 @@ def get_data(cursor, table):
             SELECT *
             FROM answer
             """
+    if table == 'comment':
+        query = """
+            SELECT *
+            FROM comment
+        """
     cursor.execute(query)
     return cursor.fetchall()
 
@@ -30,11 +35,11 @@ def write_question(cursor, submission_time, view_number, vote_number, title, mes
 
 
 @database_common.connection_handler
-def write_comment(cursor):
+def write_comment(cursor, id, question_id, message, submission_time):
     query = """
-    INSERT INTO comment (question_id, answer_id, message, submission_time, edited_count) 
-    VALUES (%s, %s, %s, %s, %s);"""
-    cursor.execute(query, (question_id, answer_id, message, submission_time, edited_count))
+    INSERT INTO comment (id, question_id, message, submission_time) 
+    VALUES (%s, %s, %s, %s);"""
+    cursor.execute(query, (id, question_id, message, submission_time))
 
 
 @database_common.connection_handler
