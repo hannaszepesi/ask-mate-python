@@ -150,7 +150,7 @@ def edit_answer(cursor, message, answer_id):
 def search_question(cursor, search_phrase):
     search_phrase = f'%{search_phrase}%'
     query = """
-            SELECT title, message
+            SELECT id, view_number, vote_number, title, message
             FROM question
             WHERE title LIKE %(found_data)s or message LIKE %(found_data)s;
             """
