@@ -24,7 +24,7 @@ def list_questions():
         order = request.args['order']
     else:
         sort_by = 'submission_time'
-        order = 'descending'
+        order = 'DESC'
     questions = data_manager.sort_questions(sort_by, order)
     order_options = data_manager.ORDER_OPTIONS
     return render_template('list.html', questions=questions, like=like_button,
@@ -89,11 +89,11 @@ def edit_answer(answer_id):
     answer_id = answer_id
     original_answer = answer['message']
     if request.method == "POST":
-        new_message = request.form.get("new_message")
+        new_message = request.form['message']
+        print(new_message)
         data_manager.edit_answer(new_message, answer_id)
         return redirect("/")
     else:
-
         return render_template("edit_answer.html", answer_id = answer_id, original_answer = original_answer) #ide redirect question/question<id> kéne, hogy amikor posttal beküldöd a formot, vigyen vissza a kérdéshez
 
 
