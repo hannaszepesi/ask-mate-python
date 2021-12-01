@@ -23,7 +23,7 @@ def list_questions():
         order = request.args['order']
     else:
         sort_by = 'submission_time'
-        order = 'descending'
+        order = 'DESC'
     questions = data_manager.sort_questions(sort_by, order)
     order_options = data_manager.ORDER_OPTIONS
     return render_template('list.html', questions=questions, like=like_button,
