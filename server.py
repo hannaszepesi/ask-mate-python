@@ -78,9 +78,16 @@ def display_question(question_id):
             answer_dict['id'] = answer['id']
             answer_dict['message'] = answer['message']
             answers.append(answer_dict)
-
-    return render_template("display_question.html", title=title, message=message, answers=answers,
-                           question_id=question_id, image_path=image_path)
+    list_of_comments = data_manager.get_data('comment')
+    comments = []  #display comments if any - Vero
+    for comment in list_of_comments:
+        if comment['question_id'] == int(question_id):
+            comment_dict = {}
+            comment_dict['message'] = comment['message']
+            comment_dict['submission_time'] = str(comment['submission_time'])
+            comments.append(comment_dict)
+    return render_template("display_question.html", title=title, message=message, answers=answers, comments=comments,
+                           question_id=question_id, image_path=image_path, list_of_comments=list_of_comments)
 
 
 @app.route("/answer/<answer_id>/edit", methods=['POST', 'GET']) #ide mégis kéne a get is, hiszen gettel is élünk; lekérjük az url-t, az egy get hívás
@@ -116,6 +123,17 @@ def edit_question(question_id):
                            current_title=question['title'],
                            current_message=question['message'])
 
+
+@app.route("/question/<question_id>/new-comment", methods=["GET", "POST"])
+def add_comment_to_question(question_id):
+    if request.method == 'POST':
+        list_of_comments = data_manager.get_data('comment')  #[{},{}]
+        id = len(list_of_comments) + 1
+        message = request.form['new-comment']
+        submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        data_manager.write_comment(id, question_id, message, submission_time)
+        return redirect(f'/question/{question_id}')
+    return render_template('display_question.html', question_id=question_id)
 #Vero
 #Luti
 
