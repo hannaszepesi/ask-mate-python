@@ -77,9 +77,10 @@ def display_question(question_id):
             answer_dict['id'] = answer['id']
             answer_dict['message'] = answer['message']
             answers.append(answer_dict)
+    question_tags = data_manager.get_question_tag(question_id)
 
     return render_template("display_question.html", title=title, message=message, answers=answers,
-                           question_id=question_id, image_path=image_path)
+                           question_id=question_id, image_path=image_path, question_tags=question_tags)
 
 
 @app.route("/answer/<answer_id>/edit", methods=['POST', 'GET']) #ide mégis kéne a get is, hiszen gettel is élünk; lekérjük az url-t, az egy get hívás
@@ -150,6 +151,35 @@ def question_vote(id, vote):
     return redirect('/')
 
 # Luti
+
+
+@app.route('/question/<question_id>/new-tag', methods=['GET', 'POST'])
+def question_tags(question_id):
+    tags = data_manager.get_tags()
+    if request.method == 'POST':
+        new_tag = request.form['question_tag']
+        for tag in tags:
+            if tag['name'] == new_tag:
+                tag_id = tag['id']
+                data_manager.write_tags(tag_id, question_id)
+                return redirect(f"/question/{question_id}")
+        data_manager.write_new_tag(new_tag)
+        tags = data_manager.get_tags()
+        for tag in tags:
+            if tag['name'] == new_tag:
+                tag_id = tag['id']
+                data_manager.write_tags(tag_id, question_id)
+        return redirect(f"/question/{question_id}")
+    return render_template('add_tag.html', question_tags=tags, question_id=question_id)
+
+
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
     app.run(
