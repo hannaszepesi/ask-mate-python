@@ -86,8 +86,8 @@ def display_question(question_id):
 def edit_answer(answer_id):
     answer = data_manager.get_answer_by_id(answer_id)
     answer_id = answer_id
+    original_answer = answer['message']
     if request.method == "POST":
-        original_message = answer['message']
         new_message = request.form.get("new_message")
         data_manager.edit_answer(new_message, answer_id)
         return redirect("/")
