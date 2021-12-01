@@ -150,6 +150,18 @@ def question_vote(id, vote):
     data_manager.modify_question_vote(id, increment)
     return redirect('/')
 
+
+@app.route("/search", methods=['GET'])
+def search_question():
+
+    # questions = data_manager.get_data('question')
+    search_phrase = request.args.get('question')
+    found_phrase = data_manager.search_question(search_phrase)
+    title = found_phrase['title']
+    message = found_phrase['message']
+    print(title)
+    print(message)
+    return render_template('list.html',title=title, message=message, result=found_phrase)
 # Luti
 
 if __name__ == "__main__":

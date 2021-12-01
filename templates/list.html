@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<br lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Question list</title>
 </head>
-<br>
 <img src="{{ url_for("static", filename='question.jpg') }}" width="400">
 <form action="{{ url_for('list_questions') }}">
     <label for="sort_by"><strong>Sort by:</strong></label>
@@ -21,7 +20,12 @@
     </select>
     <button type="submit">SORT</button>
 </form>
-</br>
+<form action="{{ url_for('search_question') }}">
+    <strong>Search for question:</strong> <input id="question" type="text" name="question">
+    <button type="submit">Search</button>
+</form>
+</p>
+
 <table>
     <tr>
         <td><strong>View</strong></td>
@@ -34,29 +38,29 @@
     </tr>
     {% for question in questions %}
         <tr>
-        <td>{{ question['view_number'] }}</td>
-        <td>{{ question['vote_number'] }}</td>
-        <td>
-            <a href="/question/{{ question['id'] }}">{{ question['title'] }}<br></a>
-        </td>
-        <td><a href="question/{{ question['id'] }}/delete">
-            <button type="submit"><img src="{{ url_for("static", filename='bin.png') }}" width="35"></button>
-        </a>
-        </td>
-        <td><a href="question/{{ question['id'] }}/edit">
-            <button type="submit"><img src="{{ url_for("static", filename='edit.jpg') }}" width="30"></button>
-        </td>
-        <td>
-            <form action="{{ url_for("question_vote", id = question['id'], vote='vote_up') }}" method="POST">
-                <button type="submit"><img src="{{ url_for("static", filename='like.jpg') }}" width="30"></button>
-            </form>
-        </td>
-        <td>
-            <form action="{{ url_for("question_vote", id = question['id'], vote='vote_down') }}" method="POST">
-                <button type="submit"><img src="{{ url_for("static", filename='dislike.jpg') }}" width="30">
-                </button>
-            </form>
-        </td>
+            <td>{{ question['view_number'] }}</td>
+            <td>{{ question['vote_number'] }}</td>
+            <td>
+                <a href="/question/{{ question['id'] }}">{{ question['title'] }}<br></a>
+            </td>
+            <td><a href="question/{{ question['id'] }}/delete">
+                <button type="submit"><img src="{{ url_for("static", filename='bin.png') }}" width="35"></button>
+            </a>
+            </td>
+            <td><a href="question/{{ question['id'] }}/edit">
+                <button type="submit"><img src="{{ url_for("static", filename='edit.jpg') }}" width="30"></button>
+            </td>
+            <td>
+                <form action="{{ url_for("question_vote", id = question['id'], vote='vote_up') }}" method="POST">
+                    <button type="submit"><img src="{{ url_for("static", filename='like.jpg') }}" width="30"></button>
+                </form>
+            </td>
+            <td>
+                <form action="{{ url_for("question_vote", id = question['id'], vote='vote_down') }}" method="POST">
+                    <button type="submit"><img src="{{ url_for("static", filename='dislike.jpg') }}" width="30">
+                    </button>
+                </form>
+            </td>
         </tr>
 
     {% endfor %}

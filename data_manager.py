@@ -146,3 +146,13 @@ def edit_answer(cursor, message, answer_id):
             WHERE id = %s;"""
     cursor.execute(query, (message, answer_id,))
 
+@database_common.connection_handler
+def search_question(cursor, search_phrase):
+    search_phrase = f'%{search_phrase}%'
+    query = """
+            SELECT title, message
+            FROM question
+            WHERE title LIKE %(found_data)s or message LIKE %(found_data)s;
+            """
+    cursor.execute(query, {'found_data':search_phrase})
+    return cursor.fetchone()
