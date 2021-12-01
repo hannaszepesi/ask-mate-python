@@ -134,11 +134,11 @@ def modify_question(cursor,  title, message, image_path, question_id):
 @database_common.connection_handler
 def sort_questions(cursor, sortby='submission_time', order='descending'):
     if order == 'ascending':
-        query = sql.SQL("SELECT id, title FROM question ORDER BY {sort_by} ASC LIMIT 5;")
+        query = sql.SQL("SELECT id, title, view_number, vote_number, message, image FROM question ORDER BY {sort_by} ASC LIMIT 5;")
         cursor.execute(query.format(sort_by=sql.Identifier(sortby)))
         return cursor.fetchall()
     if order == 'descending':
-        query = sql.SQL("SELECT id, title FROM question ORDER BY {sort_by} DESC LIMIT 5;")
+        query = sql.SQL("SELECT id, title, view_number, vote_number, message, image FROM question ORDER BY {sort_by} DESC LIMIT 5;")
         cursor.execute(query.format(sort_by=sql.Identifier(sortby)))
         return cursor.fetchall()
 
