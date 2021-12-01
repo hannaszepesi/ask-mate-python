@@ -3,7 +3,7 @@ import os
 import database_common
 from psycopg2 import sql
 SORTING_OPTIONS = ['title', 'submission_time', 'message', 'view_number', 'vote_number']
-ORDER_OPTIONS = ['ascending', 'descending']
+ORDER_OPTIONS = ['ASC', 'DESC']
 
 @database_common.connection_handler
 def get_data(cursor, table):
@@ -132,15 +132,10 @@ def modify_question(cursor,  title, message, image_path, question_id):
 
 
 @database_common.connection_handler
-def sort_questions(cursor, sortby='submission_time', order='descending'):
-    if order == 'ascending':
-        query = sql.SQL("SELECT id, title FROM question ORDER BY {sort_by} ASC LIMIT 5;")
-        cursor.execute(query.format(sort_by=sql.Identifier(sortby)))
-        return cursor.fetchall()
-    if order == 'descending':
-        query = sql.SQL("SELECT id, title FROM question ORDER BY {sort_by} DESC LIMIT 5;")
-        cursor.execute(query.format(sort_by=sql.Identifier(sortby)))
-        return cursor.fetchall()
+def sort_questions(cursor, sortby='submission_time', order='DESC'):
+    query = sql.SQL("SELECT id, title FROM question ORDER BY {sort_by} {orderby} LIMIT 5;")
+    cursor.execute(query.format(sort_by=sql.Identifier(sortby), orderby=sql.SQL(order)))
+    return cursor.fetchall()
 
 
 @database_common.connection_handler
