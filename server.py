@@ -86,8 +86,10 @@ def display_question(question_id):
             comment_dict['message'] = comment['message']
             comment_dict['submission_time'] = str(comment['submission_time'])
             comments.append(comment_dict)
+    question_tags = data_manager.get_question_tag(question_id)
     return render_template("display_question.html", title=title, message=message, answers=answers, comments=comments,
-                           question_id=question_id, image_path=image_path, list_of_comments=list_of_comments)
+                           question_id=question_id, image_path=image_path, list_of_comments=list_of_comments, question_tags=question_tags)
+
 
 
 @app.route("/answer/<answer_id>/edit", methods=['POST', 'GET']) #ide mégis kéne a get is, hiszen gettel is élünk; lekérjük az url-t, az egy get hívás
@@ -101,6 +103,7 @@ def edit_answer(answer_id):
         data_manager.edit_answer(new_message, answer_id)
         return redirect("/")
     else:
+
         return render_template("edit_answer.html", answer_id = answer_id, original_answer = original_answer) #ide redirect question/question<id> kéne, hogy amikor posttal beküldöd a formot, vigyen vissza a kérdéshez
 
 
@@ -188,6 +191,35 @@ def search_question():
     print(message)
     return render_template('list.html',title=title, message=message, result=found_phrase)
 # Luti
+
+
+@app.route('/question/<question_id>/new-tag', methods=['GET', 'POST'])
+def question_tags(question_id):
+    tags = data_manager.get_tags()
+    if request.method == 'POST':
+        new_tag = request.form['question_tag']
+        for tag in tags:
+            if tag['name'] == new_tag:
+                tag_id = tag['id']
+                data_manager.write_tags(tag_id, question_id)
+                return redirect(f"/question/{question_id}")
+        data_manager.write_new_tag(new_tag)
+        tags = data_manager.get_tags()
+        for tag in tags:
+            if tag['name'] == new_tag:
+                tag_id = tag['id']
+                data_manager.write_tags(tag_id, question_id)
+        return redirect(f"/question/{question_id}")
+    return render_template('add_tag.html', question_tags=tags, question_id=question_id)
+
+
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
     app.run(

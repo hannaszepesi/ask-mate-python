@@ -7,6 +7,14 @@
 <body>
 <h1>Question:</h1>
 <h2> {{ title }} </h2>
+ {{ message }}
+{% if question_tags %}
+<h4>
+{% for question in question_tags %}
+{{'#' + question['name'] + " "}}
+{% endfor %}
+</h4>
+{% endif %}
 <h4> {{ message }} </h4>
 <p> <strong> Comments: </strong> </p>
 
@@ -64,6 +72,7 @@
 {% endfor %}
 <a href="/question/{{ question_id }}/new-answer">Add a new answer</a><br>
 <a href="/question/{{ question_id }}/edit"> Edit question </a> <br>
+<a href="/question/{{ question_id }}/new-tag"> Add new tag </a> <br>
 <a href="/">Back to home</a>
 
 </body>
