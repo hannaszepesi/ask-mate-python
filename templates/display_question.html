@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <title>Question and answer</title>
 </head>
+<img src="{{ url_for("static", filename='question.jpg') }}" width="400">
 <body>
-<h1>Question:</h1>
 <h3>Title: {{ title }} </h3>
- <p>{{ message }}</p>
+ <p>Question: {{ message }}</p>
 {% if question_tags %}
 <h4>
 {% for tag in question_tags %}
