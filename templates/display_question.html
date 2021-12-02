@@ -13,7 +13,7 @@
 {% for tag in question_tags %}
 {{'#' + tag['name'] + " "}}
 <button><a href="/question/{{question_id}}/tag/{{tag['id']}}/delete">
-    <img src="{{ url_for("static", filename='delete.png') }}" width="10"></a></button>
+    <img src="{{ url_for('static', filename='delete.png') }}" width="10"></a></button>
 {% endfor %}
 </h4>
 {% endif %}
@@ -23,9 +23,9 @@
 <ul>
     <li> {{ comment['message'] }} - {{ comment['submission_time'] }}
     <button><a href="/comment/{{ comment['id'] }}/delete">
-        <img src="{{ url_for("static", filename='bin.png') }}" width="25"></a></button>
+        <img src="{{ url_for('static', filename='bin.png') }}" width="25"></a></button>
         <button><a href="/comment/{{ comment['id'] }}/edit">
-        <img src="{{ url_for("static", filename='edit.jpg') }}" width="20"></a></button>
+        <img src={{ url_for('static', filename='edit.jpg') }} width="20"></a></button>
     </li>
 </ul>
 
@@ -38,7 +38,7 @@
 </form>
 
 {% if image_path != '0' %}
-<img src="{{ url_for('static',filename='images/'~image_path) }}" width="150px">
+<img src={{ url_for('static',filename='images/'~image_path) }} width="150px">
 {% endif %}
 <br>
 <h3><strong>Answers:</strong></h3>
