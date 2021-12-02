@@ -131,7 +131,7 @@ def edit_question(question_id):
 def add_comment_to_question(question_id):
     if request.method == 'POST':
         list_of_comments = data_manager.get_data('comment')  #[{},{}]
-        id = len(list_of_comments) + 1
+        id = list_of_comments[-1]['id'] + 1
         message = request.form['new-comment']
         submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         data_manager.write_comment(id, question_id, message, submission_time)
