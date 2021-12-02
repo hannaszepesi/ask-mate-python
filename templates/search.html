@@ -5,26 +5,26 @@
     <title>Question list</title>
 </head>
 <img src="{{ url_for("static", filename='question.jpg') }}" width="400">
-{#<form action="{{ url_for('list_questions') }}">#}
-{#    <label for="sort_by"><strong>Sort by:</strong></label>#}
-{#    <select id="sort_by" name="sort_by">#}
-{#        {% for sort_option in sort_options %}#}
-{#            <option value="{{ sort_option }}" {{ "selected" if sort_by == sort_option else "aaa" }}> {{ sort_option }} </option>#}
-{#        {% endfor %}#}
-{#    </select>#}
-{#    <label for="order"><strong>Order:</strong></label>#}
-{#    <select id="order" name="order">#}
-{#        {% for order_option in order_options %}#}
-{#            <option value="{{ order_option }}" {{ "selected" if order == order_option else "bbb" }}> {{ order_option }} </option>#}
-{#        {% endfor %}#}
-{#    </select>#}
-{#    <button type="submit">SORT</button>#}
-{#</form>#}
-{#<form action="{{ url_for('search_question') }}">#}
-{#    <strong>Search for question:</strong> <input id="question" type="text" name="question">#}
-{#    <button type="submit">Search</button>#}
-{#</form>#}
-{#</p>#}
+<form action="{{ url_for('list_questions') }}">
+    <label for="sort_by"><strong>Sort by:</strong></label>
+    <select id="sort_by" name="sort_by">
+        {% for sort_option in sort_options %}
+            <option value="{{ sort_option }}" {{ "selected" if sort_by == sort_option else "aaa" }}> {{ sort_option }} </option>
+        {% endfor %}
+    </select>
+    <label for="order"><strong>Order:</strong></label>
+    <select id="order" name="order">
+        {% for order_option in order_options %}
+            <option value="{{ order_option }}" {{ "selected" if order == order_option else "bbb" }}> {{ order_option }} </option>
+        {% endfor %}
+    </select>
+    <button type="submit">SORT</button>
+</form>
+<form action="{{ url_for('search_question') }}">
+    <strong>Search for question:</strong> <input id="question" type="text" name="question">
+    <button type="submit">Search</button>
+</form>
+</p>
 
 <table>
     <tr>
