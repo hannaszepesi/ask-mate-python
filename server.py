@@ -65,7 +65,7 @@ def display_question(question_id):
         if question['id'] == int(question_id):
             title = question['title']
             message = question['message']
-            image_path = question['image']
+            image_path_question = question['image']
     list_of_answers = data_manager.get_data('answer')
     answers = []
     for answer in list_of_answers:
@@ -74,6 +74,7 @@ def display_question(question_id):
             answer_dict['id'] = answer['id']
             answer_dict['message'] = answer['message']
             answer_dict['vote_number'] = answer['vote_number']
+            answer_dict['image_path'] = answer['image'][14:] if None else 0
             answers.append(answer_dict)
     list_of_comments = data_manager.get_data('comment') #gets all comments
     comments_q = [] #collects comments for a certain question
@@ -97,7 +98,7 @@ def display_question(question_id):
                     comments_a.append(comment_a_dict)
     question_tags = data_manager.get_question_tag(question_id)
     return render_template("display_question.html", title=title, message=message, answers=answers, comments_to_questions=comments_q, comments_to_answers=comments_a,
-                           question_id=question_id, answer_id=answer_id, image_path=image_path, list_of_comments=list_of_comments, question_tags=question_tags)
+                           question_id=question_id, image_path_question=image_path_question, list_of_comments=list_of_comments, question_tags=question_tags)
 
 
 @app.route("/answer/<answer_id>/edit", methods=['POST', 'GET']) #ide mégis kéne a get is, hiszen gettel is élünk; lekérjük az url-t, az egy get hívás
@@ -107,7 +108,13 @@ def edit_answer(answer_id):
     original_answer = answer['message']
     if request.method == "POST":
         new_message = request.form['message']
-        data_manager.edit_answer(new_message, answer_id)
+        filename = ""
+        if 'image' in request.files:
+            image = request.files['image']
+            filename = secure_filename(image.filename)
+            image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            image.save(image_path)
+            data_manager.edit_answer(new_message, answer_id, image_path)
         return redirect("/")
     else:
 
@@ -145,6 +152,8 @@ def add_comment_to_question(question_id):
 
 @app.route("/answer/<answer_id>/new-comment", methods=['GET', 'POST'])
 def add_comment_to_answer(answer_id):
+    question_id_dict = data_manager.get_question_by_answer_id(answer_id)
+    question_id = question_id_dict['question_id']
     if request.method == "POST":
         message = request.form['new-comment']
         submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')

@@ -139,8 +139,8 @@ def get_answer_by_id(cursor, id):
 def modify_question(cursor,  title, message, image_path, question_id):
     query = """
             UPDATE question
-            SET title, message, image_path = %s, %s, %s
-            WHERE question_id = %s;"""
+            SET title = %s, message = %s, image = %s
+            WHERE id = %s;"""
     cursor.execute(query, (title, message, image_path, question_id,))
 
 
@@ -152,12 +152,12 @@ def sort_questions(cursor, sortby='submission_time', order='DESC'):
 
 
 @database_common.connection_handler
-def edit_answer(cursor, message, answer_id):
+def edit_answer(cursor, message, answer_id, image_path):
     query = """
             UPDATE answer
-            SET message = %s
+            SET message = %s, image = %s
             WHERE id = %s;"""
-    cursor.execute(query, (message, answer_id,))
+    cursor.execute(query, (message, image_path, answer_id))
 
 @database_common.connection_handler
 def search_question(cursor, search_phrase):
@@ -188,6 +188,16 @@ def get_comment_by_question_id(cursor, comment_id):
     """
     cursor.execute(query, (comment_id,))
     return cursor.fetchall()
+
+@database_common.connection_handler
+def get_question_by_answer_id(cursor, answer_id):
+    query="""
+    SELECT question_id 
+    FROM answer
+    WHERE id = %s;
+    """
+    cursor.execute(query, (answer_id))
+    return cursor.fetchone()
 
 @database_common.connection_handler
 def get_question_tag(cursor, question_id):
