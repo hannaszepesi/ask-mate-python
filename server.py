@@ -86,7 +86,7 @@ def display_question(question_id):
             comments.append(comment_dict)
     question_tags = data_manager.get_question_tag(question_id)
     return render_template("display_question.html", title=title, message=message, answers=answers, comments=comments,
-                           question_id=question_id, image_path=image_path, list_of_comments=list_of_comments, question_tags=question_tags)
+                           question_id=question_id, image_path=image_path, list_of_comments=list_of_comments, question_tags=question_tags, test=test_html)
 
 
 @app.route("/answer/<answer_id>/edit", methods=['POST', 'GET']) #ide mégis kéne a get is, hiszen gettel is élünk; lekérjük az url-t, az egy get hívás
