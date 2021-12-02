@@ -6,8 +6,8 @@
 </head>
 <body>
 <h1>Question:</h1>
-<h2> {{ title }} </h2>
- {{ message }}
+<h3>Title: {{ title }} </h3>
+ <p>{{ message }}</p>
 {% if question_tags %}
 <h4>
 {% for question in question_tags %}
@@ -15,7 +15,6 @@
 {% endfor %}
 </h4>
 {% endif %}
-<h4> {{ message }} </h4>
 <p> <strong> Comments: </strong> </p>
 
 {% for comment in comments %}

@@ -204,8 +204,13 @@ def write_new_tag(cursor, tag_name):
     cursor.execute(query, {"name": tag_name})
 
 
-
-
+@database_common.connection_handler
+def edit_comment(cursor, comment, id):
+    query = """
+            UPDATE comment
+            SET message = %s
+            WHERE id = %s;"""
+    cursor.execute(query, (comment, id,))
 
 @database_common.connection_handler
 def delete_comment(cursor, comment_id):
