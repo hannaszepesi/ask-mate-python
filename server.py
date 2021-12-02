@@ -84,6 +84,8 @@ def display_question(question_id):
     for comment in list_of_comments:
         if comment['question_id'] == int(question_id):
             comment_dict = {}
+            comment_dict['id'] = comment['id']
+            comment_dict['question_id'] = comment['question_id']
             comment_dict['message'] = comment['message']
             comment_dict['submission_time'] = str(comment['submission_time'])
             comments.append(comment_dict)
@@ -132,7 +134,7 @@ def edit_question(question_id):
 def add_comment_to_question(question_id):
     if request.method == 'POST':
         list_of_comments = data_manager.get_data('comment')  #[{},{}]
-        #id = list_of_comments[-1]['id'] + 1
+        #id = list_of_comments[-1]['id'] + 1 - this row will be deleted so that the program can generate id automatically
         message = request.form['new-comment']
         submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         data_manager.write_comment(question_id, message, submission_time)
@@ -142,8 +144,9 @@ def add_comment_to_question(question_id):
 @app.route("/comment/<comment_id>/delete", methods=["POST", "GET"])
 def delete_comment(comment_id):
     if request.method == "GET":
+        question_id = data_manager.get_comment_by_question_id(comment_id)[0]['question_id']
         data_manager.delete_comment(comment_id)
-        return redirect("/question/"+question_id)
+        return redirect(f'/question/{question_id}')
 
 #Vero
 #Luti
