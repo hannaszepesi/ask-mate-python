@@ -35,11 +35,11 @@ def write_question(cursor, submission_time, view_number, vote_number, title, mes
 
 
 @database_common.connection_handler
-def write_comment(cursor, id, question_id, message, submission_time):
+def write_comment(cursor, question_id, message, submission_time):
     query = """
-    INSERT INTO comment (id, question_id, message, submission_time) 
-    VALUES (%s, %s, %s, %s);"""
-    cursor.execute(query, (id, question_id, message, submission_time))
+    INSERT INTO comment (question_id, message, submission_time) 
+    VALUES (%s, %s, %s);"""
+    cursor.execute(query, (question_id, message, submission_time))
 
 
 @database_common.connection_handler
@@ -161,3 +161,13 @@ def search_question(cursor, search_phrase):
             """
     cursor.execute(query, {'found_data':search_phrase})
     return cursor.fetchone()
+
+
+@database_common.connection_handler
+def increase_view(cursor, question_id):
+    query = """
+        UPDATE question
+        SET view_number = view_number + 1
+        WHERE id = %s;
+        """
+    cursor.execute(query, question_id)

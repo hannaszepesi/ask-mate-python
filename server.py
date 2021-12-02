@@ -62,6 +62,7 @@ def delete_a_question(question_id):
 #Vero
 @app.route("/question/<question_id>")
 def display_question(question_id):
+    data_manager.increase_view(question_id)
     questions = data_manager.get_data('question')
     title = ""
     message = ""
@@ -131,7 +132,7 @@ def add_comment_to_question(question_id):
         id = len(list_of_comments) + 1
         message = request.form['new-comment']
         submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        data_manager.write_comment(id, question_id, message, submission_time)
+        data_manager.write_comment(question_id, message, submission_time)
         return redirect(f'/question/{question_id}')
     return render_template('display_question.html', question_id=question_id)
 #Vero
