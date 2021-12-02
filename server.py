@@ -62,6 +62,7 @@ def delete_a_question(question_id):
 #Vero
 @app.route("/question/<question_id>")
 def display_question(question_id):
+    data_manager.increase_view(question_id)
     questions = data_manager.get_data('question')
     title = ""
     message = ""
@@ -181,15 +182,10 @@ def question_vote(id, vote):
 
 @app.route("/search", methods=['GET'])
 def search_question():
-
-    # questions = data_manager.get_data('question')
+    questions = data_manager.get_data('question')
     search_phrase = request.args.get('question')
     found_phrase = data_manager.search_question(search_phrase)
-    title = found_phrase['title']
-    message = found_phrase['message']
-    print(title)
-    print(message)
-    return render_template('list.html',title=title, message=message, result=found_phrase)
+    return render_template('search.html', result=found_phrase, search_phrase=search_phrase)
 # Luti
 
 
