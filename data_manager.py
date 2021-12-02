@@ -43,6 +43,14 @@ def write_comment(cursor, question_id, message, submission_time):
 
 
 @database_common.connection_handler
+def write_comment_to_answer(cursor, answer_id, message, submission_time):
+    query = """
+    INSERT INTO comment (answer_id, message, submission_time) 
+    VALUES (%s, %s, %s);"""
+    cursor.execute(query, (answer_id, message, submission_time))
+
+
+@database_common.connection_handler
 def write_answer(cursor, submission_time, vote_number, question_id, message, image):
     query = """
     INSERT INTO answer (submission_time, vote_number, question_id, message, image) 
