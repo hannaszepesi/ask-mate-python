@@ -138,7 +138,7 @@ def add_comment_to_question(question_id):
         return redirect(f'/question/{question_id}')
     return render_template('display_question.html', question_id=question_id)
 
-@app.route("/comment/<comment_id>/edit", methods=["POST", "GET"])
+@app.route("/comment/<comment_id>/delete", methods=["POST", "GET"])
 def delete_comment(comment_id):
     if request.method == "GET":
         data_manager.delete_comment(comment_id)
