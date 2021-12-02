@@ -216,12 +216,12 @@ def write_new_tag(cursor, tag_name):
 
 
 @database_common.connection_handler
-def edit_comment(cursor, comment, id):
+def edit_comment(cursor, comment, submission_time, id):
     query = """
             UPDATE comment
-            SET message = %s
+            SET message = %s, submission_time = %s
             WHERE id = %s;"""
-    cursor.execute(query, (comment, id,))
+    cursor.execute(query, (comment, submission_time, id))
 
 
 @database_common.connection_handler

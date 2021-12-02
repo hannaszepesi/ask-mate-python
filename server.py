@@ -153,15 +153,14 @@ def delete_comment(comment_id):
 
 @app.route("/comment/<comment_id>/edit", methods=["POST", "GET"])
 def edit_comment(comment_id):
-    question_id = data_manager.get_comment(comment_id)
-    q_id = question_id['question_id']
+    submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    question_id = data_manager.get_comment_by_question_id(comment_id)[0]['question_id']
     original_comment = data_manager.get_comment(comment_id)
     if request.method == "POST":
         comment = request.form['edited_comment']
-        print(comment)
-        data_manager.edit_comment(comment, comment_id)
-        return redirect(f"/question/{q_id}/")
-    return render_template('edit_comment.html', original_comment = original_comment, q_id=q_id)
+        data_manager.edit_comment(comment, submission_time, comment_id)
+        return redirect(f"/question/{question_id}")
+    return render_template('edit_comment.html', original_comment = original_comment, q_id=question_id, comment_id=comment_id)
 
 
 @app.route("/add-question", methods=['POST', 'GET'])
