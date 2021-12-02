@@ -10,8 +10,9 @@
  {{ message }}
 {% if question_tags %}
 <h4>
-{% for question in question_tags %}
-{{'#' + question['name'] + " "}}
+{% for tag in question_tags %}
+{{'#' + tag['name'] + " "}}
+<a href="/question/{{question_id}}/tag/{{tag['id']}}/delete"> X </a>
 {% endfor %}
 </h4>
 {% endif %}

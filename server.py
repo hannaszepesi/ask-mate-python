@@ -209,6 +209,13 @@ def question_tags(question_id):
     return render_template('add_tag.html', question_tags=tags, question_id=question_id)
 
 
+@app.route('/question/<question_id>/tag/<tag_id>/delete')
+def delete_question_tag(question_id, tag_id):
+    data_manager.delete_tag(question_id, tag_id)
+    return redirect(f"/question/{question_id}")
+
+
+
 
 
 

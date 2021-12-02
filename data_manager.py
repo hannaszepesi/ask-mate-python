@@ -206,7 +206,6 @@ def write_new_tag(cursor, tag_name):
 
 
 
-
 @database_common.connection_handler
 def delete_comment(cursor, comment_id):
     query = """
@@ -214,3 +213,11 @@ def delete_comment(cursor, comment_id):
     WHERE id = %s;
     """
     cursor.execute(query, (comment_id,))
+
+@database_common.connection_handler
+def delete_tag(cursor, question_id, tag_id):
+    query = """
+    DELETE FROM question_tag
+    WHERE question_id = %(q_id)s AND tag_id = %(t_id)s
+    """
+    cursor.execute(query, {"q_id": question_id, "t_id": tag_id})
