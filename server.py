@@ -9,16 +9,12 @@ UPLOAD_FOLDER = 'static/images'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'} #not compulsory to define extensions
 
-like_button = '/home/luti/codecool/Web/Projects/ask-mate/like.jpeg'
-
 
 #Hanna
 @app.route("/list")
 @app.route("/", methods=['GET'])
 def list_questions():
-    questions = data_manager.sort_questions()
     question_all = data_manager.get_data('question')
-    question_dict = {}
     if request.args:
         sort_by = request.args['sort_by']
         order = request.args['order']
@@ -27,15 +23,13 @@ def list_questions():
         order = 'DESC'
     questions = data_manager.sort_questions(sort_by, order)
     order_options = data_manager.ORDER_OPTIONS
-    return render_template('list.html', questions=questions, like=like_button,
+    return render_template('list.html', questions=questions,
         sort_options=data_manager.SORTING_OPTIONS, sort_by=sort_by, order_options=order_options, order=order, all_questions=question_all)
 #Hanna
 #Berni
 #new answer / post an answer
 @app.route('/question/<question_id>/new-answer', methods = ['GET', 'POST'])
 def new_answer(question_id):
-    answers = data_manager.get_data('answer')
-    from datetime import datetime
     if request.method == "POST":
         submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         vote_number =str(0)
@@ -52,6 +46,7 @@ def delete_an_answer(answer_id):
     data_manager.delete_an_answer(answer_id)
     # return redirect("/question/" + str(question_id))
     return redirect("/")
+
 
 @app.route('/question/<question_id>/delete')
 def delete_a_question(question_id):
@@ -94,7 +89,6 @@ def display_question(question_id):
                            question_id=question_id, image_path=image_path, list_of_comments=list_of_comments, question_tags=question_tags)
 
 
-
 @app.route("/answer/<answer_id>/edit", methods=['POST', 'GET']) #ide mégis kéne a get is, hiszen gettel is élünk; lekérjük az url-t, az egy get hívás
 def edit_answer(answer_id):
     answer = data_manager.get_answer_by_id(answer_id)
@@ -102,13 +96,11 @@ def edit_answer(answer_id):
     original_answer = answer['message']
     if request.method == "POST":
         new_message = request.form['message']
-        print(new_message)
         data_manager.edit_answer(new_message, answer_id)
         return redirect("/")
     else:
 
         return render_template("edit_answer.html", answer_id = answer_id, original_answer = original_answer) #ide redirect question/question<id> kéne, hogy amikor posttal beküldöd a formot, vigyen vissza a kérdéshez
-
 
 
 @app.route("/question/<question_id>/edit", methods=["GET", "POST"]) #get amikor megjelenít, ha rányom a submit gombra, akkor Post
@@ -133,13 +125,12 @@ def edit_question(question_id):
 @app.route("/question/<question_id>/new-comment", methods=["GET", "POST"])
 def add_comment_to_question(question_id):
     if request.method == 'POST':
-        list_of_comments = data_manager.get_data('comment')  #[{},{}]
-        #id = list_of_comments[-1]['id'] + 1 - this row will be deleted so that the program can generate id automatically
         message = request.form['new-comment']
         submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         data_manager.write_comment(question_id, message, submission_time)
         return redirect(f'/question/{question_id}')
     return render_template('display_question.html', question_id=question_id)
+
 
 @app.route("/comment/<comment_id>/delete", methods=["POST", "GET"])
 def delete_comment(comment_id):
@@ -150,7 +141,6 @@ def delete_comment(comment_id):
 
 #Vero
 #Luti
-
 @app.route("/comment/<comment_id>/edit", methods=["POST", "GET"])
 def edit_comment(comment_id):
     submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -197,7 +187,6 @@ def question_vote(id, vote):
 
 @app.route("/search", methods=['GET'])
 def search_question():
-    questions = data_manager.get_data('question')
     search_phrase = request.args.get('question')
     found_phrase = data_manager.search_question(search_phrase)
     return render_template('search.html', result=found_phrase, search_phrase=search_phrase)
@@ -228,15 +217,6 @@ def question_tags(question_id):
 def delete_question_tag(question_id, tag_id):
     data_manager.delete_tag(question_id, tag_id)
     return redirect(f"/question/{question_id}")
-
-
-
-
-
-
-
-
-
 
 
 if __name__ == "__main__":
