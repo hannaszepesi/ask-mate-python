@@ -170,6 +170,17 @@ def increase_view(cursor, question_id):
             WHERE id = %s;"""
     cursor.execute(query, (question_id,))
 
+
+@database_common.connection_handler
+def get_comment_by_question_id(cursor, comment_id):
+    query="""
+    SELECT question_id 
+    FROM comment
+    WHERE id = %s;
+    """
+    cursor.execute(query, (comment_id,))
+    return cursor.fetchall()
+
 @database_common.connection_handler
 def get_question_tag(cursor, question_id):
     query = """SELECT q.question_id, t.id, t.name 
@@ -231,3 +242,11 @@ def delete_comment(cursor, comment_id):
     WHERE id = %s;
     """
     cursor.execute(query, (comment_id,))
+
+@database_common.connection_handler
+def delete_tag(cursor, question_id, tag_id):
+    query = """
+    DELETE FROM question_tag
+    WHERE question_id = %(q_id)s AND tag_id = %(t_id)s
+    """
+    cursor.execute(query, {"q_id": question_id, "t_id": tag_id})
