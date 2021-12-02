@@ -17,6 +17,11 @@ def get_data(cursor, table):
             SELECT *
             FROM answer
             """
+    if table == 'comment':
+        query = """
+            SELECT *
+            FROM comment
+        """
     cursor.execute(query)
     return cursor.fetchall()
 
@@ -30,11 +35,11 @@ def write_question(cursor, submission_time, view_number, vote_number, title, mes
 
 
 @database_common.connection_handler
-def write_comment(cursor):
+def write_comment(cursor, id, question_id, message, submission_time):
     query = """
-    INSERT INTO comment (question_id, answer_id, message, submission_time, edited_count) 
-    VALUES (%s, %s, %s, %s, %s);"""
-    cursor.execute(query, (question_id, answer_id, message, submission_time, edited_count))
+    INSERT INTO comment (id, question_id, message, submission_time) 
+    VALUES (%s, %s, %s, %s);"""
+    cursor.execute(query, (id, question_id, message, submission_time))
 
 
 @database_common.connection_handler
@@ -133,7 +138,7 @@ def modify_question(cursor,  title, message, image_path, question_id):
 
 @database_common.connection_handler
 def sort_questions(cursor, sortby='submission_time', order='DESC'):
-    query = sql.SQL("SELECT id, title FROM question ORDER BY {sort_by} {orderby} LIMIT 5;")
+    query = sql.SQL("SELECT id, title, view_number, vote_number FROM question ORDER BY {sort_by} {orderby} LIMIT 5;")
     cursor.execute(query.format(sort_by=sql.Identifier(sortby), orderby=sql.SQL(order)))
     return cursor.fetchall()
 
@@ -146,6 +151,16 @@ def edit_answer(cursor, message, answer_id):
             WHERE id = %s;"""
     cursor.execute(query, (message, answer_id,))
 
+@database_common.connection_handler
+def search_question(cursor, search_phrase):
+    search_phrase = f'%{search_phrase}%'
+    query = """
+            SELECT title, message
+            FROM question
+            WHERE title LIKE %(found_data)s or message LIKE %(found_data)s;
+            """
+    cursor.execute(query, {'found_data':search_phrase})
+    return cursor.fetchone()
 
 @database_common.connection_handler
 def get_question_tag(cursor, question_id):

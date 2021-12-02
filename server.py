@@ -17,6 +17,7 @@ like_button = '/home/luti/codecool/Web/Projects/ask-mate/like.jpeg'
 @app.route("/", methods=['GET'])
 def list_questions():
     questions = data_manager.sort_questions()
+    question_all = data_manager.get_data('question')
     question_dict = {}
     if request.args:
         sort_by = request.args['sort_by']
@@ -27,7 +28,7 @@ def list_questions():
     questions = data_manager.sort_questions(sort_by, order)
     order_options = data_manager.ORDER_OPTIONS
     return render_template('list.html', questions=questions, like=like_button,
-        sort_options=data_manager.SORTING_OPTIONS, sort_by=sort_by, order_options=order_options, order=order)
+        sort_options=data_manager.SORTING_OPTIONS, sort_by=sort_by, order_options=order_options, order=order, all_questions=question_all)
 #Hanna
 #Berni
 #new answer / post an answer
@@ -77,6 +78,16 @@ def display_question(question_id):
             answer_dict['id'] = answer['id']
             answer_dict['message'] = answer['message']
             answers.append(answer_dict)
+    list_of_comments = data_manager.get_data('comment')
+    comments = []  #display comments if any - Vero
+    for comment in list_of_comments:
+        if comment['question_id'] == int(question_id):
+            comment_dict = {}
+            comment_dict['message'] = comment['message']
+            comment_dict['submission_time'] = str(comment['submission_time'])
+            comments.append(comment_dict)
+    return render_template("display_question.html", title=title, message=message, answers=answers, comments=comments,
+                           question_id=question_id, image_path=image_path, list_of_comments=list_of_comments)
     question_tags = data_manager.get_question_tag(question_id)
 
     return render_template("display_question.html", title=title, message=message, answers=answers,
@@ -89,7 +100,8 @@ def edit_answer(answer_id):
     answer_id = answer_id
     original_answer = answer['message']
     if request.method == "POST":
-        new_message = request.form.get("new_message")
+        new_message = request.form['message']
+        print(new_message)
         data_manager.edit_answer(new_message, answer_id)
         return redirect("/")
     else:
@@ -116,6 +128,17 @@ def edit_question(question_id):
                            current_title=question['title'],
                            current_message=question['message'])
 
+
+@app.route("/question/<question_id>/new-comment", methods=["GET", "POST"])
+def add_comment_to_question(question_id):
+    if request.method == 'POST':
+        list_of_comments = data_manager.get_data('comment')  #[{},{}]
+        id = len(list_of_comments) + 1
+        message = request.form['new-comment']
+        submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        data_manager.write_comment(id, question_id, message, submission_time)
+        return redirect(f'/question/{question_id}')
+    return render_template('display_question.html', question_id=question_id)
 #Vero
 #Luti
 
@@ -150,6 +173,18 @@ def question_vote(id, vote):
     data_manager.modify_question_vote(id, increment)
     return redirect('/')
 
+
+@app.route("/search", methods=['GET'])
+def search_question():
+
+    # questions = data_manager.get_data('question')
+    search_phrase = request.args.get('question')
+    found_phrase = data_manager.search_question(search_phrase)
+    title = found_phrase['title']
+    message = found_phrase['message']
+    print(title)
+    print(message)
+    return render_template('list.html',title=title, message=message, result=found_phrase)
 # Luti
 
 
