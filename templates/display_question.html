@@ -20,8 +20,13 @@
 
 {% for comment in comments %}
 <ul>
-    <li> {{ comment['message'] }} - {{ comment['submission_time'] }}</li>
+    <li> {{ comment['message'] }} - {{ comment['submission_time'] }}
+    <button><a href="/comment/{{ comment['id'] }}/delete">
+        <img src="{{ url_for("static", filename='bin.png') }}" width="35"></a></button>
+    </li>
 </ul>
+
+
 {% endfor %}
 <form action="/question/{{ question_id }}/new-comment" method="POST">
     <label for="new-comment"> Add a comment: </label><br>

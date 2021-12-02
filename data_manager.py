@@ -161,3 +161,48 @@ def search_question(cursor, search_phrase):
             """
     cursor.execute(query, {'found_data':search_phrase})
     return cursor.fetchone()
+
+@database_common.connection_handler
+def get_question_tag(cursor, question_id):
+    query = """SELECT q.question_id, t.id, t.name 
+            FROM question_tag q 
+            INNER JOIN tag t 
+            ON q.tag_id = t.id
+            WHERE q.question_id = %(id)s;"""
+    cursor.execute(query, {"id": question_id})
+    return cursor.fetchall()
+
+@database_common.connection_handler
+def get_tags(cursor):
+    query = """
+        SELECT id, name 
+        FROM tag;
+        """
+    cursor.execute(query)
+    return cursor.fetchall()
+
+
+@database_common.connection_handler
+def write_tags(cursor, tag_id, question_id):
+    query = """ INSERT INTO question_tag (question_id, tag_id) 
+                VALUES (%s, %s);"""
+    cursor.execute(query, (question_id, tag_id))
+
+@database_common.connection_handler
+def write_new_tag(cursor, tag_name):
+    query = """ 
+                INSERT INTO tag (name)
+                VALUES (%(name)s);"""
+    cursor.execute(query, {"name": tag_name})
+
+
+
+
+
+@database_common.connection_handler
+def delete_comment(cursor, comment_id):
+    query = """
+    DELETE FROM comment
+    WHERE id = %s;
+    """
+    cursor.execute(query, (comment_id,))
