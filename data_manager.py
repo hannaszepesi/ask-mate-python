@@ -163,6 +163,14 @@ def search_question(cursor, search_phrase):
     return cursor.fetchone()
 
 @database_common.connection_handler
+def increase_view(cursor, question_id):
+    query = """
+            UPDATE question
+            SET view_number = view_number +1
+            WHERE id = %s;"""
+    cursor.execute(query, (question_id,))
+
+@database_common.connection_handler
 def get_question_tag(cursor, question_id):
     query = """SELECT q.question_id, t.id, t.name 
             FROM question_tag q 

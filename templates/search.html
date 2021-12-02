@@ -36,12 +36,7 @@
         <td>{{ result['view_number'] }}</td>
         <td>{{ result['vote_number'] }}</td>
         <td>
-            {% for words in result %}
-            {% if word in result['message'] or search_phrase in result['title']%}
-            {{ result['title'].replace(search_phrase, '<span style="background-color: yellow;">{}</span>'.format(search_phrase)) }}
-            {% else %}
-            {{ result['message'] }}
-            {% endif %}
+            {{ result['title'] }}
         </td>
     </tr>
     <tr>
