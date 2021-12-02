@@ -35,11 +35,11 @@ def write_question(cursor, submission_time, view_number, vote_number, title, mes
 
 
 @database_common.connection_handler
-def write_comment(cursor, id, question_id, message, submission_time):
+def write_comment(cursor, question_id, message, submission_time):
     query = """
-    INSERT INTO comment (id, question_id, message, submission_time) 
-    VALUES (%s, %s, %s, %s);"""
-    cursor.execute(query, (id, question_id, message, submission_time))
+    INSERT INTO comment (question_id, message, submission_time) 
+    VALUES (%s, %s, %s);"""
+    cursor.execute(query, (question_id, message, submission_time))
 
 
 @database_common.connection_handler
