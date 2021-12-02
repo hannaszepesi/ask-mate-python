@@ -21,7 +21,9 @@
 <ul>
     <li> {{ comment['message'] }} - {{ comment['submission_time'] }}
     <button><a href="/comment/{{ comment['id'] }}/delete">
-        <img src="{{ url_for("static", filename='bin.png') }}" width="35"></a></button>
+        <img src="{{ url_for("static", filename='bin.png') }}" width="25"></a></button>
+        <button><a href="/comment/{{ comment['id'] }}/edit">
+        <img src="{{ url_for("static", filename='edit.jpg') }}" width="20"></a></button>
     </li>
 </ul>
 

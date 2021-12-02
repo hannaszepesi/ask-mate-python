@@ -212,6 +212,18 @@ def edit_comment(cursor, comment, id):
             WHERE id = %s;"""
     cursor.execute(query, (comment, id,))
 
+
+@database_common.connection_handler
+def get_comment(cursor, id):
+    query = """
+        SELECT question_id, message
+        FROM comment
+        WHERE id = %s
+        """
+    cursor.execute(query, (id,))
+    return cursor.fetchone()
+
+
 @database_common.connection_handler
 def delete_comment(cursor, comment_id):
     query = """

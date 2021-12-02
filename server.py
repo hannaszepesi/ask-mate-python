@@ -84,6 +84,7 @@ def display_question(question_id):
     for comment in list_of_comments:
         if comment['question_id'] == int(question_id):
             comment_dict = {}
+            comment_dict['id'] = comment['id']
             comment_dict['message'] = comment['message']
             comment_dict['submission_time'] = str(comment['submission_time'])
             comments.append(comment_dict)
@@ -148,12 +149,17 @@ def delete_comment(comment_id):
 #Vero
 #Luti
 
-@app.route("/comment/<comment_id>/delete", methods=["POST", "GET"])
+@app.route("/comment/<comment_id>/edit", methods=["POST", "GET"])
 def edit_comment(comment_id):
+    question_id = data_manager.get_comment(comment_id)
+    q_id = question_id['question_id']
+    original_comment = data_manager.get_comment(comment_id)
     if request.method == "POST":
-        comment = request.args.get('comment')
+        comment = request.form['edited_comment']
+        print(comment)
         data_manager.edit_comment(comment, comment_id)
-        return redirect("/comment/"+question_id)
+        return redirect(f"/question/{q_id}/")
+    return render_template('edit_comment.html', original_comment = original_comment, q_id=q_id)
 
 
 @app.route("/add-question", methods=['POST', 'GET'])
