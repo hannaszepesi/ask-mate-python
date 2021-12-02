@@ -73,6 +73,7 @@ def display_question(question_id):
             answer_dict = {}
             answer_dict['id'] = answer['id']
             answer_dict['message'] = answer['message']
+            answer_dict['vote_number'] = answer['vote_number']
             answers.append(answer_dict)
     list_of_comments = data_manager.get_data('comment')
     comments = []  #display comments if any - Vero
