@@ -6,23 +6,25 @@
 </head>
 <body>
 <h1>Question:</h1>
-<h2> {{ title }} </h2>
- {{ message }}
+<h3>Title: {{ title }} </h3>
+ <p>{{ message }}</p>
 {% if question_tags %}
 <h4>
-{% for question in question_tags %}
-{{'#' + question['name'] + " "}}
+{% for tag in question_tags %}
+{{'#' + tag['name'] + " "}}
+<a href="/question/{{question_id}}/tag/{{tag['id']}}/delete"> X </a>
 {% endfor %}
 </h4>
 {% endif %}
-<h4> {{ message }} </h4>
 <p> <strong> Comments: </strong> </p>
 
 {% for comment in comments %}
 <ul>
     <li> {{ comment['message'] }} - {{ comment['submission_time'] }}
     <button><a href="/comment/{{ comment['id'] }}/delete">
-        <img src="{{ url_for("static", filename='bin.png') }}" width="35"></a></button>
+        <img src="{{ url_for("static", filename='bin.png') }}" width="25"></a></button>
+        <button><a href="/comment/{{ comment['id'] }}/edit">
+        <img src="{{ url_for("static", filename='edit.jpg') }}" width="20"></a></button>
     </li>
 </ul>
 
