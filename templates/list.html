@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Question list</title>
 </head>
-<img src="{{ url_for("static", filename='question.jpg') }}" width="400">
+<img src="{{ url_for("static", filename='images/question.jpg') }}" width="400">
 <form action="{{ url_for('list_questions') }}">
     <label for="sort_by"><strong>Sort by:</strong></label>
     <select id="sort_by" name="sort_by">
@@ -44,20 +44,20 @@
                 <a href="/question/{{ question['id'] }}">{{ question['title'] }}<br></a>
             </td>
             <td><a href="question/{{ question['id'] }}/delete">
-                <button type="submit"><img src="{{ url_for("static", filename='bin.png') }}" width="35"></button>
+                <button type="submit"><img src="{{ url_for("static", filename='images/bin.png') }}" width="35"></button>
             </a>
             </td>
             <td><a href="question/{{ question['id'] }}/edit">
-                <button type="submit"><img src="{{ url_for("static", filename='edit.jpg') }}" width="30"></button>
+                <button type="submit"><img src="{{ url_for("static", filename='images/edit.jpg') }}" width="30"></button>
             </td>
             <td>
                 <form action="{{ url_for("question_vote", id = question['id'], vote='vote_up') }}" method="POST">
-                    <button type="submit"><img src="{{ url_for("static", filename='like.jpg') }}" width="30"></button>
+                    <button type="submit"><img src="{{ url_for("static", filename='images/like.jpg') }}" width="30"></button>
                 </form>
             </td>
             <td>
                 <form action="{{ url_for("question_vote", id = question['id'], vote='vote_down') }}" method="POST">
-                    <button type="submit"><img src="{{ url_for("static", filename='dislike.jpg') }}" width="30">
+                    <button type="submit"><img src="{{ url_for("static", filename='images/dislike.jpg') }}" width="30">
                     </button>
                 </form>
             </td>
@@ -68,6 +68,6 @@
 <br>
 <br>
 <br>
-<a href="/add-question"><img src="{{ url_for("static", filename='ask.jpg') }}" width="150"></a>
+<a href="/add-question"><img src="{{ url_for("static", filename='images/ask.jpg') }}" width="150"></a>
 </body>
 </html>
