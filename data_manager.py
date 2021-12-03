@@ -22,6 +22,11 @@ def get_data(cursor, table):
             SELECT *
             FROM comment
         """
+    if table == 'tag':
+        query = """
+        SELECT id, name
+        FROM tag
+        """
     cursor.execute(query)
     return cursor.fetchall()
 
@@ -209,14 +214,14 @@ def get_question_tag(cursor, question_id):
     cursor.execute(query, {"id": question_id})
     return cursor.fetchall()
 
-@database_common.connection_handler
-def get_tags(cursor):
-    query = """
-        SELECT id, name 
-        FROM tag;
-        """
-    cursor.execute(query)
-    return cursor.fetchall()
+# @database_common.connection_handler
+# def get_tags(cursor):
+#     query = """
+#         SELECT id, name
+#         FROM tag;
+#         """
+#     cursor.execute(query)
+#     return cursor.fetchall()
 
 
 @database_common.connection_handler
