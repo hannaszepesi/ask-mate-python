@@ -45,9 +45,6 @@
     <ul>
 
         <li><p> {{ answer['message'] }} </p></li>
-                {% if image_path_answer != "/static/images"%}
-        <img src={{ url_for('static',filename='images/'~image_path_answer) }} width="150px">
-                {% endif %}
         <p><strong>Vote:</strong>{{ answer['vote_number'] }}</p>
         <table>
             <td>

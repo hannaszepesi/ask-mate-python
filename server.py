@@ -74,7 +74,6 @@ def display_question(question_id):
             answer_dict['id'] = answer['id']
             answer_dict['message'] = answer['message']
             answer_dict['vote_number'] = answer['vote_number']
-            answer_dict['image_path'] = answer['image'][14:] if None else 0
             answers.append(answer_dict)
     list_of_comments = data_manager.get_data('comment') #gets all comments
     comments_q = [] #collects comments for a certain question
@@ -197,7 +196,7 @@ def add_question():
         image = vote_number
         data_manager.write_question(submission_time, view_number, vote_number, title, message, image)
         question_id = questions[-1]['id'] #itt -1, köv. sorban +1, mert csak így tudtuk összehozni azt, hogy utolsó ID-val rendelkezőt jelenítse meg
-        return redirect(f'/question/{question_id+1}')
+        return redirect("/")
     return render_template('add-question.html', id=id, question=data_manager.get_data('question'))
 
 
