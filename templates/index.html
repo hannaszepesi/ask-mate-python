@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<br lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Question list</title>
-</head>
-<img src="{{ url_for("static", filename='images/question.jpg') }}" width="400">
+{% extends "navbar.html" %}
+{%  block page_title %}
+    Main page
+{%  endblock %}
+{%  block content %}
+
 <form action="{{ url_for('list_questions') }}">
     <label for="sort_by"><strong>Sort by:</strong></label>
     <select id="sort_by" name="sort_by">
@@ -68,6 +67,7 @@
 <br>
 <br>
 <br>
-<a href="/add-question"><img src="{{ url_for("static", filename='images/ask.jpg') }}" width="150"></a>
+<a href="/add-question"><img src="{{ url_for("static", filename='images/ask.png') }}" width="150"></a>
 </body>
-</html>
+{% include 'footer.html' %}
+{% endblock %}

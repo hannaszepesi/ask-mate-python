@@ -23,7 +23,7 @@ def list_questions():
         order = 'DESC'
     questions = data_manager.sort_questions(sort_by, order)
     order_options = data_manager.ORDER_OPTIONS
-    return render_template('list.html', questions=questions,
+    return render_template('index.html', questions=questions,
         sort_options=data_manager.SORTING_OPTIONS, sort_by=sort_by, order_options=order_options, order=order, all_questions=question_all)
 #Hanna
 #Berni

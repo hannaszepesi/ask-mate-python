@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-{% block head %}
-    <title>Add Question</title>
-{% endblock %}
-</head>
-<body>
-{% block title %}
-    <h1>Add question</h1>
-{% endblock %}
+{% extends "navbar.html" %}
 {% block content %}
+
+<body>
+    <h1>Add question</h1>
     <form action="/add-question" method="POST">
         Title:<br>
         <label for="title"></label>
@@ -23,7 +15,6 @@
         <input type="submit" value="Submit question" method="POST">
 
     </form>
-{% endblock %}
 
-</body>
-</html>
+{% include 'footer.html' %}
+{% endblock %}
