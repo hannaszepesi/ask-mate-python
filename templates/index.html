@@ -25,16 +25,16 @@
 </form>
 </p>
 
-<table>
-    <tr>
-        <td><strong>View</strong></td>
-        <td><strong>Vote</strong></td>
-        <td><strong>Message Title</strong></td>
-        <td><strong>Delete</strong></td>
-        <td><strong>Edit</strong></td>
-        <td><strong>Like</strong></td>
-        <td><strong>Dislike</strong></td>
-    </tr>
+<table id="index_table">
+    <thead>
+        <th><strong>View</strong></th>
+        <th><strong>Vote</strong></th>
+        <th><strong>Message Title</strong></th>
+        <th><strong>Delete</strong></th>
+        <th><strong>Edit</strong></th>
+        <th><strong>Like</strong></th>
+        <th><strong>Dislike</strong></th>
+    </thead>
     {% for question in questions %}
         <tr>
             <td>{{ question['view_number'] }}</td>
