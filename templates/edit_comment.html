@@ -1,12 +1,7 @@
-{% extends "add-question.html" %}
-{% block head %}
-    <title>Edit Comment</title>
-{% endblock %}
-
-{% block title %}
-    <h1>Edit comment</h1>
-{% endblock %}
+{% extends "navbar.html" %}
 {% block content %}
+
+    <h1>Edit comment</h1>
     <form action="/comment/{{ comment_id }}/edit" method="POST" enctype="multipart/form-data">
         {# titkosítási forma nem kötelező, de jó ha van #}
         <h2>Current comment:</h2>
@@ -14,4 +9,5 @@
         <textarea name="edited_comment" id="edited_comment"  rows="5" cols="40" required>{{ original_comment['message'] }}</textarea></br>
         <input type="submit" value="Submit question">
     </form>
+{% include 'footer.html' %}
 {% endblock %}

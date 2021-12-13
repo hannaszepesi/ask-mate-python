@@ -106,7 +106,7 @@ def edit_question(question_id):
             image.save(image_path)
         data_manager.modify_question(new_title, new_message, filename, question_id)  # ez írja át a question.csv-t
         return redirect(f'/question/{question_id}') #jelenítsd meg a frissült kérdést
-    return render_template("edit.html", question_id=question_id,
+    return render_template("edit_question.html", question_id=question_id,
                            current_title=question['title'],
                            current_message=question['message'])
 
