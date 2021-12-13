@@ -106,7 +106,7 @@ def edit_question(question_id):
                            current_message=question['message'])
 
 
-@app.route("/question/<question_id>/new-comment", methods=["GET", "POST"])
+@app.route("/question/<question_id>/new-comment", methods=['GET', 'POST'])
 def add_comment_to_question(question_id):
     if request.method == 'POST':
         message = request.form['new-comment']
