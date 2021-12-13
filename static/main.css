@@ -55,3 +55,18 @@ footer {
   color: #d45545;
 
 }
+
+#answer_on_display_question {
+    font-size: 25px;
+}
+
+#answers_on_display_question {
+    font-family: FreeSans;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+#title_on_display_question {
+    font-size: 30px;
+    font-family: FreeSans;
+}
