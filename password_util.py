@@ -1,11 +1,11 @@
-from flask_bcrypt import Bcrypt
+import bcrypt
 
-bcrypt = Bcrypt()
 
-def generate_hashed_password(plain_text_password):
-    hashed_password = bcrypt.generate_password_hash(plain_text_password).decode('utf-8')
-    return hashed_password
+def hash_password(original_password):
+    # By using bcrypt, the salt is saved into the hash itself
+    hashed_bytes = bcrypt.hashpw(original_password.encode('utf-8'), bcrypt.gensalt())
+    return hashed_bytes.decode('utf-8')
 
-def verify_hashed_password(hashed_password, plain_text_password):
-    checked_password = bcrypt.check_password_hash(hashed_password, plain_text_password)
-    return checked_password
+def verify_password(original_password, hashed_password):
+    hashed_bytes_password = hashed_password.encode('utf-8')
+    return bcrypt.checkpw(original_password.encode('utf-8'), hashed_bytes_password)

@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import os
+from os import urandom
 import data_manager
 import password_util
 from datetime import datetime
@@ -9,7 +10,7 @@ app = Flask(__name__)
 # UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'static/images')
 UPLOAD_FOLDER = 'static/images'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
+app.secret_key = urandom(24)
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'} #not compulsory to define extensions
 
@@ -236,10 +237,12 @@ def login():
                 session['id'] = user_details['id']
                 session['username'] = user_details['username']
                 return redirect(url_for('list_questions'))
+    return render_template('login.html')
 
 @app.route("/logout")
 def logout():
     session.pop('id', None)
+    session.pop('username', None)
     return redirect(url_for('login'))
 
 
