@@ -5,8 +5,11 @@ import data_manager
 from datetime import datetime
 
 app = Flask(__name__)
+# UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'static/images')
 UPLOAD_FOLDER = 'static/images'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'} #not compulsory to define extensions
 
 
