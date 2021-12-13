@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add question tag</title>
+</head>
+<body>
+<h1>Add question tag</h1>
+<form action="/question/{{question_id}}/new-tag" method="POST">
+    <p><label for="question_tag">Select existing tag:</label><br>
+    <select id="question_tag" name="question_tag">
+        {% for tag in question_tags %}
+            <option value="{{ tag['name'] }}" > {{ tag['name'] }} </option>
+        {% endfor %}
+    </select></p>
+    <button type="submit">Add new tag</button>
+</form>
+<h4>or</h4>
+<form action="/question/{{question_id}}/new-tag" method="POST">
+    <p><label for="question_tag">Add your own tag:</label><br>
+    <input id = "custom_question_tag" name = "question_tag" type = "text"></p>
+    <button type="submit">Add new tag</button>
+</form>
+
+
+<a href="//question/{{ question_id }}">Back to the question</a>

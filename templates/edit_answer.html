@@ -1,0 +1,19 @@
+{% extends "add-question.html" %}
+{% block head %}
+    <title>Edit Question</title>
+{% endblock %}
+
+{% block title %}
+    <h1>Edit answer</h1>
+{% endblock %}
+{% block content %}
+    <form action="/answer/{{ answer_id }}/edit" method="POST" enctype="multipart/form-data">
+        {# titkosítási forma nem kötelező, de jó ha van #}
+        <h2>Current answer:</h2>
+        <label for="message"></label>
+        <textarea name="message" id="message"  rows="5" cols="40" required>{{ original_answer }}</textarea></br>
+        <p> Upload image: </p>
+        <p><input accept="image/*" type="file" name="image"> {# this is  comment not seen on the web #}</p>
+        <input type="submit" value="Submit question">
+    </form>
+{% endblock %}
