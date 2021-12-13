@@ -59,10 +59,11 @@ def delete_a_question(question_id):
 def display_question(question_id):
     question = data_manager.get_question_by_id(question_id)
     answers = data_manager.get_answers_for_question(question_id)
-    #answer_comments = data_manager.get_comments('answer_id')
-    question_comments = data_manager.get_comments('question_id', question_id)
+    question_comments = data_manager.get_question_comments(question_id)
+    for answer in answers:
+        answer['comments'] = data_manager.get_answer_comments(answer['id'])
     tags = data_manager.get_data('tag')
-    return render_template("display_question.html", question = question, answers = answers, answer_comments = answer_comments, question_comments = question_comments, tags = tags)
+    return render_template("display_question.html", question = question, answers = answers, question_comments = question_comments, tags = tags)
     # data_manager.increase_view(question_id)
 
     # list_of_comments = data_manager.get_data('comment') #gets all comments

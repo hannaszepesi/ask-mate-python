@@ -151,9 +151,26 @@ def get_answers_for_question(cursor, question_id):
 
 
 @database_common.connection_handler
-def get_comments(cursor, column_name, id):
-    cursor.execute(sql.Identifier("SELECT message, submission_time, edited_count WHERE {} = %s").format(sql.Identifier(column_name)), id)
-    cursor.fetchall()
+def get_question_comments(cursor, question_id):
+    query = """
+            SELECT * 
+            FROM comment 
+            WHERE question_id = %(question_id)s 
+            AND answer_id is NULL ;"""
+    cursor.execute(query, {'question_id': question_id})
+    return cursor.fetchall()
+
+
+@database_common.connection_handler
+def get_answer_comments(cursor, answer_id):
+    query = """
+            SELECT * 
+            FROM comment 
+            WHERE answer_id = %(answer_id)s
+            AND question_id is NULL ORDER BY submission_time DESC;"""
+    cursor.execute(query, {'answer_id': answer_id})
+    return cursor.fetchall()
+
 
 @database_common.connection_handler
 def modify_question(cursor,  title, message, image_path, question_id):
