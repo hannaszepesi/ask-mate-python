@@ -42,9 +42,9 @@
 <h3><strong>Answers:</strong></h3>
 {% for answer in answers %}
     <ul>
-
         <li><p> {{ answer['message'] }} </p></li>
         <p><strong>Vote:</strong>{{ answer['vote_number'] }}</p>
+    </ul>
         <table>
             <td>
                 <button><a href="/answer/{{ answer['id'] }}/delete"><img
@@ -67,10 +67,8 @@
                     <button type="submit"><img src="{{ url_for("static", filename='images/edit.jpg') }}" width="30">
                     </button>
                 </form>
-
             </td>
         </table>
-
 
         <br>
 <p> <strong> Comments: </strong> </p>
@@ -91,14 +89,11 @@
   <textarea name="new-comment" id="new-comment" rows="3" cols="105" required></textarea></br>
 <input type="submit" value="Submit comment" method="POST">
 </form>
-
-    </ul>
 {% endfor %}
-{% for question in questions  %}
+
 <a href="/question/{{ question['id'] }}/new-answer">Add a new answer</a><br>
 <a href="/question/{{ question['id'] }}/edit"> Edit question </a> <br>
 <a href="/question/{{ question['id'] }}/new-tag"> Add new tag </a> <br>
-{% endfor %}
 
 <a href="/">Back to home</a>
 </body>
