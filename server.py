@@ -57,52 +57,14 @@ def delete_a_question(question_id):
 #Vero
 @app.route("/question/<question_id>")
 def display_question(question_id):
-    questions = data_manager.get_question_by_id(question_id)
-    answers = data_manager.get_data('answer')
-    comments = data_manager.get_data('comment')
-    tags = data_manager.get_data('tag')
-    return render_template("display_question.html", questions = questions, answers = answers, comments = comments, tags = tags)
-    # data_manager.increase_view(question_id)
-    # questions = data_manager.get_data('question')
-    # title = ""
-    # message = ""
-    # for question in questions:
-    #     if question['id'] == int(question_id):
-    #         title = question['title']
-    #         message = question['message']
-    #         image_path_question = question['image']
-    # list_of_answers = data_manager.get_data('answer')
-    # answers = []
-    # for answer in list_of_answers:
-    #     if answer['question_id'] == int(question_id):
-    #         answer_dict = {}
-    #         answer_dict['id'] = answer['id']
-    #         answer_dict['message'] = answer['message']
-    #         answer_dict['vote_number'] = answer['vote_number']
-    #         answers.append(answer_dict)
-    # list_of_comments = data_manager.get_data('comment') #gets all comments
-    # comments_q = [] #collects comments for a certain question
-    # comments_a = [] #collects comments for a certain answer
-    # for comment in list_of_comments: #iterate over all comments, check:
-    #     if comment['question_id'] == int(question_id):
-    #         comment_q_dict = {}
-    #         comment_q_dict['id'] = comment['id']
-    #         comment_q_dict['question_id'] = comment['question_id']
-    #         comment_q_dict['message'] = comment['message']
-    #         comment_q_dict['submission_time'] = str(comment['submission_time'])
-    #         comments_q.append(comment_q_dict)
-    #         for answer in list_of_answers:
-    #             if comment['answer_id'] == answer['id']: #nézd meg, h van e comment answer id mint az answer-ben id
-    #                 comment_a_dict = {}
-    #                 comment_a_dict['id'] = comment['id']
-    #                 #comment_a_dict['question_id'] = comment['question_id'] #not sure if it will be needed
-    #                 comment_a_dict['answer_id'] = comment['answer_id']
-    #                 comment_a_dict['message'] = comment['message']
-    #                 comment_a_dict['submission_time'] = str(comment['submission_time'])
-    #                 comments_a.append(comment_a_dict)
-    # question_tags = data_manager.get_question_tag(question_id)
-    # return render_template("display_question.html", title=title, message=message, answers=answers, comments_to_questions=comments_q, comments_to_answers=comments_a,
-    #                        question_id=question_id, image_path_question=image_path_question, list_of_comments=list_of_comments, question_tags=question_tags)
+    question = data_manager.get_question_by_id(question_id)
+    answers = data_manager.get_answers_for_question(question_id)
+    question_comments = data_manager.get_question_comments(question_id)
+    for answer in answers:
+        answer['comments'] = data_manager.get_answer_comments(answer['id'])
+    tags = data_manager.get_question_tag(question_id)
+    data_manager.increase_view(question_id)
+    return render_template("display_question.html", question = question, answers = answers, question_comments = question_comments, tags = tags)
 
 
 @app.route("/answer/<answer_id>/edit", methods=['POST', 'GET']) #ide mégis kéne a get is, hiszen gettel is élünk; lekérjük az url-t, az egy get hívás

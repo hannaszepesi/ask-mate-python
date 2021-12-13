@@ -139,6 +139,38 @@ def get_answer_by_id(cursor, id):
     cursor.execute(query, {"id": id})
     return cursor.fetchone()
 
+@database_common.connection_handler
+def get_answers_for_question(cursor, question_id):
+    query = """
+    SELECT * 
+    FROM answer
+    WHERE question_id = %(question_id)s
+    """
+    cursor.execute(query, {"question_id": question_id})
+    return cursor.fetchall()
+
+
+@database_common.connection_handler
+def get_question_comments(cursor, question_id):
+    query = """
+            SELECT * 
+            FROM comment 
+            WHERE question_id = %(question_id)s 
+            AND answer_id is NULL ;"""
+    cursor.execute(query, {'question_id': question_id})
+    return cursor.fetchall()
+
+
+@database_common.connection_handler
+def get_answer_comments(cursor, answer_id):
+    query = """
+            SELECT * 
+            FROM comment 
+            WHERE answer_id = %(answer_id)s
+            AND question_id is NULL ORDER BY submission_time DESC;"""
+    cursor.execute(query, {'answer_id': answer_id})
+    return cursor.fetchall()
+
 
 @database_common.connection_handler
 def modify_question(cursor,  title, message, image_path, question_id):
