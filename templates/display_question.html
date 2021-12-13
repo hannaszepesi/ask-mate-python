@@ -2,10 +2,9 @@
 {% block content %}
 
 <body>
-{% for question in questions %}
-<h3>Title: {{ question['title'] }} </h3>
+
+<h3 id="title_on_display_question">Title: {{ question['title'] }} </h3>
  <p>Question: {{ question['message'] }}</p>
-{% endfor %}
 
 {% if question_tags %}
 <h4>
@@ -21,7 +20,7 @@
 {% endif %}
 <p> <strong> Comments: </strong> </p>
 
-{% for comment in comments_to_questions %}
+{% for comment in question_comments %}
 <ul>
     <li> {{ comment['message'] }} - {{ comment['submission_time'] }}
     <button><a href="/comment/{{ comment['id'] }}/delete">
@@ -32,20 +31,20 @@
 </ul>
 
 {% endfor %}
-{%  for question in questions %}
-<form action="/question/{{ question['id'] }}/new-comment" method="POST"> {% endfor %}
+
+<form action="/question/{{ question['id'] }}/new-comment" method="POST">
     <label for="new-comment"> Add a comment: </label><br>
   <textarea name="new-comment" id="new-comment" rows="3" cols="110" required></textarea></br>
-<input type="submit" value="Submit comment" method="POST">
+<input type="submit" value="Submit comment" method='POST'>
 </form>
 
 <br>
-<h3><strong>Answers:</strong></h3>
+<h3 id="answer_on_display_question"><strong>Answers:</strong></h3>
 {% for answer in answers %}
     <ul>
-
-        <li><p> {{ answer['message'] }} </p></li>
+        <li id="answers_on_display_question"><p> {{ answer['message'] }} </p></li>
         <p><strong>Vote:</strong>{{ answer['vote_number'] }}</p>
+    </ul>
         <table>
             <td>
                 <button><a href="/answer/{{ answer['id'] }}/delete"><img
@@ -68,15 +67,13 @@
                     <button type="submit"><img src="{{ url_for("static", filename='images/edit.jpg') }}" width="30">
                     </button>
                 </form>
-
             </td>
         </table>
-
 
         <br>
 <p> <strong> Comments: </strong> </p>
 
-{% for comment in comments_to_answers %}
+{% for comment in answer['comments'] %}
 <ul>
     <li> {{ comment['message'] }} - {{ comment['submission_time'] }}
     <button><a href="/comment/{{ comment['id'] }}/delete">
@@ -92,14 +89,11 @@
   <textarea name="new-comment" id="new-comment" rows="3" cols="105" required></textarea></br>
 <input type="submit" value="Submit comment" method="POST">
 </form>
-
-    </ul>
 {% endfor %}
-{% for question in questions  %}
+
 <a href="/question/{{ question['id'] }}/new-answer">Add a new answer</a><br>
 <a href="/question/{{ question['id'] }}/edit"> Edit question </a> <br>
 <a href="/question/{{ question['id'] }}/new-tag"> Add new tag </a> <br>
-{% endfor %}
 
 <a href="/">Back to home</a>
 </body>

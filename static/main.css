@@ -36,7 +36,7 @@ footer {
   font-weight: bold;
   color: black;
   border-collapse: collapse;
-  width: 300%;
+  width: 190%;
 }
 
 #index_table td, #index_table th {
@@ -58,4 +58,19 @@ footer {
   background-color: #a8d6d9;
   color: #d45545;
 
+}
+
+#answer_on_display_question {
+    font-size: 25px;
+}
+
+#answers_on_display_question {
+    font-family: FreeSans;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+#title_on_display_question {
+    font-size: 30px;
+    font-family: FreeSans;
 }
