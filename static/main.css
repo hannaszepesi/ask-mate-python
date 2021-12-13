@@ -4,6 +4,8 @@ body {
     width: 90%;
     margin: 120px;
     display: flex;
+    font-family: system-ui;
+    color: white;
 }
 footer {
   position: fixed;
@@ -30,7 +32,9 @@ footer {
 }
 
 #index_table {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: system-ui;
+  font-weight: bold;
+  color: black;
   border-collapse: collapse;
   width: 300%;
 }
