@@ -2,10 +2,9 @@
 {% block content %}
 
 <body>
-{% for question in questions %}
+
 <h3>Title: {{ question['title'] }} </h3>
  <p>Question: {{ question['message'] }}</p>
-{% endfor %}
 
 {% if question_tags %}
 <h4>

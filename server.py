@@ -57,29 +57,14 @@ def delete_a_question(question_id):
 #Vero
 @app.route("/question/<question_id>")
 def display_question(question_id):
-    questions = data_manager.get_question_by_id(question_id)
-    answers = data_manager.get_data('answer')
-    comments = data_manager.get_data('comment')
+    question = data_manager.get_question_by_id(question_id)
+    answers = data_manager.get_answers_for_question(question_id)
+    #answer_comments = data_manager.get_comments('answer_id')
+    question_comments = data_manager.get_comments('question_id', question_id)
     tags = data_manager.get_data('tag')
-    return render_template("display_question.html", questions = questions, answers = answers, comments = comments, tags = tags)
+    return render_template("display_question.html", question = question, answers = answers, answer_comments = answer_comments, question_comments = question_comments, tags = tags)
     # data_manager.increase_view(question_id)
-    # questions = data_manager.get_data('question')
-    # title = ""
-    # message = ""
-    # for question in questions:
-    #     if question['id'] == int(question_id):
-    #         title = question['title']
-    #         message = question['message']
-    #         image_path_question = question['image']
-    # list_of_answers = data_manager.get_data('answer')
-    # answers = []
-    # for answer in list_of_answers:
-    #     if answer['question_id'] == int(question_id):
-    #         answer_dict = {}
-    #         answer_dict['id'] = answer['id']
-    #         answer_dict['message'] = answer['message']
-    #         answer_dict['vote_number'] = answer['vote_number']
-    #         answers.append(answer_dict)
+
     # list_of_comments = data_manager.get_data('comment') #gets all comments
     # comments_q = [] #collects comments for a certain question
     # comments_a = [] #collects comments for a certain answer
