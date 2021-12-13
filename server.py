@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import os
 import data_manager
+import password_util
 from datetime import datetime
 
 app = Flask(__name__)
@@ -216,6 +217,30 @@ def question_tags(question_id):
 def delete_question_tag(question_id, tag_id):
     data_manager.delete_tag(question_id, tag_id)
     return redirect(f"/question/{question_id}")
+
+@app.route("/login", methods = ["POST", "GET"])
+def login():
+    #kelleni fog egy users tábla, ahova tesszük őket
+    if request.method == "POST":
+        email_input = request.form.get('email')
+        password_input = request.form.get('password')
+        user_details = data_manager.get_user_details(email_input)
+        if not user_details: #ha nincs ilyen user
+            flash("No such username")
+        else:
+            password_verified = password_util.verify_hashed_password(user_details['password'], email_input)
+            if not password_verified: #ha nem oké a jelszó
+                flash("Wrong username or password")
+                return redirect(url_for('login'))
+            else:
+                session['id'] = user_details['id']
+                session['username'] = user_details['username']
+                return redirect(url_for('list_questions'))
+
+@app.route("/logout")
+def logout():
+    session.pop('id', None)
+    return redirect(url_for('login'))
 
 
 if __name__ == "__main__":
