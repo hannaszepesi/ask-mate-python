@@ -305,3 +305,4 @@ def delete_tag(cursor, question_id, tag_id):
     WHERE question_id = %(q_id)s AND tag_id = %(t_id)s
     """
     cursor.execute(query, {"q_id": question_id, "t_id": tag_id})
+

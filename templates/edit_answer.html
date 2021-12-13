@@ -1,12 +1,7 @@
-{% extends "add-question.html" %}
-{% block head %}
-    <title>Edit Question</title>
-{% endblock %}
-
-{% block title %}
-    <h1>Edit answer</h1>
-{% endblock %}
+{% extends "navbar.html" %}
 {% block content %}
+
+    <h1>Edit answer</h1>
     <form action="/answer/{{ answer_id }}/edit" method="POST" enctype="multipart/form-data">
         {# titkosítási forma nem kötelező, de jó ha van #}
         <h2>Current answer:</h2>
@@ -16,4 +11,7 @@
         <p><input accept="image/*" type="file" name="image"> {# this is  comment not seen on the web #}</p>
         <input type="submit" value="Submit question">
     </form>
+
+
+{% include 'footer.html' %}
 {% endblock %}

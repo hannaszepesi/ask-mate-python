@@ -1,12 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import os
+from os import urandom
 import data_manager
+import password_util
 from datetime import datetime
 
 app = Flask(__name__)
+# UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'static/images')
 UPLOAD_FOLDER = 'static/images'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.secret_key = urandom(24)
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'} #not compulsory to define extensions
 
 
@@ -101,7 +106,7 @@ def edit_question(question_id):
             image.save(image_path)
         data_manager.modify_question(new_title, new_message, filename, question_id)  # ez írja át a question.csv-t
         return redirect(f'/question/{question_id}') #jelenítsd meg a frissült kérdést
-    return render_template("edit.html", question_id=question_id,
+    return render_template("edit_question.html", question_id=question_id,
                            current_title=question['title'],
                            current_message=question['message'])
 
@@ -213,6 +218,32 @@ def question_tags(question_id):
 def delete_question_tag(question_id, tag_id):
     data_manager.delete_tag(question_id, tag_id)
     return redirect(f"/question/{question_id}")
+
+@app.route("/login", methods = ["POST", "GET"])
+def login():
+    #kelleni fog egy users tábla, ahova tesszük őket
+    if request.method == "POST":
+        email_input = request.form.get('email')
+        password_input = request.form.get('password')
+        user_details = data_manager.get_user_details(email_input)
+        if not user_details: #ha nincs ilyen user
+            flash("No such username")
+        else:
+            password_verified = password_util.verify_hashed_password(user_details['password'], email_input)
+            if not password_verified: #ha nem oké a jelszó
+                flash("Wrong username or password")
+                return redirect(url_for('login'))
+            else:
+                session['id'] = user_details['id']
+                session['username'] = user_details['username']
+                return redirect(url_for('list_questions'))
+    return render_template('login.html')
+
+@app.route("/logout")
+def logout():
+    session.pop('id', None)
+    session.pop('username', None)
+    return redirect(url_for('login'))
 
 
 if __name__ == "__main__":
