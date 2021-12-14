@@ -255,7 +255,7 @@ def logout():
 def users():
     if 'user' in session:
         users = data_manager.get_users()
-        return render_template('users.html', users=users)
+        return render_template('all_users.html', users=users)
     else:
         return render_template('index.html')
 
