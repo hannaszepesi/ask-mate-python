@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "navbar.html" %}
+{% block content %}
+
 <h1>Add a new answer</h1>
 <form method="POST" action="/question/{{ question_id }}/new-answer">
     <label for="message">Message:</label><br>
@@ -17,5 +13,6 @@
     <br><br>
 </form>
 <a href="/list">Cancel</a>
-</body>
-</html>
+
+{% include 'footer.html' %}
+{% endblock %}

@@ -1,59 +1,105 @@
 body {
-    background-color:  #d45545;
+    background-color: #d45545;
     display: grid;
     width: 90%;
     margin: 120px;
     display: flex;
+    font-family: system-ui;
+    color: white;
 }
+
 footer {
-  position: fixed;
+    position: fixed;
     display: grid;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: #6cbcc4;
-  color: black;
-  text-align: center;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #6cbcc4;
+    color: black;
+    text-align: center;
     font-family: "Droid Sans";
-    font-size: 30px;
 }
 
 .navbar {
     background-color: #6cbcc4;
-    height: 100px;
+    height: 110px;
     display: grid;
     width: 100%;
     position: fixed;
-    top:0px;
+    top: 0px;
     bottom: 150px;
     left: 0px;
 }
 
-#index_table {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 190%;
+.search {
+    position: absolute;
+    top: 3%;
+    padding-top: -500px;
+    right: 700px;
+    width: 200px;
+    height: 40px;
 }
 
+.login{
+
+
+}
+.search-button{
+    margin: 0;
+    position: absolute;
+    top: 3%;
+    right: 120px;
+    -ms-transform: translateX(700%);
+    transform: translateX(700%);
+}
+
+.horizontal-login-register{
+    margin: 0;
+    position: absolute;
+    top: 1%;
+    -ms-transform: translateX(1500%);
+    transform: translateX(1500%);
+}
+
+
+.question_button{
+    align-content: end;
+}
+
+#index_table {
+    font-family: system-ui;
+    font-weight: bold;
+    color: black;
+    border-collapse: collapse;
+    width: 120%;
+}
+
+
 #index_table td, #index_table th {
-  border: 1px solid #ddd;
-  padding: 8px;
+    border: 1px solid #ddd;
+    padding: 8px;
 }
 
 #index_table tr {
     background-color: white;
 }
 
-#index_table tr:nth-child(even){background-color: #f2f2f2;}
+#index_table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
 
 
 #index_table th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #a8d6d9;
-  color: #d45545;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #a8d6d9;
+    color: #d45545;
 
+}
+
+a {
+    color: white;
 }
 
 #answer_on_display_question {
@@ -61,12 +107,12 @@ footer {
 }
 
 #answers_on_display_question {
-    font-family: FreeSans;
+    font-family: system-ui;
     font-weight: bold;
     font-size: 17px;
 }
 
 #title_on_display_question {
     font-size: 30px;
-    font-family: FreeSans;
+    font-family: system-ui;
 }
