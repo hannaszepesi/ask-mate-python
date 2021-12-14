@@ -250,7 +250,6 @@ def login():
         email_input = request.form.get('email')
         password_input = request.form.get('password')
         user_details = data_manager.get_user_by_email(email_input)
-        print(user_details)
         if not user_details: #ha nincs ilyen user
             flash("No such username")
             return redirect(url_for('login'))
