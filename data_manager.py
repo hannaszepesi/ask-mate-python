@@ -306,6 +306,17 @@ def delete_tag(cursor, question_id, tag_id):
     """
     cursor.execute(query, {"q_id": question_id, "t_id": tag_id})
 
+
+@database_common.connection_handler
+def get_user_by_email(cursor, email):
+    query = """
+         SELECT *
+         FROM users
+         WHERE username = %s
+         """
+    cursor.execute(query, (email,))
+
+
 @database_common.connection_handler
 def get_users(cursor):
     query = """
@@ -313,3 +324,10 @@ def get_users(cursor):
     FROM users
     """
     cursor.execute(query, )
+
+@database_common.connection_handler
+def add_new_user(cursor, username, hashed_password, reg_date):
+    query = """
+    INSERT INTO users (username, hashed_password, registration_date, asked_questions, answers, comments, reputation)
+    VALUES( %s, %s, %s, 0, 0, 0, 0);"""
+    cursor.execute(query, (username, hashed_password, reg_date,))

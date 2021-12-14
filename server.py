@@ -209,6 +209,17 @@ def search_question():
     search_phrase = request.args.get('question')
     found_phrase = data_manager.search_question(search_phrase)
     return render_template('search.html', result=found_phrase, search_phrase=search_phrase)
+
+
+@app.route("/registration", methods=['Post'])
+def registration():
+    username = request.form.get('username')
+    print(username)
+    password = request.args.get('password')
+    hashed_password = password_util.hash_password(str(password))
+    reg_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    data_manager.add_new_user(username, hashed_password, reg_date)
+    return redirect('index.html')
 # Luti
 
 
@@ -243,7 +254,7 @@ def login():
     if request.method == "POST":
         email_input = request.form.get('email')
         password_input = request.form.get('password')
-        user_details = data_manager.get_user_details(email_input)
+        user_details = data_manager.get_user_by_email(email_input)
         if not user_details: #ha nincs ilyen user
             flash("No such username")
         else:
@@ -276,6 +287,6 @@ def users():
 if __name__ == "__main__":
     app.run(
         host='0.0.0.0',
-        port=8000,
+        port=7000,
         debug=True,
     )
