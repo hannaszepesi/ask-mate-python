@@ -251,12 +251,12 @@ def login():
         email_input = request.form.get('email')
         password_input = request.form.get('password')
         user_details = data_manager.get_user_by_email(email_input)
-        # hashed_password = password_util.hash_password(password_input)
+        print(user_details)
         if not user_details: #ha nincs ilyen user
             flash("No such username")
             return redirect(url_for('login'))
         else:
-            password_verified = password_util.verify_password(password_input, hashed_password)
+            password_verified = password_util.verify_password(password_input, user_details['hashed_password'])
             if not password_verified: #ha nem oké a jelszó
                 flash("Wrong username or password")
                 return redirect(url_for('login'))
@@ -269,6 +269,7 @@ def login():
 def logout():
     session.pop('id', None)
     session.pop('username', None)
+    flash("You have been logged out")
     return redirect(url_for('login'))
 
     # There should be a page where I can list all the registered users with all their attributes.
