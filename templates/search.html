@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<br lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Question list</title>
-</head>
-<img src="{{ url_for("static", filename='images/question.jpg') }}" width="400">
+{% extends "navbar.html" %}
+{% block page_title %}
+    Question list
+{% endblock %}
+{% block content %}
+<body>
 {#<form action="{{ url_for('list_questions') }}">#}
 {#    <label for="sort_by"><strong>Sort by:</strong></label>#}
 {#    <select id="sort_by" name="sort_by">#}
@@ -50,4 +49,6 @@
         <td> {{ result['message'] }}</td>
     </tr>
 </table>
-</html>
+</body>
+    {% include 'footer.html' %}
+{% endblock %}

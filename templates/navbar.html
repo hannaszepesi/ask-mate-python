@@ -2,32 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block page_title %}{% endblock %} - Application process</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block page_title %}{% endblock %} - AskMate</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
 <div>
+    <div>
     <header class="navbar">
         <img src="../static/images/logo.png">
-    <div class="search">
-    <form action="{{ url_for('search_question') }}">
-      <input id="question" type="text" name="question" placeholder="Search..">
-      <button type="submit">Search</button>
-    </form>
-        <form action="{{ url_for('search_question') }}">
-      <input id="email" type="text" name="email" placeholder="E-mail...">
-      <input id="password" type="text" name="password" placeholder="Password...">
-      <button type="submit">Login</button>
-    </form>
     </div>
-</div>
-    </header>
-    <section>
-        <h2 class="title text-center">{{ self.page_title() }}</h2>
+    <div class="search">
+        <form action="{{ url_for('search_question') }}">
+            <input id="question_button" type="text" name="question" placeholder="Search.." size="50"/>
+            <div class="search-button">
+            <button type="submit">Search</button>
+            </div>
+        </form>
+    </div>
 
-        {% block content %}{% endblock %}
-    </section>
+
+    <div class="horizontal-login-register">
+        <form action="{{ url_for('login') }}">
+            <p><button type="submit">Login</button></p>
+        </form>
+        <form action="{{ url_for('register') }}">
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+</div>
+</div>
+</header>
+<section>
+    <h2 class="title text-center">{{ self.page_title() }}</h2>
+
+    {% block content %}{% endblock %}
+</section>
 </div>
 </body>
 </html>
