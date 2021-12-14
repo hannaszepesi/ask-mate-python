@@ -36,6 +36,7 @@ def list_questions():
 @app.route('/question/<question_id>/new-answer', methods = ['GET', 'POST'])
 def new_answer(question_id):
     if request.method == "POST":
+        user_id = session['id']
         submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         vote_number =str(0)
         question_id = question_id
@@ -46,7 +47,7 @@ def new_answer(question_id):
             filename = secure_filename(image.filename)
             image_path = os.path.dirname(__file__) + app.config['UPLOAD_FOLDER'] + filename
             image.save(image_path)
-        data_manager.write_answer(submission_time, vote_number, question_id, message, filename)
+        data_manager.write_answer(submission_time, vote_number, question_id, message, filename, user_id)
         return redirect("/question/" + str(question_id))
     return render_template("new_answer.html", question_id=question_id)
 
@@ -120,9 +121,10 @@ def edit_question(question_id):
 @app.route("/question/<question_id>/new-comment", methods=['GET', 'POST'])
 def add_comment_to_question(question_id):
     if request.method == 'POST':
+        user_id = session['id']
         message = request.form['new-comment']
         submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        data_manager.write_comment(question_id, message, submission_time)
+        data_manager.write_comment(question_id, message, submission_time, user_id)
         return redirect(f'/question/{question_id}')
     return render_template('display_question.html', question_id=question_id)
 
@@ -132,9 +134,10 @@ def add_comment_to_answer(answer_id):
     question_id_dict = data_manager.get_question_by_answer_id(answer_id)
     question_id = question_id_dict['question_id']
     if request.method == "POST":
+        user_id = session['id']
         message = request.form['new-comment']
         submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        data_manager.write_comment_to_answer(answer_id, message, submission_time)
+        data_manager.write_comment_to_answer(answer_id, message, submission_time, user_id)
         return redirect(f'/question/{question_id}')
     return render_template('display_question.html', question_id=question_id, answer_id=answer_id)
 
@@ -165,6 +168,7 @@ def add_question():
     view_number = 0
     vote_number = 0
     if request.method == 'POST':
+        user_id = session['id']
         submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         view_number = view_number
         vote_number = vote_number
@@ -176,7 +180,7 @@ def add_question():
             filename = secure_filename(image.filename)
             image_path = os.path.dirname(__file__) + app.config['UPLOAD_FOLDER'] + filename
             image.save(image_path)
-        data_manager.write_question(submission_time, view_number, vote_number, title, message, filename)
+        data_manager.write_question(submission_time, view_number, vote_number, title, message, filename, user_id)
         return redirect("/")
     return render_template('add-question.html', id=id, question=data_manager.get_data('question'))
 
@@ -204,7 +208,8 @@ def search_question():
 
 @app.route("/registration", methods=['Post'])
 def registration():
-    username = request.args.get('username')
+    username = request.form.get('username')
+    print(username)
     password = request.args.get('password')
     hashed_password = password_util.hash_password(str(password))
     reg_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
