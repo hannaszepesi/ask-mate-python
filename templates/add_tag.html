@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add question tag</title>
-</head>
+{% extends "navbar.html" %}
+{% block page_title %}
+    Add question tag
+{% endblock %}
+{% block content %}
 <body>
-<h1>Add question tag</h1>
 <form action="/question/{{question_id}}/new-tag" method="POST">
     <p><label for="question_tag">Select existing tag:</label><br>
     <select id="question_tag" name="question_tag">
@@ -24,3 +22,6 @@
 
 
 <a href="//question/{{ question_id }}">Back to the question</a>
+</body>
+    {% include 'footer.html' %}
+{% endblock %}

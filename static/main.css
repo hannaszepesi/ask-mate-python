@@ -1,12 +1,13 @@
 body {
     background-color: #d45545;
     display: grid;
-    width: 90%;
+    width: 90em;
     margin: 120px;
     display: flex;
     font-family: system-ui;
     color: white;
 }
+
 
 footer {
     position: fixed;
@@ -33,7 +34,7 @@ footer {
 
 .search {
     position: absolute;
-    top: 3%;
+    top: 30%;
     padding-top: -500px;
     right: 700px;
     width: 200px;
@@ -53,14 +54,28 @@ footer {
     transform: translateX(700%);
 }
 
-.horizontal-login-register{
-    margin: 0;
-    position: absolute;
-    top: 1%;
-    -ms-transform: translateX(1500%);
-    transform: translateX(1500%);
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
 }
 
+.login-button{
+    margin: 0;
+    position: absolute;
+    top: 15%;
+    right: 100px;
+}
+
+.register-button{
+    margin: 0;
+    position: absolute;
+    top: 30%;
+    right: 150px;
+}
 
 .question_button{
     align-content: end;
