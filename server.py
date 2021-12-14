@@ -240,13 +240,16 @@ def delete_question_tag(question_id, tag_id):
 
 @app.route("/login", methods = ["POST", "GET"])
 def login():
-    if request.method == "POST":
+    if request.method == "GET":
+        return render_template('login.html')
+    elif request.method == "POST":
         email_input = request.form.get('email')
         password_input = request.form.get('password')
         user_details = data_manager.get_user_by_email(email_input)
-        hashed_password = password_util.hash_password(password_input)
+        # hashed_password = password_util.hash_password(password_input)
         if not user_details: #ha nincs ilyen user
             flash("No such username")
+            return redirect(url_for('login'))
         else:
             password_verified = password_util.verify_password(password_input, hashed_password)
             if not password_verified: #ha nem oké a jelszó
@@ -256,8 +259,6 @@ def login():
                 session['id'] = user_details['user_id']
                 session['username'] = user_details['username']
                 return redirect(url_for('list_questions'))
-    elif request.method == "GET":
-        return render_template('login.html')
 
 @app.route("/logout")
 def logout():
