@@ -160,11 +160,6 @@ def edit_comment(comment_id):
     return render_template('edit_comment.html', original_comment = original_comment, q_id=question_id, comment_id=comment_id)
 
 
-@app.route("/register", methods=['GET'])
-def register():
-    return render_template('register.html')
-
-
 @app.route("/add-question", methods=['POST', 'GET'])
 def add_question():
     view_number = 0
@@ -281,6 +276,6 @@ def users():
 if __name__ == "__main__":
     app.run(
         host='0.0.0.0',
-        port=7000,
+        port=5000,
         debug=True,
     )

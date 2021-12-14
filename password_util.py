@@ -12,5 +12,3 @@ def verify_password(original_password, hashed_password):
 
 def main():
     hash_password('malacka')
-
-if __name__ ="__main__":
