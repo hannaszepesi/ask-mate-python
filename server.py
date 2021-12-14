@@ -8,7 +8,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 # UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'static/images')
-UPLOAD_FOLDER = 'static/images'
+UPLOAD_FOLDER = '/static/images/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = urandom(24)
 
@@ -99,10 +99,10 @@ def edit_question(question_id):
         new_title = request.form['title']
         new_message = request.form['message']
         filename = ''
-        if 'image' in request.files:
+        if request.files.get('image').filename != "":
             image = request.files['image']
             filename = secure_filename(image.filename)
-            image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            image_path = os.path.dirname(__file__)+app.config['UPLOAD_FOLDER']+filename
             image.save(image_path)
         data_manager.modify_question(new_title, new_message, filename, question_id)  # ez írja át a question.csv-t
         return redirect(f'/question/{question_id}') #jelenítsd meg a frissült kérdést
