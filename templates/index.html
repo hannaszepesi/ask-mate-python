@@ -64,10 +64,15 @@
 
         {% endfor %}
     </table>
-    <br>
-    <br>
-    <br>
-    <a href="/add-question"><img src="{{ url_for("static", filename='images/ask.png') }}" width="150"></a>
+    <br>    <br>    <br>
+
+    <div>
+        <a href="/add-question"><img src="{{ url_for("static", filename='images/ask.png') }}" width="150"></a>
+    </div>
+    <div>
+        <a href="/users">List all users</a>
+    </div>
+
     </body>
     {% include 'footer.html' %}
 {% endblock %}

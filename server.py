@@ -250,6 +250,15 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
 
+    # There should be a page where I can list all the registered users with all their attributes.
+@app.route("/users")
+def users():
+    if 'user' in session:
+        users = data_manager.get_users()
+        return render_template('users.html', users=users)
+    else:
+        return render_template('index.html')
+
 
 if __name__ == "__main__":
     app.run(
