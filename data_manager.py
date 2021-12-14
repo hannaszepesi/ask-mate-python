@@ -308,13 +308,14 @@ def delete_tag(cursor, question_id, tag_id):
 
 
 @database_common.connection_handler
-def get_user_by_email(cursor, email):
+def get_user_by_email(cursor, username):
     query = """
          SELECT *
          FROM users
-         WHERE username = %s
+         WHERE username = %(username)s;
          """
-    cursor.execute(query, (email,))
+    cursor.execute(query, {"username":username})
+    return cursor.fetchone()
 
 
 @database_common.connection_handler
