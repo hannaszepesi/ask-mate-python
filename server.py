@@ -255,7 +255,8 @@ def login():
                 session['id'] = user_details['id']
                 session['username'] = user_details['username']
                 return redirect(url_for('list_questions'))
-    return render_template('login.html')
+    elif request.method == "GET":
+        return render_template('login.html')
 
 @app.route("/logout")
 def logout():
