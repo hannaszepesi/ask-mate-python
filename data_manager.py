@@ -306,3 +306,10 @@ def delete_tag(cursor, question_id, tag_id):
     """
     cursor.execute(query, {"q_id": question_id, "t_id": tag_id})
 
+@database_common.connection_handler
+def get_users(cursor):
+    query = """
+    SELECT *
+    FROM users
+    """
+    cursor.execute(query, )

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from werkzeug.utils import secure_filename
 import os
 from os import urandom
@@ -258,6 +258,15 @@ def logout():
     session.pop('id', None)
     session.pop('username', None)
     return redirect(url_for('login'))
+
+    # There should be a page where I can list all the registered users with all their attributes.
+@app.route("/users")
+def users():
+    if 'user' in session:
+        users = data_manager.get_users()
+        return render_template('all_users.html', users=users)
+    else:
+        return redirect(url_for('list_questions'))
 
 
 if __name__ == "__main__":
