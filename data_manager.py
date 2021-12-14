@@ -321,8 +321,13 @@ def get_user_by_email(cursor, username):
 @database_common.connection_handler
 def get_users(cursor):
     query = """
-    SELECT *
-    FROM users;
+    SELECT u.username, u.registration_date, u.reputation,
+    COUNT (distinct question.id) as asked_questions, COUNT (distinct answer.id) as answers, COUNT (distinct comment.id) as comments
+    FROM users as u
+    LEFT JOIN question ON u.user_id = question.user_id
+    LEFT JOIN answer ON u.user_id = answer.user_id
+    LEFT JOIN comment ON u.user_id = comment.user_id
+    GROUP BY u.username, u.registration_date, u.reputation;   
     """
     cursor.execute(query)
     return cursor.fetchall()
