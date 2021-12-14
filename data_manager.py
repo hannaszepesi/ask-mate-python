@@ -347,3 +347,16 @@ def change_reputation(cursor, increment, user_id):
              SET reputation = reputation + %s
              WHERE user_id = %s;"""
     cursor.execute(query, (increment, user_id,))
+
+
+@database_common.connection_handler
+def get_tags_with_numbers(cursor):
+    query = """
+         SELECT t.name, COUNT(q.tag_id) as number
+         FROM tag as t
+         INNER JOIN question_tag as q
+         ON t.id = q.tag_id
+         GROUP BY t.id;
+         """
+    cursor.execute(query)
+    return cursor.fetchall()

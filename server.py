@@ -318,6 +318,12 @@ def gain_rep_question(id, vote):
     return redirect('/')
 
 
+@app.route('/tags')
+def tags():
+    tags = data_manager.get_tags_with_numbers()
+    return render_template('tags.html', tags=tags)
+
+
 if __name__ == "__main__":
     app.run(
         host='0.0.0.0',
