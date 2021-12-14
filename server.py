@@ -40,8 +40,13 @@ def new_answer(question_id):
         vote_number =str(0)
         question_id = question_id
         message = request.form.get("message")
-        image = request.form.get("image")
-        data_manager.write_answer(submission_time, vote_number, question_id, message, image)
+        filename = ''
+        if request.files.get('image').filename != "":
+            image = request.files['image']
+            filename = secure_filename(image.filename)
+            image_path = os.path.dirname(__file__) + app.config['UPLOAD_FOLDER'] + filename
+            image.save(image_path)
+        data_manager.write_answer(submission_time, vote_number, question_id, message, filename)
         return redirect("/question/" + str(question_id))
     return render_template("new_answer.html", question_id=question_id)
 
@@ -76,17 +81,18 @@ def display_question(question_id):
 def edit_answer(answer_id):
     answer = data_manager.get_answer_by_id(answer_id)
     answer_id = answer_id
+    question = data_manager.get_question_by_answer_id(answer_id)
     original_answer = answer['message']
     if request.method == "POST":
         new_message = request.form['message']
-        filename = ""
-        if 'image' in request.files:
+        filename = ''
+        if request.files.get('image').filename != "":
             image = request.files['image']
             filename = secure_filename(image.filename)
-            image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            image_path = os.path.dirname(__file__)+app.config['UPLOAD_FOLDER']+filename
             image.save(image_path)
-            data_manager.edit_answer(new_message, answer_id, image_path)
-        return redirect("/")
+            data_manager.edit_answer(new_message, answer_id, filename)
+        return redirect(url_for('display_question', question_id=question['question_id']))
     else:
 
         return render_template("edit_answer.html", answer_id = answer_id, original_answer = original_answer) #ide redirect question/question<id> kéne, hogy amikor posttal beküldöd a formot, vigyen vissza a kérdéshez
@@ -164,15 +170,18 @@ def add_question():
     view_number = 0
     vote_number = 0
     if request.method == 'POST':
-        questions = data_manager.get_data('question')
         submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         view_number = view_number
         vote_number = vote_number
         title = request.form['title']
         message= request.form['message']
-        image = vote_number
-        data_manager.write_question(submission_time, view_number, vote_number, title, message, image)
-        question_id = questions[-1]['id'] #itt -1, köv. sorban +1, mert csak így tudtuk összehozni azt, hogy utolsó ID-val rendelkezőt jelenítse meg
+        filename = ''
+        if request.files.get('image').filename != "":
+            image = request.files['image']
+            filename = secure_filename(image.filename)
+            image_path = os.path.dirname(__file__) + app.config['UPLOAD_FOLDER'] + filename
+            image.save(image_path)
+        data_manager.write_question(submission_time, view_number, vote_number, title, message, filename)
         return redirect("/")
     return render_template('add-question.html', id=id, question=data_manager.get_data('question'))
 
@@ -196,6 +205,16 @@ def search_question():
     search_phrase = request.args.get('question')
     found_phrase = data_manager.search_question(search_phrase)
     return render_template('search.html', result=found_phrase, search_phrase=search_phrase)
+
+
+@app.route("/registration", methods=['Post'])
+def registration():
+    username = request.args.get('username')
+    password = request.args.get('password')
+    hashed_password = password_util.hash_password(str(password))
+    reg_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    data_manager.add_new_user(username, hashed_password, reg_date)
+    return redirect('index.html')
 # Luti
 
 
@@ -229,7 +248,7 @@ def login():
     if request.method == "POST":
         email_input = request.form.get('email')
         password_input = request.form.get('password')
-        user_details = data_manager.get_user_details(email_input)
+        user_details = data_manager.get_user_by_email(email_input)
         if not user_details: #ha nincs ilyen user
             flash("No such username")
         else:
@@ -262,6 +281,6 @@ def users():
 if __name__ == "__main__":
     app.run(
         host='0.0.0.0',
-        port=8000,
+        port=7000,
         debug=True,
     )

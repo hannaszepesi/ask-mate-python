@@ -15,8 +15,8 @@
 {% endfor %}
 </h4>
 {% endif %}
-{% if image_path_question != None %}
-<img src={{ url_for('static',filename='images/'~image_path_question) }} width="150px">
+{% if question['image'] != '' %}
+<img src={{ url_for('static',filename='images/'~question['image']) }} width="150px">
 {% endif %}
 <p> <strong> Comments: </strong> </p>
 
@@ -43,6 +43,9 @@
     {% for answer in answers %}
         <ul>
             <li id="answers_on_display_question"><p> {{ answer['message'] }} </p></li>
+            {% if answer['image'] != '' %}
+            <img src={{ url_for('static',filename='images/'~answer['image']) }} width="150px">
+            {% endif %}
             <p><strong>Vote:</strong>{{ answer['vote_number'] }}</p>
         </ul>
         <table>
