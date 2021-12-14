@@ -2,12 +2,12 @@
 {% block content %}
 
 <h1>Add a new answer</h1>
-<form method="POST" action="/question/{{ question_id }}/new-answer">
+<form method="POST" action="/question/{{ question_id }}/new-answer" enctype="multipart/form-data">
     <label for="message">Message:</label><br>
     <textarea id="message" name="message" rows="10" cols="40"></textarea><br>
 
-    <label for="image">Add an image</label><br>
-    <input type="url" name="image" id="image"><br>
+    <p> Upload image: </p>
+    <p> <input accept="image/*" type="file" name="image"> {# this is  comment not seen on the web #}</p>
     <br>
     <button type="submit">Submit</button>
     <br><br>

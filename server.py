@@ -40,8 +40,13 @@ def new_answer(question_id):
         vote_number =str(0)
         question_id = question_id
         message = request.form.get("message")
-        image = request.form.get("image")
-        data_manager.write_answer(submission_time, vote_number, question_id, message, image)
+        filename = ''
+        if request.files.get('image').filename != "":
+            image = request.files['image']
+            filename = secure_filename(image.filename)
+            image_path = os.path.dirname(__file__) + app.config['UPLOAD_FOLDER'] + filename
+            image.save(image_path)
+        data_manager.write_answer(submission_time, vote_number, question_id, message, filename)
         return redirect("/question/" + str(question_id))
     return render_template("new_answer.html", question_id=question_id)
 
@@ -76,17 +81,18 @@ def display_question(question_id):
 def edit_answer(answer_id):
     answer = data_manager.get_answer_by_id(answer_id)
     answer_id = answer_id
+    question = data_manager.get_question_by_answer_id(answer_id)
     original_answer = answer['message']
     if request.method == "POST":
         new_message = request.form['message']
-        filename = ""
-        if 'image' in request.files:
+        filename = ''
+        if request.files.get('image').filename != "":
             image = request.files['image']
             filename = secure_filename(image.filename)
-            image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            image_path = os.path.dirname(__file__)+app.config['UPLOAD_FOLDER']+filename
             image.save(image_path)
-            data_manager.edit_answer(new_message, answer_id, image_path)
-        return redirect("/")
+            data_manager.edit_answer(new_message, answer_id, filename)
+        return redirect(url_for('display_question', question_id=question['question_id']))
     else:
 
         return render_template("edit_answer.html", answer_id = answer_id, original_answer = original_answer) #ide redirect question/question<id> kéne, hogy amikor posttal beküldöd a formot, vigyen vissza a kérdéshez
@@ -164,15 +170,18 @@ def add_question():
     view_number = 0
     vote_number = 0
     if request.method == 'POST':
-        questions = data_manager.get_data('question')
         submission_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         view_number = view_number
         vote_number = vote_number
         title = request.form['title']
         message= request.form['message']
-        image = vote_number
-        data_manager.write_question(submission_time, view_number, vote_number, title, message, image)
-        question_id = questions[-1]['id'] #itt -1, köv. sorban +1, mert csak így tudtuk összehozni azt, hogy utolsó ID-val rendelkezőt jelenítse meg
+        filename = ''
+        if request.files.get('image').filename != "":
+            image = request.files['image']
+            filename = secure_filename(image.filename)
+            image_path = os.path.dirname(__file__) + app.config['UPLOAD_FOLDER'] + filename
+            image.save(image_path)
+        data_manager.write_question(submission_time, view_number, vote_number, title, message, filename)
         return redirect("/")
     return render_template('add-question.html', id=id, question=data_manager.get_data('question'))
 

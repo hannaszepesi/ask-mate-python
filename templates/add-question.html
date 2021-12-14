@@ -1,20 +1,22 @@
 {% extends "navbar.html" %}
 {% block content %}
 
-<body>
+    <body>
     <h1>Add question</h1>
-    <form action="/add-question" method="POST">
+    <form action={{ url_for('add_question') }} method="POST" enctype="multipart/form-data">
         Title:<br>
         <label for="title"></label>
-        <input type=""text id="title" name="title" required>
-    <br>
+        <input type="text" id="title" name="title" required>
+        <br>
         Question:<br>
         <label for="message"></label>
-    <textarea name=message id="message" rows="5" cols="40" required></textarea></br>
-    <br>
-        <input type="submit" value="Submit question" method="POST">
+        <textarea name=message id="message" rows="5" cols="40" required></textarea></br>
+        <br>
+        <p> Upload image: </p>
+        <p> <input accept="image/*" type="file" name="image"></p>
+        <input type="submit" value="Submit question">
 
     </form>
 
-{% include 'footer.html' %}
+    {% include 'footer.html' %}
 {% endblock %}
