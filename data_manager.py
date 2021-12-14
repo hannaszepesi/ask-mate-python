@@ -331,3 +331,12 @@ def add_new_user(cursor, username, hashed_password, reg_date):
     INSERT INTO users (username, hashed_password, registration_date, asked_questions, answers, comments, reputation)
     VALUES( %s, %s, %s, 0, 0, 0, 0);"""
     cursor.execute(query, (username, hashed_password, reg_date,))
+
+
+@database_common.connection_handler
+def change_reputation(cursor, increment, user_id):
+    query = """
+             UPDATE users
+             SET reputation = reputation + %s
+             WHERE user_id = %s;"""
+    cursor.execute(query, (increment, user_id,))
