@@ -276,6 +276,7 @@ def login():
 def logout():
     session.pop('id', None)
     session.pop('username', None)
+    session['logged_in'] = False
     flash("You have been logged out")
     return render_template('login.html')
 
