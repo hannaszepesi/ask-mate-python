@@ -1,24 +1,24 @@
 {% extends "navbar.html" %}
 {% block content %}
 
-    <body>
+<body>
 
-    <h3 id="title_on_display_question">Title: {{ question['title'] }} </h3>
-    <p>Question: {{ question['message'] }}</p>
+<h3 id="title_on_display_question">Title: {{ question['title'] }} </h3>
+ <p>Question: {{ question['message'] }}</p>
 
-    {% if question_tags %}
-        <h4>
-            {% for tag in question_tags %}
-                {{ '#' + tag['name'] + " " }}
-                <button><a href="/question/{{ question_id }}/tag/{{ tag['id'] }}/delete" style="color: black;">
-                    <img src="{{ url_for('static', filename='images/delete.png') }}" width="10"></a></button>
-            {% endfor %}
-        </h4>
-        {% if image_path_question != None %}
-            <img src={{ url_for('static',filename='images/'~image_path_question) }} width="150px">
-        {% endif %}
-    {% endif %}
-    <p><strong> Comments: </strong></p>
+{% if tags %}
+<h4>
+{% for tag in tags %}
+{{'#' + tag['name'] + " "}}
+<button><a href="/question/{{question['id']}}/tag/{{tag['id']}}/delete">
+    <img src="{{ url_for('static', filename='images/delete.png') }}" width="10"></a></button>
+{% endfor %}
+</h4>
+{% endif %}
+{% if image_path_question != None %}
+<img src={{ url_for('static',filename='images/'~image_path_question) }} width="150px">
+{% endif %}
+<p> <strong> Comments: </strong> </p>
 
     {% for comment in question_comments %}
         <ul>
