@@ -6,17 +6,17 @@
 <h3 id="title_on_display_question">Title: {{ question['title'] }} </h3>
  <p>Question: {{ question['message'] }}</p>
 
-{% if question_tags %}
+{% if tags %}
 <h4>
-{% for tag in question_tags %}
+{% for tag in tags %}
 {{'#' + tag['name'] + " "}}
-<button><a href="/question/{{question_id}}/tag/{{tag['id']}}/delete">
+<button><a href="/question/{{question['id']}}/tag/{{tag['id']}}/delete">
     <img src="{{ url_for('static', filename='images/delete.png') }}" width="10"></a></button>
 {% endfor %}
 </h4>
+{% endif %}
 {% if image_path_question != None %}
 <img src={{ url_for('static',filename='images/'~image_path_question) }} width="150px">
-{% endif %}
 {% endif %}
 <p> <strong> Comments: </strong> </p>
 
