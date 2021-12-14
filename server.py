@@ -189,14 +189,14 @@ def add_question():
 def answer_vote(id, vote):
     increment = 1 if vote == 'vote_up' else -1
     data_manager.modify_answer_vote(increment, id)
-    return redirect('/')
+    return redirect(url_for('gain_rep_answer', id=id, vote=vote))
 
 
 @app.route('/question-vote/<id>/<vote>', methods=['POST'])
 def question_vote(id, vote):
     increment = 1 if vote == 'vote_up' else -1
     data_manager.modify_question_vote(id, increment)
-    return redirect('/')
+    return redirect(url_for('gain_rep_question', id=id, vote=vote))
 
 
 @app.route("/search", methods=['GET'])
@@ -209,12 +209,11 @@ def search_question():
 @app.route("/registration", methods=['Post'])
 def registration():
     username = request.form.get('username')
-    print(username)
     password = request.args.get('password')
     hashed_password = password_util.hash_password(str(password))
     reg_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     data_manager.add_new_user(username, hashed_password, reg_date)
-    return redirect('index.html')
+    return redirect('/')
 # Luti
 
 
@@ -280,6 +279,34 @@ def users():
         return render_template('all_users.html', users=users)
     else:
         return redirect(url_for('list_questions'))
+
+
+@app.route('/answer-rep/<id>/<vote>')
+def gain_rep_answer(id, vote):
+    answer = data_manager.get_answer_by_id(id)
+    user = answer['user_id']
+    question_id = answer['question_id']
+    if vote == 'vote_up':
+        increment = 10
+    elif vote == 'vote_down':
+        increment = -2
+    elif vote == 'accepted':
+        increment = 15
+    data_manager.change_reputation(increment, user)
+    return redirect(url_for('display_question', question_id=question_id))
+
+
+@app.route('/question-rep/<id>/<vote>')
+def gain_rep_question(id, vote):
+    question = data_manager.get_question_by_id(id)
+    user = question['user_id']
+    ['user_id']
+    if vote == 'vote_up':
+        increment = 5
+    elif vote == 'vote_down':
+        increment = -2
+    data_manager.change_reputation(increment, user)
+    return redirect('/')
 
 
 if __name__ == "__main__":
