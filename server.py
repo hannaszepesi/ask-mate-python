@@ -19,6 +19,10 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'} #not compulsory to define ext
 @app.route("/list")
 @app.route("/", methods=['GET'])
 def list_questions():
+    if 'username' in session and password_util.verify_password(session['password'], password_util.hash_password(session['password'])) == True:
+        session['logged_in'] = True
+    else:
+        session['logged_in'] = False
     question_all = data_manager.get_data('question')
     if request.args:
         sort_by = request.args['sort_by']
@@ -261,6 +265,7 @@ def login():
             else:
                 session['id'] = user_details['user_id']
                 session['username'] = user_details['username']
+                session['password'] = user_details['hashed_password']
                 return redirect(url_for('list_questions'))
 
 @app.route("/logout")
