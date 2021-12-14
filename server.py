@@ -268,8 +268,8 @@ def login():
                     session['username'] = user_details['username']
                     session['password'] = user_details['hashed_password']
                     return redirect(url_for('list_questions'))
-    else: #ha be vagy jelentkezve
-        flash("You are already logged in")
+    elif session['logged_in'] == True:
+        flash(f"You are already logged in, {session['username']}")
         return redirect(url_for('list_questions'))
 
 @app.route("/logout")
@@ -277,13 +277,13 @@ def logout():
     session.pop('id', None)
     session.pop('username', None)
     flash("You have been logged out")
-    return redirect(url_for('login'))
+    return render_template('login.html')
 
-    # There should be a page where I can list all the registered users with all their attributes.
 @app.route("/users")
 def users():
-    if 'user' in session:
+    if 'username' in session:
         users = data_manager.get_users()
+        print(users)
         return render_template('all_users.html', users=users)
     else:
         return redirect(url_for('list_questions'))
