@@ -8,28 +8,33 @@
 </head>
 <body>
 <div>
-    <div>
     <header class="navbar">
-        <img src="../static/images/logo.png">
-    </div>
-    <div class="search">
-        <form action="{{ url_for('search_question') }}">
-            <input id="question_button" type="text" name="question" placeholder="Search.." size="50"/>
-            <div class="search-button">
-            <button type="submit">Search</button>
-            </div>
-        </form>
-    </div>
+        <div class="logo">
+
+            <img src="../static/images/logo.png">
+        </div>
+        <div class="search">
+            <form action="{{ url_for('search_question') }}">
+                <input id="question_button" type="tex" name="question" placeholder="Search.." size="50"/>
+                <div class="search-button">
+                    <button type="submit">Search</button>
+                </div>
+            </form>
+        </div>
 
 
-    <div class="horizontal-login-register">
-        <form action="{{ url_for('login') }}">
-            <p><button type="submit">Login</button></p>
-        </form>
-        <form action="{{ url_for('register') }}">
-            <button type="submit">Register</button>
-        </form>
-    </div>
+        <div class="login-button">
+            <form action="{{ url_for('login') }}">
+                <p>
+                    <button type="submit">Login</button>
+                </p>
+            </form>
+        </div>
+            <div class="register-button">
+            <form action="{{ url_for('register') }}">
+                <button type="submit">Register</button>
+            </form>
+        </div>
 
 </div>
 </div>
