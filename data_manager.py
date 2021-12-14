@@ -328,6 +328,6 @@ def get_users(cursor):
 @database_common.connection_handler
 def add_new_user(cursor, username, hashed_password, reg_date):
     query = """
-    INSERT INTO users (username, hashed_password, registration_date, asked_quetions, answers, comments, reputation)
+    INSERT INTO users (username, hashed_password, registration_date, asked_questions, answers, comments, reputation)
     VALUES( %s, %s, %s, 0, 0, 0, 0);"""
     cursor.execute(query, (username, hashed_password, reg_date,))

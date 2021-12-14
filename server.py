@@ -209,7 +209,8 @@ def search_question():
 
 @app.route("/registration", methods=['Post'])
 def registration():
-    username = request.args.get('username')
+    username = request.form.get('username')
+    print(username)
     password = request.args.get('password')
     hashed_password = password_util.hash_password(str(password))
     reg_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
