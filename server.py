@@ -226,7 +226,6 @@ def delete_question_tag(question_id, tag_id):
 
 @app.route("/login", methods = ["POST", "GET"])
 def login():
-    #kelleni fog egy users tábla, ahova tesszük őket
     if request.method == "POST":
         email_input = request.form.get('email')
         password_input = request.form.get('password')
