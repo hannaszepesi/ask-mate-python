@@ -322,9 +322,10 @@ def get_user_by_email(cursor, username):
 def get_users(cursor):
     query = """
     SELECT *
-    FROM users
+    FROM users;
     """
-    cursor.execute(query, )
+    cursor.execute(query)
+    return cursor.fetchall()
 
 @database_common.connection_handler
 def add_new_user(cursor, username, hashed_password, reg_date):

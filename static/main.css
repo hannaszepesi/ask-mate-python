@@ -81,7 +81,7 @@ input[type=text], input[type=password], input[type=username] {
     align-content: end;
 }
 
-#index_table {
+.index_table {
     font-family: system-ui;
     font-weight: bold;
     color: black;
@@ -90,21 +90,21 @@ input[type=text], input[type=password], input[type=username] {
 }
 
 
-#index_table td, #index_table th {
+.index_table td, #index_table th {
     border: 1px solid #ddd;
     padding: 8px;
 }
 
-#index_table tr {
+.index_table tr {
     background-color: white;
 }
 
-#index_table tr:nth-child(even) {
+.index_table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
 
-#index_table th {
+.index_table th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
