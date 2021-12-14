@@ -257,7 +257,7 @@ def users():
         users = data_manager.get_users()
         return render_template('all_users.html', users=users)
     else:
-        return render_template('index.html')
+        return redirect(url_for('list_questions'))
 
 
 if __name__ == "__main__":
