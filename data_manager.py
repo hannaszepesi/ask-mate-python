@@ -32,35 +32,35 @@ def get_data(cursor, table):
 
 
 @database_common.connection_handler
-def write_question(cursor, submission_time, view_number, vote_number, title, message, image):
+def write_question(cursor, submission_time, view_number, vote_number, title, message, image, user_id):
     query = """
-    INSERT INTO question (submission_time, view_number, vote_number, title, message, image) 
+    INSERT INTO question (submission_time, view_number, vote_number, title, message, image, user_id) 
+    VALUES (%s, %s, %s, %s, %s, %s, %s);"""
+    cursor.execute(query, (submission_time, view_number, vote_number, title, message, image, user_id))
+
+
+@database_common.connection_handler
+def write_comment(cursor, question_id, message, submission_time, user_id):
+    query = """
+    INSERT INTO comment (question_id, message, submission_time, user_id) 
+    VALUES (%s, %s, %s, %s);"""
+    cursor.execute(query, (question_id, message, submission_time, user_id))
+
+
+@database_common.connection_handler
+def write_comment_to_answer(cursor, answer_id, message, submission_time, user_id):
+    query = """
+    INSERT INTO comment (answer_id, message, submission_time, user_id) 
+    VALUES (%s, %s, %s, %s);"""
+    cursor.execute(query, (answer_id, message, submission_time, user_id))
+
+
+@database_common.connection_handler
+def write_answer(cursor, submission_time, vote_number, question_id, message, image, user_id):
+    query = """
+    INSERT INTO answer (submission_time, vote_number, question_id, message, image, user_id) 
     VALUES (%s, %s, %s, %s, %s, %s);"""
-    cursor.execute(query, (submission_time, view_number, vote_number, title, message, image))
-
-
-@database_common.connection_handler
-def write_comment(cursor, question_id, message, submission_time):
-    query = """
-    INSERT INTO comment (question_id, message, submission_time) 
-    VALUES (%s, %s, %s);"""
-    cursor.execute(query, (question_id, message, submission_time))
-
-
-@database_common.connection_handler
-def write_comment_to_answer(cursor, answer_id, message, submission_time):
-    query = """
-    INSERT INTO comment (answer_id, message, submission_time) 
-    VALUES (%s, %s, %s);"""
-    cursor.execute(query, (answer_id, message, submission_time))
-
-
-@database_common.connection_handler
-def write_answer(cursor, submission_time, vote_number, question_id, message, image):
-    query = """
-    INSERT INTO answer (submission_time, vote_number, question_id, message, image) 
-    VALUES (%s, %s, %s, %s, %s);"""
-    cursor.execute(query, (submission_time, vote_number, question_id, message, image))
+    cursor.execute(query, (submission_time, vote_number, question_id, message, image, user_id))
 
 
 @database_common.connection_handler
