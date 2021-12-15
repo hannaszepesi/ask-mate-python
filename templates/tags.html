@@ -1,0 +1,18 @@
+{% extends "navbar.html" %}
+{% block content %}
+<body>
+<table class="tag_table">
+    <thead>
+    <th>Tag name</th>
+    <th>Times used</th>
+    </thead>
+    {% for tag in tags %}
+    <tr>
+        <td>{{ tag['name'] }}</td>
+        <td> {{ tag['number'] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+{% include 'footer.html' %}
+{% endblock %}
