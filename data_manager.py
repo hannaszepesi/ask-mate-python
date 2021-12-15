@@ -360,3 +360,15 @@ def get_tags_with_numbers(cursor):
          """
     cursor.execute(query)
     return cursor.fetchall()
+
+
+@database_common.connection_handler
+def change_accepted_state(cursor, answer_id):
+    query = """
+             UPDATE answer
+             SET accepted = NOT accepted
+             WHERE id = %s;"""
+    cursor.execute(query, (answer_id, ))
+
+
+

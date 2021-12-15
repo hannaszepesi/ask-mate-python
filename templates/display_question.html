@@ -72,20 +72,24 @@
                     </button>
                 </form>
             </td>
-        <h1>    {{ session['logged_in'] }}</h1>
+            {% if session['logged_in'] and session['id'] == answer['user_id'] %}
             <td>
-                <form action= {{ url_for("mark_answer", answer_id = answer['id']) }} method="POST">
-                    {% if answer['accepted'] %}
+                    {% if answer['accepted'] == False %}
+                <form action= "{{ url_for("mark_answer", answer_id = answer['id']) }}" method="POST">
                     <button type="submit"><img src="{{ url_for("static", filename='images/accepted.png') }}" width="30">
                     MARK ACCEPTED
                     </button>
+                </form>
                     {% else %}
+                <form>
                     <button type="submit"><img src="{{ url_for("static", filename='images/not_accepted.png') }}" width="30">
                     MARK NOT ACCEPTED
                     </button>
                     {% endif %}
                 </form>
             </td>
+            {% endif %}
+
         </table>
 
         <br>

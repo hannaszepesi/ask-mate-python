@@ -330,8 +330,9 @@ def tags():
 @app.route('/mark-answer/<answer_id>', methods=['POST'])
 def mark_answer(answer_id):
     question = data_manager.get_question_by_answer_id(answer_id)
-    question_id = question['id']
-    return redirect(url_for("display_question", question_id))
+    question_id = question['question_id']
+    data_manager.change_accepted_state(answer_id)
+    return redirect(url_for("display_question", question_id=question_id))
 
 if __name__ == "__main__":
     app.run(
