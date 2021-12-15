@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header class="navbar">
+    <div class="container" style=" display:flex; background-color: black;">
+        <div class="logo">
+            <img src="../static/images/logo.png">
+        </div>
+        <div class="search">
+            <form action="{{ url_for('search_question') }}">
+                <input id="question_button" type="tex" name="question" placeholder="Search.." size="50"/>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <div class="login">
+            <img src="../static/images/avatar1.png" class="user_logo" width="50">
+            <form action="{{ url_for('login') }}">
+                <button type="submit">Login</button>
+            </form>
+            <form action="{{ url_for('registration') }}">
+                <button type="submit">Registration</button>
+            </form>
+            <form action="{{ url_for('logout') }}">
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+</header>
+
+</body>
+</html>
