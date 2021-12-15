@@ -83,14 +83,6 @@ input[type=text], input[type=password], input[type=username] {
     font-weight: bold;
 }
 
-.registration-button{
-    border: none;
-    color: white;
-    font-family: system-ui;
-    background-color: #d45545;
-    color: white;
-    font-weight: bold;
-}
 .login {
     width: 100%;
     font-family: system-ui;
@@ -119,6 +111,8 @@ input[type=text], input[type=password], input[type=username] {
 
 
 .registration-button {
+    border: none;
+    color: white;
     font-family: system-ui;
     background-color: #d45545;
     color: white;
