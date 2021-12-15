@@ -25,7 +25,7 @@
 {#</form>#}
 {#</p>#}
 
-<table>
+<table id="searched_table">
     <tr>
         <td><strong>View</strong></td>
         <td><strong>Vote</strong></td>
@@ -34,7 +34,7 @@
     <tr>
         <td>{{ result['view_number'] }}</td>
         <td>{{ result['vote_number'] }}</td>
-        <td>
+        <td id="text">
             {{ result['title'] }}
         </td>
     </tr>

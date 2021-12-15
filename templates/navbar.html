@@ -17,6 +17,21 @@
             </ul>
         {% endif %}
     {% endwith %}
+<script>
+    function search(e) {
+	let searched = document.getElementById("searched_expression").value.trim();
+    if (searched !== "") {
+  	let text = document.getElementById("searched_table").innerHTML;
+  	let re = new RegExp(searched,"g"); // search for all instances("g")
+		let newText = text.replace(re, `<mark>${searched}</mark>`);
+		document.getElementById("text").innerHTML = newText;
+        }
+    }
+    window.onload = search
+    {# amikor betöltődik al oldal, meghívja a search functiont #}
+</script>
+</head>
+<body>
 
 <header class="navbar">
     <div class="container" style=" display:flex;">
@@ -25,13 +40,14 @@
         </div>
         <div class="search_bar">
             <form action="{{ url_for('search_question') }}">
-                <input id="question_button" type="tex" name="question" placeholder="Search.." size="50"/>
-                <button type="submit" class="search-button">Search</button>
+                <input id="searched_expression" type="text" name="question" placeholder="Search.." size="50" value="{{ request.args["question"] }}"/>{# JavaScript miatt kell value #}
+                    <button type="submit" class="search-button">Search</button>
             </form>
         </div>
         <div>
+
 {#            <form action="{{ url_for('user_profile') }}">#}
-            <img src="../static/images/avatar1.png" class="user_logo" width="50">
+            <button type="submit"><img src="../static/images/avatar1.png" class="user_logo" width="50"></button>
 {#                </form>#}
             <form action="{{ url_for('login') }}">
                 <button type="submit" class="login-button">Login</button>
