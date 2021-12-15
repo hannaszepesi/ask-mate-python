@@ -210,14 +210,17 @@ def search_question():
     return render_template('search.html', result=found_phrase, search_phrase=search_phrase)
 
 
-@app.route("/registration", methods=['Post'])
+@app.route("/registration", methods=['GET', 'POST'])
 def registration():
-    username = request.form.get('username')
-    password = request.args.get('password')
-    hashed_password = password_util.hash_password(str(password))
-    reg_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    data_manager.add_new_user(username, hashed_password, reg_date)
-    return redirect('/')
+    if request.method == 'GET':
+        return render_template('register.html')
+    else:
+        username = request.form.get('username')
+        password = request.args.get('password')
+        hashed_password = password_util.hash_password(str(password))
+        reg_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        data_manager.add_new_user(username, hashed_password, reg_date)
+        return redirect(url_for('list_questions'))
 # Luti
 
 
