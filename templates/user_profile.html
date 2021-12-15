@@ -22,29 +22,36 @@
             </thead>
             {% for question in questions %}
                 <tr>
-                    <td> {{ question['message'] }}</td>
+                    <td><a href="/question/{{ question['id'] }}"
+                           class="black_colored_link"> {{ question['message'] }} </a></td>
                 </tr>
             {% endfor %}
         </TABLE>
-<br>
+        <br>
         <TABLE class="tag_table" id="tag_table_profile">
             <thead>
             <th>My answers</th>
             </thead>
             {% for answer in answers %}
                 <tr>
-                    <td> {{ answer['message'] }}</td>
+                    <td><a href="/question/{{ answer['question_id'] }}"
+                           class="black_colored_link"> {{ answer['message'] }} </a></td>
                 </tr>
             {% endfor %}
         </TABLE>
-<br>
+        <br>
         <TABLE class="tag_table" id="tag_table_profile">
             <thead>
             <th>My comments</th>
             </thead>
             {% for comment in comments %}
                 <tr>
-                    <td> {{ comment['message'] }}</td>
+                    <td>
+                    {% if comment['question_id'] %}
+                        <a href="/question/{{ comment['question_id'] }}"
+                           class="black_colored_link"> {{ comment['message'] }} </a>
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
         </TABLE>

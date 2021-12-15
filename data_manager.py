@@ -394,21 +394,21 @@ def get_profile_details_by_id(cursor, user_id):
 def get_infos_by_user(cursor, user_id, table):
     if table == 'question':
         query = """
-        SELECT message
+        SELECT message, id
         FROM question
         WHERE user_id = %s
         """
 
     if table == 'answer':
         query = """
-        SELECT message
+        SELECT message, id, question_id
         FROM answer
         WHERE user_id = %s
         """
 
     if table == 'comment':
         query = """
-        SELECT message
+        SELECT message, id, answer_id, question_id
         FROM comment
         WHERE user_id = %s
         """
