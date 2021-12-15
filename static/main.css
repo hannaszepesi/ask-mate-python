@@ -3,8 +3,10 @@ body {
     display: grid;
     font-family: system-ui;
     color: white;
-    justify-content: center;
     margin-top: 130px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 80px;
 }
 
 .container {
@@ -35,19 +37,169 @@ footer {
     color: black;
     text-align: center;
     font-family: "Droid Sans";
+    align-content: center;
 }
 
-.home-button{
-        border: none;
+.home-button {
+    border: none;
     cursor: pointer;
-    color: white;
     font-family: system-ui;
     background-color: #d45545;
     font-size: 24px;
     color: white;
     font-weight: bold;
-    width: 80px;
-    height: 50px;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 10px;
+    border-radius: 12px;
+}
+
+.list_users_button{
+    border: none;
+    cursor: pointer;
+    font-family: system-ui;
+    background-color: #6cbcc4;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 12px;
+}
+
+.tags_button{
+    border: none;
+    cursor: pointer;
+    font-family: system-ui;
+    background-color: #6cbcc4;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    padding: 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 12px;
+}
+
+.ask_question_button{
+    border: none;
+    cursor: pointer;
+    font-family: system-ui;
+    background-color: #6cbcc4;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    padding: 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 12px;
+}
+
+.sort_button{
+    border: none;
+    cursor: pointer;
+    font-family: system-ui;
+    background-color: #6cbcc4;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    padding: 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+.submit_button{
+    border: none;
+    cursor: pointer;
+    font-family: system-ui;
+    background-color: #6cbcc4;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    padding: 6px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+.new_tag_button{
+    border: none;
+    cursor: pointer;
+    font-family: system-ui;
+    background-color: #6cbcc4;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    padding: 6px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+.submit_button{
+    border: none;
+    cursor: pointer;
+    font-family: system-ui;
+    background-color: #6cbcc4;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    padding: 6px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+.cancel_button{
+    border: none;
+    cursor: pointer;
+    font-family: system-ui;
+    background-color: #6cbcc4;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    padding: 6px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+.bottom-buttons{
+  text-align: center;
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+/*.bottom-buttons > div {*/
+/*  margin: 10px;*/
+/*  padding: 20px;*/
+/*  font-size: 30px;*/
+/*}*/
+.button {
+  background-color: #04AA6D; /* Green */
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 
 .navbar {
@@ -61,21 +213,9 @@ footer {
     bottom: 80%;
 }
 
-
-.login_box {
-    right: 10%;
-}
-
 .search_bar {
     bottom: 5px;
     align-self: center;
-}
-
-.search-button {
-    font-family: system-ui;
-    background-color: #d45545;
-    color: white;
-    font-weight: bold;
 }
 
 
@@ -91,19 +231,14 @@ input[type=text], input[type=password], input[type=username] {
 .login-button {
     border: none;
     color: white;
+    cursor: pointer;
     font-family: system-ui;
     background-color: #d45545;
     color: white;
     font-weight: bold;
+    border-radius: 12px;
 }
 
-.login {
-    width: 100%;
-    font-family: system-ui;
-    background-color: #d45545;
-    color: white;
-    font-weight: bold;
-}
 
 .logout-button {
     border: none;
@@ -113,32 +248,34 @@ input[type=text], input[type=password], input[type=username] {
     background-color: #d45545;
     color: white;
     font-weight: bold;
-}
-
-.logout {
-    width: 58%;
-    font-family: system-ui;
-    background-color: #d45545;
-    color: white;
-    font-weight: bold;
+    border-radius: 12px;
 }
 
 
 .registration-button {
     border: none;
     color: white;
+    cursor: pointer;
     font-family: system-ui;
     background-color: #d45545;
     color: white;
     font-weight: bold;
+    border-radius: 12px;
 }
 
-.register {
-    width: 100%;
+.search-button {
+    bottom: 5px;
+    border: none;
+    color: white;
+    cursor: pointer;
     font-family: system-ui;
     background-color: #d45545;
     color: white;
     font-weight: bold;
+    width: 80px;
+    height: 40px;
+    border-radius: 12px;
+    align-self: flex-end;
 }
 
 .login {
@@ -148,7 +285,6 @@ input[type=text], input[type=password], input[type=username] {
     color: white;
     font-weight: bold;
 }
-
 
 .question_button {
     align-content: end;
@@ -210,7 +346,7 @@ a {
     font-weight: bold;
     color: black;
     border-collapse: collapse;
-    width: 120%;
+    width: 100%;
 }
 
 

@@ -11,13 +11,13 @@
             <option value="{{ tag['name'] }}" > {{ tag['name'] }} </option>
         {% endfor %}
     </select></p>
-    <button type="submit">Add new tag</button>
+    <button type="submit" class="new_tag_button">Add new tag</button>
 </form>
 <h4>or</h4>
 <form action="/question/{{question_id}}/new-tag" method="POST">
     <p><label for="question_tag">Add your own tag:</label><br>
     <input id = "custom_question_tag" name = "question_tag" type = "text"></p>
-    <button type="submit">Add new tag</button>
+    <button type="submit" class="new_tag_button">Add new tag</button>
 </form>
 
 
