@@ -327,6 +327,17 @@ def tags():
     return render_template('tags.html', tags=tags)
 
 
+@app.route('/user/<user_id>')
+def user_profile():
+    if session['logged_in'] == True:
+        user_data = data_manager.get_user_by_email
+        return render_template('user_profile.html', user_data=user_data)
+
+    else: #ha nincs bejelentkezve:
+        flash("You are not logged in")
+
+
+
 if __name__ == "__main__":
     app.run(
         host='0.0.0.0',
