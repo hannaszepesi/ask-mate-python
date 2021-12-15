@@ -16,15 +16,35 @@
     </div>
 
     <div>
-        <TABLE class="tag_table">
+        <TABLE class="tag_table" id="tag_table_profile">
             <thead>
-            <th>Title</th>
-            <th>Message</th>
+            <th>My questions</th>
             </thead>
             {% for question in questions %}
                 <tr>
-                    <td>{{ question['title'] }}</td>
                     <td> {{ question['message'] }}</td>
+                </tr>
+            {% endfor %}
+        </TABLE>
+<br>
+        <TABLE class="tag_table" id="tag_table_profile">
+            <thead>
+            <th>My answers</th>
+            </thead>
+            {% for answer in answers %}
+                <tr>
+                    <td> {{ answer['message'] }}</td>
+                </tr>
+            {% endfor %}
+        </TABLE>
+<br>
+        <TABLE class="tag_table" id="tag_table_profile">
+            <thead>
+            <th>My comments</th>
+            </thead>
+            {% for comment in comments %}
+                <tr>
+                    <td> {{ comment['message'] }}</td>
                 </tr>
             {% endfor %}
         </TABLE>
