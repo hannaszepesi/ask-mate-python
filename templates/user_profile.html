@@ -1,6 +1,34 @@
 {% extends "navbar.html" %}
 {% block content %}
 
+    <div>
+        {% for item in user_data %}
+            <ul>
+                <li>User ID: {{ item.user_id }}</li>
+                <li>Username: {{ item.username }}</li>
+                <li>Registration date: {{ item.registration_date }}</li>
+                <li>Number of asked questions: {{ item.asked_question }}</li>
+                <li>Number of answers: {{ item.answers }}</li>
+                <li>Number of comments: {{ item.comments }}</li>
+                <li>Reputation: {{ item.reputation }}</li>
+            </ul>
+        {% endfor %}
+    </div>
 
-{% include 'footer.html' %}
+    <div>
+        <TABLE class="tag_table">
+            <thead>
+            <th>Title</th>
+            <th>Message</th>
+            </thead>
+            {% for question in questions %}
+                <tr>
+                    <td>{{ question['title'] }}</td>
+                    <td> {{ question['message'] }}</td>
+                </tr>
+            {% endfor %}
+        </TABLE>
+    </div>
+
+    {% include 'footer.html' %}
 {% endblock %}

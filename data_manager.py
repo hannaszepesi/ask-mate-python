@@ -392,10 +392,26 @@ def get_profile_details_by_id(cursor, user_id):
 
 @database_common.connection_handler
 def get_infos_by_user(cursor, user_id, table):
-    query = f"""
-    SELECT message
-    FROM {table}
-    WHERE user_id = {user_id};
-    """
-    cursor.execute(query)
+    if table == 'question':
+        query = """
+        SELECT message
+        FROM question
+        WHERE user_id = %s
+        """
+
+    if table == 'answer':
+        query = """
+        SELECT message
+        FROM answer
+        WHERE user_id = %s
+        """
+
+    if table == 'comment':
+        query = """
+        SELECT message
+        FROM comment
+        WHERE user_id = %s
+        """
+
+    cursor.execute(query, (user_id,))
     return cursor.fetchall()

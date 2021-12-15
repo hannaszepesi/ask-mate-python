@@ -353,13 +353,12 @@ def user_profile(user_id):
     questions = data_manager.get_infos_by_user(user_id, 'question')
     answers = data_manager.get_infos_by_user(user_id, 'answer')
     comments = data_manager.get_infos_by_user(user_id, 'comment')
-    return redirect('user_profile.html',
+    return render_template('user_profile.html',
                     user_data=user_data,
                     user_id=user_id,
                     questions=questions,
                     answers=answers,
                     comments=comments)
-
 
 
 @app.route('/mark-answer/<answer_id>', methods=['POST'])
