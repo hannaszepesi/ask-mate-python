@@ -45,7 +45,7 @@ def list_questions():
     order_options = data_manager.ORDER_OPTIONS
 
     return render_template('index.html', questions=questions,
-        sort_options=data_manager.SORTING_OPTIONS, sort_by=sort_by, order_options=order_options, order=order, all_questions=question_all, user_data=user_data)
+        sort_options=data_manager.SORTING_OPTIONS, sort_by=sort_by, order_options=order_options, order=order, all_questions=question_all)
 #Hanna
 #Berni
 #new answer / post an answer
@@ -343,10 +343,15 @@ def tags():
 @login_required
 def user_profile(user_id):
     user_data = data_manager.get_profile_details_by_id(user_id)
-    questions = data_manager.get_questions_by_user(user_id)
-    answers = data_manager.get_answer_by_user(user_id)
-    comments = data_manager.get_answer_comments(user_id)
-    return redirect('user_profile.html', user_data=user_data, user_id=user_id)
+    questions = data_manager.get_infos_by_user(user_id, 'question')
+    answers = data_manager.get_infos_by_user(user_id, 'answer')
+    comments = data_manager.get_infos_by_user(user_id, 'comment')
+    return redirect('user_profile.html',
+                    user_data=user_data,
+                    user_id=user_id,
+                    questions=questions,
+                    answers=answers,
+                    comments=comments)
 
 
 

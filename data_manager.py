@@ -385,6 +385,17 @@ def get_profile_details_by_id(cursor, user_id):
     LEFT JOIN answer as a on u.user_id = a.user_id
     LEFT JOIN comment as c on u.user_id = c.user_id
     WHERE u.user_id = {user_id}
-    GROUP BY u.user_id"""
+    GROUP BY u.user_id, u.username, u.registration_date, u.reputation; 
+    """
+    cursor.execute(query)
+    return cursor.fetchall()
+
+@database_common.connection_handler
+def get_infos_by_user(cursor, user_id, table):
+    query = f"""
+    SELECT message
+    FROM {table}
+    WHERE user_id = {user_id};
+    """
     cursor.execute(query)
     return cursor.fetchall()

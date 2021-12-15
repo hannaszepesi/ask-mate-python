@@ -72,12 +72,13 @@
     <div>
         <a href="/users">List all users</a><br>
         <a href="/tags"> See tags </a><br>
-        {% if user_data %} }}
-            <a href="/user/{{ user_data['user_id'] }}"> User profile </a>
+        {% if session['logged_in'] %} }}
+            <a href="{{ url_for('user_profile', user_id=session['id']) }}"> My profile </a>
         {% endif %}
     </div>
 
-    <a href={{ url_for('logout') }}>Logout</a>
+    <a href={{ url_for('logout') }}>Logout</a><br>
+{#    <a href="{{ url_for('user_profile', user_id=session['username']) }}">Profile</a>#}
 
     </body>
     {% include 'footer.html' %}
