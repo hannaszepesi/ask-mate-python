@@ -1,5 +1,7 @@
 <link rel="stylesheet" href="/static/main.css">
 <footer class="footer">
-<a href="{{ url_for('list_questions') }}" class="face"><img src="../static/images/home.png" width="90"</a>
+<form action="{{ url_for('list_questions') }}">
+                <button type="submit" class="home-button">HOME</button>
+            </form>
 </footer>
 

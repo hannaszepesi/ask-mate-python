@@ -5,6 +5,8 @@ from os import urandom
 import data_manager
 import password_util
 from datetime import datetime
+from functools import wraps
+
 
 app = Flask(__name__)
 # UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'static/images')
@@ -278,9 +280,10 @@ def login():
 
 @app.route("/logout")
 def logout():
-    session.pop('id', None)
-    session.pop('username', None)
-    session['logged_in'] = False
+    # session.pop('id', None)
+    # session.pop('username', None)
+    # session['logged_in'] = False
+    session.clear()
     flash("You have been logged out")
     return render_template('login.html')
 
@@ -326,24 +329,22 @@ def tags():
     tags = data_manager.get_tags_with_numbers()
     return render_template('tags.html', tags=tags)
 
+
 @app.route('/user/<user_id>')
 @login_required
 def user_profile(user_id):
-    print(user_id)
     user_data = data_manager.get_profile_details_by_id(user_id)
     questions = data_manager.get_questions_by_user(user_id)
     answers = data_manager.get_answer_by_user(user_id)
     comments = data_manager.get_answer_comments(user_id)
-    print(user_data)
-    print(session['username'])
     return redirect('user_profile.html', user_data=user_data, user_id=user_id)
 
 
-def login_required(func):
-    @wraps(func)
+def login_required(function):
+    @wraps(function)
     def wrap(*args, **kwargs):
         if 'id' in session:
-            return func(*args, **kwargs)
+            return function(*args, **kwargs)
         else:
             flash("You are not logged in")
             return redirect(url_for('login'))
