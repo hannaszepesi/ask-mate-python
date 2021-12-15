@@ -46,13 +46,13 @@ footer {
 
 }
 .search-button{
-    margin: 0;
-    position: absolute;
-    top: 3%;
-    right: 120px;
-    -ms-transform: translateX(700%);
-    transform: translateX(700%);
+    width: 100%;
+    font-family: system-ui;
+    background-color: #d45545;
+    color: white;
+    font-weight: bold;
 }
+
 
 input[type=text], input[type=password], input[type=username] {
   width: 100%;
@@ -66,16 +66,64 @@ input[type=text], input[type=password], input[type=username] {
 .login-button{
     margin: 0;
     position: absolute;
-    top: 15%;
+    top: 47px;
     right: 100px;
 }
+
+.login{
+    width: 100%;
+    font-family: system-ui;
+    background-color: #d45545;
+    color: white;
+    font-weight: bold;
+}
+
+.logout-button{
+    position: absolute;
+  display: block;
+    height:200px;
+    width:200px;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+    right: 15px;
+    top: 85px;
+}
+
+.logout{
+    width: 58%;
+    font-family: system-ui;
+    background-color: #d45545;
+    color: white;
+    font-weight: bold;
+}
+
 
 .register-button{
     margin: 0;
     position: absolute;
-    top: 30%;
+    top: 63px;
     right: 150px;
+    left: 1063px;
 }
+
+.register{
+    width: 100%;
+    font-family: system-ui;
+    background-color: #d45545;
+    color: white;
+    font-weight: bold;
+}
+
+.login{
+    width: 100%;
+    font-family: system-ui;
+    background-color: #d45545;
+    color: white;
+    font-weight: bold;
+}
+
 
 .question_button{
     align-content: end;
