@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block page_title %}{% endblock %} AskMate</title>
+    <title>{% block page_title %}{% endblock %} AskMate </title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul class=flashes>
-        {% for message in messages %}
-          <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
-      {% endif %}
+        {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     {% endwith %}
 <script>
     function search(e) {
@@ -29,13 +29,13 @@
 </script>
 </head>
 <body>
-<div>
-    <header class="navbar">
-        <div class="logo">
 
-            <img src="../static/images/logo.png">
+<header class="navbar">
+    <div class="container" style=" display:flex;">
+        <div>
+            <img src="../static/images/logo.png" class="logo">
         </div>
-        <div class="search">
+        <div class="search_bar">
             <form action="{{ url_for('search_question') }}">
                 <input id="searched_expression" type="text" name="question" placeholder="Search.." size="50" value="{{ request.args["question"] }}"/>{# JavaScript miatt kell value #}
                 <div class="search-button">
@@ -43,29 +43,28 @@
                 </div>
             </form>
         </div>
-
-
-        <div class="login-button">
+        <div>
+{#            <form action="{{ url_for('user_profile') }}">#}
+            <img src="../static/images/avatar1.png" class="user_logo" width="50">
+{#                </form>#}
             <form action="{{ url_for('login') }}">
-                <p>
-                    <button type="submit">Login</button>
-                </p>
+                <button type="submit" class="login-button">Login</button>
             </form>
-        </div>
-            <div class="register-button">
+            <form action="{{ url_for('logout') }}">
+                <button type="submit" class="logout-button">Logout</button>
+            </form>
             <form action="{{ url_for('registration') }}">
-                <button type="submit">Register</button>
+                <button type="submit" class="registration-button">Registration</button>
             </form>
         </div>
-
-</div>
-</div>
+    </div>
 </header>
-<section>
+
+<div>
     <h2 class="title text-center">{{ self.page_title() }}</h2>
 
     {% block content %}{% endblock %}
-</section>
 </div>
+
 </body>
 </html>
