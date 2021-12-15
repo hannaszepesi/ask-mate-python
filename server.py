@@ -280,29 +280,22 @@ def login_page():
 
 @app.route("/login", methods = ["POST"])
 def login():
-    if session['logged_in'] == False:
-        if request.method == "GET":
-            return render_template('login.html')
-        elif request.method == "POST":
-            email_input = request.form.get('email')
-            password_input = request.form.get('password')
-            user_details = data_manager.get_user_by_email(email_input)
-            if not user_details: #ha nincs ilyen user
-                flash("No such username")
+        email_input = request.form.get('email')
+        password_input = request.form.get('password')
+        user_details = data_manager.get_user_by_email(email_input)
+        if not user_details: #ha nincs ilyen user
+            flash("No such username")
+            return redirect(url_for('login'))
+        else:
+            password_verified = password_util.verify_password(password_input, user_details['hashed_password'])
+            if not password_verified: #ha nem oké a jelszó
+                flash("Wrong username or password")
                 return redirect(url_for('login'))
             else:
-                password_verified = password_util.verify_password(password_input, user_details['hashed_password'])
-                if not password_verified: #ha nem oké a jelszó
-                    flash("Wrong username or password")
-                    return redirect(url_for('login'))
-                else:
-                    session['id'] = user_details['user_id']
-                    session['username'] = user_details['username']
-                    session['password'] = user_details['hashed_password']
-                    return redirect(url_for('list_questions'))
-    elif session['logged_in'] == True:
-        flash(f"You are already logged in, {session['username']}")
-        return redirect(url_for('list_questions'))
+                session['id'] = user_details['user_id']
+                session['username'] = user_details['username']
+                session['password'] = user_details['hashed_password']
+                return redirect(url_for('list_questions'))
 
 @app.route("/logout")
 def logout():
