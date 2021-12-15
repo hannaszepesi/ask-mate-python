@@ -1,13 +1,28 @@
 body {
     background-color: #d45545;
     display: grid;
-    width: 90em;
-    margin: 120px;
-    display: flex;
     font-family: system-ui;
     color: white;
+    justify-content: center;
+    margin-top: 130px;
 }
 
+.container {
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.logo {
+    top: 10px;
+    left: 0;
+    position: fixed;
+}
+
+.user_logo {
+    width: 30px;
+    top: 20px;
+    right: 70px;
+}
 
 footer {
     position: fixed;
@@ -23,30 +38,26 @@ footer {
 
 .navbar {
     background-color: #6cbcc4;
-    height: 110px;
+    height: auto;
     display: grid;
     width: 100%;
     position: fixed;
     top: 0px;
-    bottom: 150px;
     left: 0px;
+    bottom: 505px;
 }
 
-.search {
-    position: absolute;
-    top: 30%;
-    padding-top: -500px;
-    right: 700px;
-    width: 200px;
-    height: 40px;
+
+.login_box {
+    right: 10%;
 }
 
-.login{
-
-
+.search_bar {
+    bottom: 5px;
+    align-self: center;
 }
-.search-button{
-    width: 100%;
+
+.search-button {
     font-family: system-ui;
     background-color: #d45545;
     color: white;
@@ -55,22 +66,32 @@ footer {
 
 
 input[type=text], input[type=password], input[type=username] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
-.login-button{
-    margin: 0;
-    position: absolute;
-    top: 47px;
-    right: 100px;
+.login-button {
+    border: none;
+    color: white;
+    font-family: system-ui;
+    background-color: #d45545;
+    color: white;
+    font-weight: bold;
 }
 
-.login{
+.registration-button{
+    border: none;
+    color: white;
+    font-family: system-ui;
+    background-color: #d45545;
+    color: white;
+    font-weight: bold;
+}
+.login {
     width: 100%;
     font-family: system-ui;
     background-color: #d45545;
@@ -78,20 +99,17 @@ input[type=text], input[type=password], input[type=username] {
     font-weight: bold;
 }
 
-.logout-button{
-    position: absolute;
-  display: block;
-    height:200px;
-    width:200px;
-  border: none;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-    right: 15px;
-    top: 85px;
+.logout-button {
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-family: system-ui;
+    background-color: #d45545;
+    color: white;
+    font-weight: bold;
 }
 
-.logout{
+.logout {
     width: 58%;
     font-family: system-ui;
     background-color: #d45545;
@@ -100,15 +118,14 @@ input[type=text], input[type=password], input[type=username] {
 }
 
 
-.register-button{
-    margin: 0;
-    position: absolute;
-    top: 63px;
-    right: 150px;
-    left: 1063px;
+.registration-button {
+    font-family: system-ui;
+    background-color: #d45545;
+    color: white;
+    font-weight: bold;
 }
 
-.register{
+.register {
     width: 100%;
     font-family: system-ui;
     background-color: #d45545;
@@ -116,7 +133,7 @@ input[type=text], input[type=password], input[type=username] {
     font-weight: bold;
 }
 
-.login{
+.login {
     width: 100%;
     font-family: system-ui;
     background-color: #d45545;
@@ -125,7 +142,7 @@ input[type=text], input[type=password], input[type=username] {
 }
 
 
-.question_button{
+.question_button {
     align-content: end;
 }
 
@@ -134,7 +151,6 @@ input[type=text], input[type=password], input[type=username] {
     font-weight: bold;
     color: black;
     border-collapse: collapse;
-    width: 120%;
 }
 
 
@@ -179,7 +195,6 @@ a {
     font-size: 30px;
     font-family: system-ui;
 }
-
 
 
 .tag_table {
