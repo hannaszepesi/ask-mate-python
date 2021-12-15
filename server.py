@@ -16,6 +16,7 @@ app.secret_key = urandom(24)
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'} #not compulsory to define extensions
 
+# https://pythonprogramming.net/decorator-wrappers-flask-tutorial-login-required/
 def login_required(function):
     @wraps(function)
     def wrap(*args, **kwargs):
@@ -25,6 +26,17 @@ def login_required(function):
             flash("You are not logged in")
             return redirect(url_for('login'))
     return wrap
+
+def already_logged_in(function):
+    @wraps(function)
+    def wrap(*args, **kwargs):
+        if 'id' not in session:
+            return function(*args, **kwargs)
+        else:
+            flash(f"You are already logged in, {session['username']}")
+            return redirect(url_for('main_page'))
+    return wrap
+
 
 #Hanna
 @app.route("/list")
@@ -261,7 +273,12 @@ def delete_question_tag(question_id, tag_id):
     data_manager.delete_tag(question_id, tag_id)
     return redirect(f"/question/{question_id}")
 
-@app.route("/login", methods = ["POST", "GET"])
+@app.route("/login")
+@already_logged_in
+def login_page():
+    return render_template('login.html')
+
+@app.route("/login", methods = ["POST"])
 def login():
     if session['logged_in'] == False:
         if request.method == "GET":
@@ -289,9 +306,6 @@ def login():
 
 @app.route("/logout")
 def logout():
-    # session.pop('id', None)
-    # session.pop('username', None)
-    # session['logged_in'] = False
     session.clear()
     flash("You have been logged out")
     return render_template('login.html')
