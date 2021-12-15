@@ -71,7 +71,10 @@
     </div>
     <div>
         <a href="/users">List all users</a><br>
-        <a href="/tags"> See tags </a>
+        <a href="/tags"> See tags </a><br>
+        {% if user_data %} }}
+            <a href="/user/{{ user_data['user_id'] }}"> User profile </a>
+        {% endif %}
     </div>
 
     <a href={{ url_for('logout') }}>Logout</a>

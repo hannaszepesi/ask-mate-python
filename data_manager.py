@@ -360,3 +360,19 @@ def get_tags_with_numbers(cursor):
          """
     cursor.execute(query)
     return cursor.fetchall()
+
+@database_common.connection_handler
+def get_profile_details_by_id(cursor, user_id):
+    query = f"""
+    SELECT u.user_id, u.username, u.registration_date, u.reputation,
+    COUNT(distinct q.id) as asked_question,
+    COUNT(distinct a.id) as answers,
+    COUNT(distinct c.id) as comments
+    FROM users as u
+    LEFT JOIN question as q on u.user_id = q.user_id
+    LEFT JOIN answer as a on u.user_id = a.user_id
+    LEFT JOIN comment as c on u.user_id = c.user_id
+    WHERE u.user_id = {user_id}
+    GROUP BY u.user_id"""
+    cursor.execute(query)
+    return cursor.fetchall()

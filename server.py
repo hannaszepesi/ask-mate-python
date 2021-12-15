@@ -32,8 +32,9 @@ def list_questions():
         order = 'DESC'
     questions = data_manager.sort_questions(sort_by, order)
     order_options = data_manager.ORDER_OPTIONS
+    user_data = data_manager.get_profile_details_by_id(user_id)
     return render_template('index.html', questions=questions,
-        sort_options=data_manager.SORTING_OPTIONS, sort_by=sort_by, order_options=order_options, order=order, all_questions=question_all)
+        sort_options=data_manager.SORTING_OPTIONS, sort_by=sort_by, order_options=order_options, order=order, all_questions=question_all, user_data=user_data)
 #Hanna
 #Berni
 #new answer / post an answer
@@ -287,7 +288,6 @@ def logout():
 def users():
     if 'username' in session:
         users = data_manager.get_users()
-        print(users)
         return render_template('all_users.html', users=users)
     else:
         return redirect(url_for('list_questions'))
@@ -326,17 +326,28 @@ def tags():
     tags = data_manager.get_tags_with_numbers()
     return render_template('tags.html', tags=tags)
 
-
 @app.route('/user/<user_id>')
-def user_profile():
-    if session['logged_in'] == True:
-        user_data = data_manager.get_user_by_email
-        return render_template('user_profile.html', user_data=user_data)
+@login_required
+def user_profile(user_id):
+    print(user_id)
+    user_data = data_manager.get_profile_details_by_id(user_id)
+    questions = data_manager.get_questions_by_user(user_id)
+    answers = data_manager.get_answer_by_user(user_id)
+    comments = data_manager.get_answer_comments(user_id)
+    print(user_data)
+    print(session['username'])
+    return redirect('user_profile.html', user_data=user_data, user_id=user_id)
 
-    else: #ha nincs bejelentkezve:
-        flash("You are not logged in")
 
-
+def login_required(func):
+    @wraps(func)
+    def wrap(*args, **kwargs):
+        if 'id' in session:
+            return func(*args, **kwargs)
+        else:
+            flash("You are not logged in")
+            return redirect(url_for('login'))
+    return wrap
 
 if __name__ == "__main__":
     app.run(
