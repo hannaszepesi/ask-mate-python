@@ -77,7 +77,7 @@ input[type=text], input[type=password], input[type=username] {
     right: 150px;
 }
 
-.question_button{
+.searched_expression{
     align-content: end;
 }
 
