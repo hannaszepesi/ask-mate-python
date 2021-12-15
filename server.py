@@ -16,6 +16,15 @@ app.secret_key = urandom(24)
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'} #not compulsory to define extensions
 
+def login_required(function):
+    @wraps(function)
+    def wrap(*args, **kwargs):
+        if 'id' in session:
+            return function(*args, **kwargs)
+        else:
+            flash("You are not logged in")
+            return redirect(url_for('login'))
+    return wrap
 
 #Hanna
 @app.route("/list")
@@ -34,7 +43,7 @@ def list_questions():
         order = 'DESC'
     questions = data_manager.sort_questions(sort_by, order)
     order_options = data_manager.ORDER_OPTIONS
-    user_data = data_manager.get_profile_details_by_id(user_id)
+
     return render_template('index.html', questions=questions,
         sort_options=data_manager.SORTING_OPTIONS, sort_by=sort_by, order_options=order_options, order=order, all_questions=question_all, user_data=user_data)
 #Hanna
@@ -288,6 +297,7 @@ def logout():
     return render_template('login.html')
 
 @app.route("/users")
+@login_required
 def users():
     if 'username' in session:
         users = data_manager.get_users()
@@ -329,7 +339,6 @@ def tags():
     tags = data_manager.get_tags_with_numbers()
     return render_template('tags.html', tags=tags)
 
-
 @app.route('/user/<user_id>')
 @login_required
 def user_profile(user_id):
@@ -340,15 +349,6 @@ def user_profile(user_id):
     return redirect('user_profile.html', user_data=user_data, user_id=user_id)
 
 
-def login_required(function):
-    @wraps(function)
-    def wrap(*args, **kwargs):
-        if 'id' in session:
-            return function(*args, **kwargs)
-        else:
-            flash("You are not logged in")
-            return redirect(url_for('login'))
-    return wrap
 
 @app.route('/mark-answer/<answer_id>', methods=['POST'])
 def mark_answer(answer_id):
