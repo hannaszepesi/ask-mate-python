@@ -335,8 +335,8 @@ def get_users(cursor):
 @database_common.connection_handler
 def add_new_user(cursor, username, hashed_password, reg_date):
     query = """
-    INSERT INTO users (username, hashed_password, registration_date, asked_questions, answers, comments, reputation)
-    VALUES( %s, %s, %s, 0, 0, 0, 0);"""
+    INSERT INTO users (username, hashed_password, registration_date, reputation)
+    VALUES( %s, %s, %s, 0);"""
     cursor.execute(query, (username, hashed_password, reg_date,))
 
 
@@ -360,3 +360,15 @@ def get_tags_with_numbers(cursor):
          """
     cursor.execute(query)
     return cursor.fetchall()
+
+
+@database_common.connection_handler
+def change_accepted_state(cursor, answer_id):
+    query = """
+             UPDATE answer
+             SET accepted = NOT accepted
+             WHERE id = %s;"""
+    cursor.execute(query, (answer_id, ))
+
+
+

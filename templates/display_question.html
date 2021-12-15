@@ -1,24 +1,24 @@
 {% extends "navbar.html" %}
 {% block content %}
 
-<body>
+    <body>
 
-<h3 id="title_on_display_question">Title: {{ question['title'] }} </h3>
- <p>Question: {{ question['message'] }}</p>
+    <h3 id="title_on_display_question">Title: {{ question['title'] }} </h3>
+    <p>Question: {{ question['message'] }}</p>
 
-{% if tags %}
-<h4>
-{% for tag in tags %}
-{{'#' + tag['name'] + " "}}
-<button><a href="/question/{{question['id']}}/tag/{{tag['id']}}/delete">
-    <img src="{{ url_for('static', filename='images/delete.png') }}" width="10"></a></button>
-{% endfor %}
-</h4>
-{% endif %}
-{% if question['image'] != '' %}
-<img src={{ url_for('static',filename='images/'~question['image']) }} width="150px">
-{% endif %}
-<p> <strong> Comments: </strong> </p>
+    {% if tags %}
+        <h4>
+            {% for tag in tags %}
+                {{ '#' + tag['name'] + " " }}
+                <button><a href="/question/{{ question['id'] }}/tag/{{ tag['id'] }}/delete">
+                    <img src="{{ url_for('static', filename='images/delete.png') }}" width="10"></a></button>
+            {% endfor %}
+        </h4>
+    {% endif %}
+    {% if question['image'] != '' %}
+        <img src={{ url_for('static',filename='images/'~question['image']) }} width="150px">
+    {% endif %}
+    <p><strong> Comments: </strong></p>
 
     {% for comment in question_comments %}
         <ul>
@@ -44,7 +44,7 @@
         <ul>
             <li id="answers_on_display_question"><p> {{ answer['message'] }} </p></li>
             {% if answer['image'] != '' %}
-            <img src={{ url_for('static',filename='images/'~answer['image']) }} width="150px">
+                <img src={{ url_for('static',filename='images/'~answer['image']) }} width="150px">
             {% endif %}
             <p><strong>Vote:</strong>{{ answer['vote_number'] }}</p>
         </ul>
@@ -72,6 +72,24 @@
                     </button>
                 </form>
             </td>
+            {% if session['logged_in'] and session['id'] == answer['user_id'] %}
+            <td>
+                    {% if answer['accepted'] == False %}
+                <form action= "{{ url_for("mark_answer", answer_id = answer['id']) }}" method="POST">
+                    <button type="submit"><img src="{{ url_for("static", filename='images/accepted.png') }}" width="30">
+                    MARK ACCEPTED
+                    </button>
+                </form>
+                    {% else %}
+                <form>
+                    <button type="submit"><img src="{{ url_for("static", filename='images/not_accepted.png') }}" width="30">
+                    MARK NOT ACCEPTED
+                    </button>
+                    {% endif %}
+                </form>
+            </td>
+            {% endif %}
+
         </table>
 
         <br>
