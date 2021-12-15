@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block page_title %}{% endblock %} AskMate </title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <ul class=flashes>

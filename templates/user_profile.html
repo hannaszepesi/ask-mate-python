@@ -1,0 +1,61 @@
+{% extends "navbar.html" %}
+{% block content %}
+
+    <div>
+        {% for item in user_data %}
+            <ul>
+                <li>User ID: {{ item.user_id }}</li>
+                <li>Username: {{ item.username }}</li>
+                <li>Registration date: {{ item.registration_date }}</li>
+                <li>Number of asked questions: {{ item.asked_question }}</li>
+                <li>Number of answers: {{ item.answers }}</li>
+                <li>Number of comments: {{ item.comments }}</li>
+                <li>Reputation: {{ item.reputation }}</li>
+            </ul>
+        {% endfor %}
+    </div>
+
+    <div>
+        <TABLE class="tag_table" id="tag_table_profile">
+            <thead>
+            <th>My questions</th>
+            </thead>
+            {% for question in questions %}
+                <tr>
+                    <td><a href="/question/{{ question['id'] }}"
+                           class="black_colored_link"> {{ question['message'] }} </a></td>
+                </tr>
+            {% endfor %}
+        </TABLE>
+        <br>
+        <TABLE class="tag_table" id="tag_table_profile">
+            <thead>
+            <th>My answers</th>
+            </thead>
+            {% for answer in answers %}
+                <tr>
+                    <td><a href="/question/{{ answer['question_id'] }}"
+                           class="black_colored_link"> {{ answer['message'] }} </a></td>
+                </tr>
+            {% endfor %}
+        </TABLE>
+        <br>
+        <TABLE class="tag_table" id="tag_table_profile">
+            <thead>
+            <th>My comments</th>
+            </thead>
+            {% for comment in comments %}
+                <tr>
+                    <td>
+                    {% if comment['question_id'] %}
+                        <a href="/question/{{ comment['question_id'] }}"
+                           class="black_colored_link"> {{ comment['message'] }} </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </TABLE>
+    </div>
+
+    {% include 'footer.html' %}
+{% endblock %}

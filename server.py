@@ -5,6 +5,8 @@ from os import urandom
 import data_manager
 import password_util
 from datetime import datetime
+from functools import wraps
+
 
 app = Flask(__name__)
 # UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'static/images')
@@ -13,6 +15,27 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = urandom(24)
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'} #not compulsory to define extensions
+
+# https://pythonprogramming.net/decorator-wrappers-flask-tutorial-login-required/
+def login_required(function):
+    @wraps(function)
+    def wrap(*args, **kwargs):
+        if 'id' in session:
+            return function(*args, **kwargs)
+        else:
+            flash("You are not logged in")
+            return redirect(url_for('login'))
+    return wrap
+
+def already_logged_in(function):
+    @wraps(function)
+    def wrap(*args, **kwargs):
+        if 'id' not in session:
+            return function(*args, **kwargs)
+        else:
+            flash(f"You are already logged in, {session['username']}")
+            return redirect(url_for('main_page'))
+    return wrap
 
 
 #Hanna
@@ -32,6 +55,7 @@ def list_questions():
         order = 'DESC'
     questions = data_manager.sort_questions(sort_by, order)
     order_options = data_manager.ORDER_OPTIONS
+
     return render_template('index.html', questions=questions,
         sort_options=data_manager.SORTING_OPTIONS, sort_by=sort_by, order_options=order_options, order=order, all_questions=question_all)
 #Hanna
@@ -249,45 +273,41 @@ def delete_question_tag(question_id, tag_id):
     data_manager.delete_tag(question_id, tag_id)
     return redirect(f"/question/{question_id}")
 
-@app.route("/login", methods = ["POST", "GET"])
+@app.route("/login")
+@already_logged_in
+def login_page():
+    return render_template('login.html')
+
+@app.route("/login", methods = ["POST"])
 def login():
-    if session['logged_in'] == False:
-        if request.method == "GET":
-            return render_template('login.html')
-        elif request.method == "POST":
-            email_input = request.form.get('email')
-            password_input = request.form.get('password')
-            user_details = data_manager.get_user_by_email(email_input)
-            if not user_details: #ha nincs ilyen user
-                flash("No such username")
+        email_input = request.form.get('email')
+        password_input = request.form.get('password')
+        user_details = data_manager.get_user_by_email(email_input)
+        if not user_details: #ha nincs ilyen user
+            flash("No such username")
+            return redirect(url_for('login'))
+        else:
+            password_verified = password_util.verify_password(password_input, user_details['hashed_password'])
+            if not password_verified: #ha nem oké a jelszó
+                flash("Wrong username or password")
                 return redirect(url_for('login'))
             else:
-                password_verified = password_util.verify_password(password_input, user_details['hashed_password'])
-                if not password_verified: #ha nem oké a jelszó
-                    flash("Wrong username or password")
-                    return redirect(url_for('login'))
-                else:
-                    session['id'] = user_details['user_id']
-                    session['username'] = user_details['username']
-                    session['password'] = user_details['hashed_password']
-                    return redirect(url_for('list_questions'))
-    elif session['logged_in'] == True:
-        flash(f"You are already logged in, {session['username']}")
-        return redirect(url_for('list_questions'))
+                session['id'] = user_details['user_id']
+                session['username'] = user_details['username']
+                session['password'] = user_details['hashed_password']
+                return redirect(url_for('list_questions'))
 
 @app.route("/logout")
 def logout():
-    session.pop('id', None)
-    session.pop('username', None)
-    session['logged_in'] = False
+    session.clear()
     flash("You have been logged out")
     return render_template('login.html')
 
 @app.route("/users")
+@login_required
 def users():
     if 'username' in session:
         users = data_manager.get_users()
-        print(users)
         return render_template('all_users.html', users=users)
     else:
         return redirect(url_for('list_questions'))
@@ -325,6 +345,20 @@ def gain_rep_question(id, vote):
 def tags():
     tags = data_manager.get_tags_with_numbers()
     return render_template('tags.html', tags=tags)
+
+@app.route('/user/<user_id>')
+@login_required
+def user_profile(user_id):
+    user_data = data_manager.get_profile_details_by_id(user_id)
+    questions = data_manager.get_infos_by_user(user_id, 'question')
+    answers = data_manager.get_infos_by_user(user_id, 'answer')
+    comments = data_manager.get_infos_by_user(user_id, 'comment')
+    return render_template('user_profile.html',
+                    user_data=user_data,
+                    user_id=user_id,
+                    questions=questions,
+                    answers=answers,
+                    comments=comments)
 
 
 @app.route('/mark-answer/<answer_id>', methods=['POST'])

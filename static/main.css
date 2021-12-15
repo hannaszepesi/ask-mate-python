@@ -372,3 +372,12 @@ a {
     color: #d45545;
 
 }
+
+#tag_table_profile {
+    font-family: system-ui;
+    font-weight: normal;
+}
+
+.black_colored_link {
+    color: black;
+}

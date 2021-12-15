@@ -372,3 +372,46 @@ def change_accepted_state(cursor, answer_id):
 
 
 
+
+@database_common.connection_handler
+def get_profile_details_by_id(cursor, user_id):
+    query = f"""
+    SELECT u.user_id, u.username, u.registration_date, u.reputation,
+    COUNT(distinct q.id) as asked_question,
+    COUNT(distinct a.id) as answers,
+    COUNT(distinct c.id) as comments
+    FROM users as u
+    LEFT JOIN question as q on u.user_id = q.user_id
+    LEFT JOIN answer as a on u.user_id = a.user_id
+    LEFT JOIN comment as c on u.user_id = c.user_id
+    WHERE u.user_id = {user_id}
+    GROUP BY u.user_id, u.username, u.registration_date, u.reputation; 
+    """
+    cursor.execute(query)
+    return cursor.fetchall()
+
+@database_common.connection_handler
+def get_infos_by_user(cursor, user_id, table):
+    if table == 'question':
+        query = """
+        SELECT message, id
+        FROM question
+        WHERE user_id = %s
+        """
+
+    if table == 'answer':
+        query = """
+        SELECT message, id, question_id
+        FROM answer
+        WHERE user_id = %s
+        """
+
+    if table == 'comment':
+        query = """
+        SELECT message, id, answer_id, question_id
+        FROM comment
+        WHERE user_id = %s
+        """
+
+    cursor.execute(query, (user_id,))
+    return cursor.fetchall()
