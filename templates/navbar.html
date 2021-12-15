@@ -42,7 +42,10 @@
             </form>
         </div>
         <div>
-            <input type="image" id="image" alt="Login" src="../static/images/avatar1.png" class="user_logo" width="50">
+
+{#            <form action="{{ url_for('user_profile') }}">#}
+            <button type="submit"><img src="../static/images/avatar1.png" class="user_logo" width="50"></button>
+{#                </form>#}
             <form action="{{ url_for('login') }}">
                 <button type="submit" class="login-button">Login</button>
             </form>
