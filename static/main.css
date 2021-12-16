@@ -358,3 +358,8 @@ a {
 .black_colored_link {
     color: black;
 }
+
+.theme-button {
+  background-color: black;
+  color: white;
+}

@@ -47,6 +47,8 @@ function getFilteredItems(items, filterValue) {
 
 function toggleTheme() {
     console.log("toggle theme")
+    var element = document.body;
+    element.classList.toggle("theme-button");
 }
 
 function increaseFont() {
