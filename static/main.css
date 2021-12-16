@@ -161,11 +161,6 @@ footer {
   left: 50%;
 }
 
-/*.bottom-buttons > div {*/
-/*  margin: 10px;*/
-/*  padding: 20px;*/
-/*  font-size: 30px;*/
-/*}*/
 .button {
   background-color: #04AA6D; /* Green */
   border: none;
@@ -191,10 +186,11 @@ footer {
 }
 
 .search_bar {
-    bottom: 5px;
-    align-self: center;
+  text-align: center;
+  display: inline-block;
+  position: absolute;
+    right: 35%;
 }
-
 
 input[type=text], input[type=password], input[type=username] {
     width: 100%;
@@ -205,7 +201,7 @@ input[type=text], input[type=password], input[type=username] {
     box-sizing: border-box;
 }
 
-.login-button {
+.login-buttons {
     border: none;
     color: white;
     cursor: pointer;
@@ -216,29 +212,6 @@ input[type=text], input[type=password], input[type=username] {
     border-radius: 12px;
 }
 
-
-.logout-button {
-    border: none;
-    cursor: pointer;
-    color: white;
-    font-family: system-ui;
-    background-color: #d45545;
-    color: white;
-    font-weight: bold;
-    border-radius: 12px;
-}
-
-
-.registration-button {
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-family: system-ui;
-    background-color: #d45545;
-    color: white;
-    font-weight: bold;
-    border-radius: 12px;
-}
 
 .search-button {
     bottom: 5px;
@@ -252,7 +225,6 @@ input[type=text], input[type=password], input[type=username] {
     width: 80px;
     height: 40px;
     border-radius: 12px;
-    align-self: flex-end;
 }
 
 .login {
@@ -272,6 +244,7 @@ input[type=text], input[type=password], input[type=username] {
     font-weight: bold;
     color: black;
     border-collapse: collapse;
+    margin-right: 0%;
 }
 
 
