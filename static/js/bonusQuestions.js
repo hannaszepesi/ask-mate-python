@@ -27,16 +27,22 @@ function getSortedItems(items, sortField, sortDirection) {
 function getFilteredItems(items, filterValue) {
     console.log(items)
     console.log(filterValue)
-
+    let result = []
     // === SAMPLE CODE ===
     // if you have not changed the original html uncomment the code below to have an idea of the
     // effect this function has on the table
     //
-    for (let i=0; i<filterValue.length; i++) {
-        items.pop()
+    for (let i=0; i<items.length; i++) {
+        if (filterValue[0] === "!" && !(items[i]['Title'].includes(filterValue.substring(1, filterValue.length)) || items[i]['Description'].includes(filterValue.substring(1, filterValue.length)))) {
+            result.push(items[i])
+        }
+        else if (items[i]['Title'].includes(filterValue) || items[i]['Description'].includes(filterValue)) {
+            result.push(items[i])
+        }
+
     }
 
-    return items
+    return result
 }
 
 function toggleTheme() {

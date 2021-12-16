@@ -6,6 +6,7 @@ import data_manager
 import password_util
 from datetime import datetime
 from functools import wraps
+import bonus_questions
 
 
 app = Flask(__name__)
@@ -250,9 +251,8 @@ def registration():
         return render_template('register.html')
     else:
         username = request.form.get('username')
-        password = request.form.get('password')
-        print(password)
-        hashed_password = password_util.hash_password(password)
+        password = request.args.get('password')
+        hashed_password = password_util.hash_password(str(password))
         reg_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         data_manager.add_new_user(username, hashed_password, reg_date)
         return redirect(url_for('list_questions'))
@@ -379,6 +379,13 @@ def mark_answer(answer_id):
     question_id = question['question_id']
     data_manager.change_accepted_state(answer_id)
     return redirect(url_for("display_question", question_id=question_id))
+
+
+@app.route('/bonus-questions')
+def filter_bonus_questions():
+    questions = bonus_questions.SAMPLE_QUESTIONS
+    print(questions)
+    return render_template("bonus_questions.html", questions=questions)
 
 if __name__ == "__main__":
     app.run(
