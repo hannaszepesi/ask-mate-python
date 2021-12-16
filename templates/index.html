@@ -84,19 +84,7 @@
         <button type="submit" class="tags_button" id="tags_button">See Tags</button>
         </div>
         </form>
-    <div>
-        <a href="/add-question"><img src="{{ url_for("static", filename='images/ask.png') }}" width="150"></a>
-    </div>
-    <div>
-        <a href="/users">List all users</a><br>
-        <a href="/tags"> See tags </a><br>
-        {% if session['logged_in'] %} }}
-            <a href="{{ url_for('user_profile', user_id=session['id']) }}"> My profile </a>
-        {% endif %}
-    </div>
 
-    <a href={{ url_for('logout') }}>Logout</a><br>
-{#    <a href="{{ url_for('user_profile', user_id=session['username']) }}">Profile</a>#}
 
     </body>
     {% include 'footer.html' %}

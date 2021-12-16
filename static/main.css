@@ -161,6 +161,21 @@ footer {
     border-radius: 10px;
 }
 
+.login_buttons{
+    border: none;
+    cursor: pointer;
+    font-family: system-ui;
+    background-color: #6cbcc4;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    padding: 6px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 10px;
+}
+
 .cancel_button{
     border: none;
     cursor: pointer;

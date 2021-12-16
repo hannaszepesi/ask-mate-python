@@ -278,6 +278,7 @@ def delete_question_tag(question_id, tag_id):
 def login_page():
     return render_template('login.html')
 
+
 @app.route("/login", methods = ["POST"])
 def login():
         email_input = request.form.get('email')
