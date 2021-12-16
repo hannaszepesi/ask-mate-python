@@ -187,6 +187,11 @@ def sort_questions(cursor, sortby='submission_time', order='DESC'):
     cursor.execute(query.format(sort_by=sql.Identifier(sortby), orderby=sql.SQL(order)))
     return cursor.fetchall()
 
+@database_common.connection_handler
+def all_questions(cursor, sortby='submission_time', order='DESC'):
+    query = sql.SQL("SELECT id, title, view_number, vote_number FROM question ORDER BY {sort_by} {orderby};")
+    cursor.execute(query.format(sort_by=sql.Identifier(sortby), orderby=sql.SQL(order)))
+    return cursor.fetchall()
 
 @database_common.connection_handler
 def edit_answer(cursor, message, answer_id, image_path):

@@ -5,7 +5,7 @@
 {% block content %}
 
     <p>
-    <form action="{{ url_for('list_questions') }}">
+    <form action="{{ url_for('all_questions') }}">
         <label for="sort_by"><strong>Sort by:</strong></label>
         <select id="sort_by" name="sort_by">
             {% for sort_option in sort_options %}
