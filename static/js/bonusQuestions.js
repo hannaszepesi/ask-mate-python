@@ -56,9 +56,7 @@ function getFilteredItems(items, filterValue) {
 }
 
 function toggleTheme() {
-    console.log("toggle theme");
-}
-
+    console.log("toggle theme")
 }
 
 function increaseFont() {
