@@ -64,37 +64,29 @@
 
         {% endfor %}
     </table>
-    <br>    <br>    <br>
 
-    <div clas="bottom-buttons">
+   <p><div clas="bottom-buttons">
+        <div class="buttons">
         <form action="{{ url_for("add_question") }}">
-        <div class="ask_question_button">
-        <button type="submit" class="ask_question_button" id=ask_question_button">Ask Quesiton</button>
-        </div>
+            <button type="submit" class="buttons" id=ask_question_button">Ask Quesiton</button>
         </form>
+        </div>
 
+        <div class="buttons">
         <form action="{{ url_for("users") }}">
-        <div class="list_users_button">
-        <button type="submit" class="list_users_button" id="list_users_button">List All Users</button>
-        </div>
+        <button type="submit" class="buttons" id="list_users_button">List All Users</button>
         </form>
+        </div>
 
+        <div class="buttons">
         <form action="{{ url_for("tags") }}">
-        <div class="tags_button">
-        <button type="submit" class="tags_button" id="tags_button">See Tags</button>
-        </div>
+        <button type="submit" class="buttons" id="tags_button">See Tags</button>
         </form>
-    <div>
-        <a href="/add-question"><img src="{{ url_for("static", filename='images/ask.png') }}" width="150"></a>
-    </div>
-    <div>
-
-        {% if session['logged_in'] %} }}
-            <a href="{{ url_for('user_profile', user_id=session['id']) }}"> My profile </a>
-        {% endif %}
-    </div>
-
-    <a href={{ url_for('logout') }}>Logout</a><br>
+        </div>
+    </div></p>
+{#        <a href="/add-question"><img src="{{ url_for("static", filename='images/ask.png') }}" width="150"></a>#}
+{#    </div>#}
+{#    <a href={{ url_for('logout') }}>Logout</a><br>#}
 {#    <a href="{{ url_for('user_profile', user_id=session['username']) }}">Profile</a>#}
 
     </body>
