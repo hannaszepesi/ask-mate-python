@@ -192,6 +192,16 @@ def edit_comment(comment_id):
     return render_template('edit_comment.html', original_comment = original_comment, q_id=question_id, comment_id=comment_id)
 
 
+@app.route("/all-question", methods=["GET"])
+def all_question():
+    questions = data_manager.get_data('question')
+    # sort_by = request.args['sort_by']
+    # order = request.args['order']
+    # order_options = data_manager.ORDER_OPTIONS
+    return render_template('all_questions.html', questions=questions)
+                           # sort_options=data_manager.SORTING_OPTIONS, sort_by=sort_by, order_options=order_options, order=order)
+
+
 @app.route("/add-question", methods=['POST', 'GET'])
 def add_question():
     view_number = 0

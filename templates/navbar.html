@@ -8,15 +8,15 @@
 </head>
 <body>
 
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul class=flashes>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
 <script>
     function search(e) {
 	let searched = document.getElementById("searched_expression").value.trim();
@@ -36,12 +36,15 @@
 <header class="navbar">
     <div class="container" style=" display:flex;">
         <div>
-            <img src="{{url_for("static", filename="/images/logo.png")}}" class="logo">
+            <img src="{{ url_for("static", filename="/images/logo.png") }}" class="logo" alt="logo">
         </div>
         <div class="search_bar">
             <form action="{{ url_for('search_question') }}">
-                <input id="searched_expression" type="text" name="question" placeholder="Search.." size="50" value="{{ request.args["question"] }}"/>{# JavaScript miatt kell value #}
-            <button type="submit" class="search-button">Search</button>
+                <div class="search-field-div">
+                    <input id="searched_expression" class="search-field" type="text" name="question" placeholder="Search.." size="50"
+                           value="{{ request.args["question"] }}"/>{# JavaScript miatt kell value #}
+                    </div>
+                <button type="submit" class="search-button">Search</button>
             </form>
         </div>
         <div>
@@ -50,15 +53,15 @@
 
             <button type="submit"><img src="{{url_for("static", filename="/images/avatar1.png")}}" class="user_logo" width="50"></button>
                 </form>
-                    {% endif %}
+            {% endif %}
             <form action="{{ url_for('login') }}">
-                <button type="submit" class="login-button">Login</button>
+                <button type="submit" class="login-buttons">Login</button>
             </form>
             <form action="{{ url_for('logout') }}">
-                <button type="submit" class="logout-button">Logout</button>
+                <button type="submit" class="login-buttons">Logout</button>
             </form>
             <form action="{{ url_for('registration') }}">
-                <button type="submit" class="registration-button">Registration</button>
+                <button type="submit" class="login-buttons">Registration</button>
             </form>
         </div>
     </div>

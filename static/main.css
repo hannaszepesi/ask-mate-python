@@ -161,11 +161,6 @@ footer {
   left: 50%;
 }
 
-/*.bottom-buttons > div {*/
-/*  margin: 10px;*/
-/*  padding: 20px;*/
-/*  font-size: 30px;*/
-/*}*/
 .button {
   background-color: #04AA6D; /* Green */
   border: none;
@@ -187,14 +182,19 @@ footer {
     position: fixed;
     top: 0px;
     left: 0px;
-    bottom: 85%;
+    bottom: 80%;
 }
 
 .search_bar {
-    bottom: 5px;
-    align-self: center;
-}
+  text-align: center;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+    right: 0;
+    margin-left: 30%;
+    margin-right: 30%;
 
+}
 
 input[type=text], input[type=password], input[type=username] {
     width: 100%;
@@ -205,9 +205,8 @@ input[type=text], input[type=password], input[type=username] {
     box-sizing: border-box;
 }
 
-.login-button {
+.login-buttons {
     border: none;
-    color: white;
     cursor: pointer;
     font-family: system-ui;
     background-color: #d45545;
@@ -216,43 +215,29 @@ input[type=text], input[type=password], input[type=username] {
     border-radius: 12px;
 }
 
-
-.logout-button {
-    border: none;
-    cursor: pointer;
-    color: white;
-    font-family: system-ui;
-    background-color: #d45545;
-    color: white;
-    font-weight: bold;
-    border-radius: 12px;
+.search-field{
+     border-radius: 10px;
 }
 
-
-.registration-button {
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-family: system-ui;
-    background-color: #d45545;
-    color: white;
-    font-weight: bold;
-    border-radius: 12px;
+.search-field-div{
+    width: 80%;
+    float: left;
 }
+
 
 .search-button {
     bottom: 5px;
     border: none;
-    color: white;
     cursor: pointer;
     font-family: system-ui;
     background-color: #d45545;
     color: white;
     font-weight: bold;
-    width: 80px;
+    width: 15%;
     height: 40px;
     border-radius: 12px;
-    align-self: flex-end;
+    margin: 8px;
+    float: left;
 }
 
 .login {
@@ -272,6 +257,7 @@ input[type=text], input[type=password], input[type=username] {
     font-weight: bold;
     color: black;
     border-collapse: collapse;
+    width: 100%;
 }
 
 
