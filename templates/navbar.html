@@ -36,25 +36,22 @@
 <header class="navbar">
     <div class="container" style=" display:flex;">
         <div>
-            <img src="{{ url_for("static", filename="/images/logo.png") }}" class="logo">
+            <img src="{{ url_for("static", filename="/images/logo.png") }}" class="logo" alt="logo">
         </div>
         <div class="search_bar">
             <form action="{{ url_for('search_question') }}">
-                <div class="search-field">
-                    <input id="searched_expression" type="text" name="question" placeholder="Search.." size="50"
+                <div class="search-field-div">
+                    <input id="searched_expression" class="search-field" type="text" name="question" placeholder="Search.." size="50"
                            value="{{ request.args["question"] }}"/>{# JavaScript miatt kell value #}
-                </div>
-                <div class="search-button">
-                    <button type="submit" class="search-button">Search</button>
-                </div>
+                    </div>
+                <button type="submit" class="search-button">Search</button>
             </form>
         </div>
         <div>
             {% if session['logged_in'] %}
                 <form action="{{ url_for('user_profile', user_id=session['id']) }}">
 
-                    <button type="submit"><img src="{{ url_for("static", filename="/images/avatar1.png") }}"
-                                               class="user_logo" width="50"></button>
+            <button type="submit"><img src="{{url_for("static", filename="/images/avatar1.png")}}" class="user_logo" width="50"></button>
                 </form>
             {% endif %}
             <form action="{{ url_for('login') }}">
