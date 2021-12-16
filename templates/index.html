@@ -68,7 +68,7 @@
    <p><div clas="bottom-buttons">
         <div class="buttons">
         <form action="{{ url_for("add_question") }}">
-            <button type="submit" class="buttons" id=ask_question_button">Ask quesiton</button>
+            <button type="submit" class="buttons" id=ask_question_button">Ask question</button>
         </form>
         </div>
 
@@ -87,6 +87,12 @@
         <div class="buttons">
         <form action="{{ url_for("all_question") }}">
         <button type="submit" class="buttons" id="tags_button">List all questions</button>
+        </form>
+        </div>
+
+        <div class="buttons">
+        <form action="{{ url_for("filter_bonus_questions") }}">
+            <button type="submit" class="buttons" id=ask_question_button">Bonus questions</button>
         </form>
         </div>
     </div></p>
