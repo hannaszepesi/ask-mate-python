@@ -356,42 +356,42 @@ a {
 }
 
 
-.tag_table {
-    font-family: system-ui;
-    font-weight: bold;
-    color: black;
-    border-collapse: collapse;
-    width: 100%;
-}
+/*.tag_table {*/
+/*    font-family: system-ui;*/
+/*    font-weight: bold;*/
+/*    color: black;*/
+/*    border-collapse: collapse;*/
+/*    width: 100%;*/
+/*}*/
 
 
-.tag_table td, #index_table th {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
+/*.tag_table td, #index_table th {*/
+/*    border: 1px solid #ddd;*/
+/*    padding: 8px;*/
+/*}*/
 
-.tag_table tr {
-    background-color: white;
-}
+/*.tag_table tr {*/
+/*    background-color: white;*/
+/*}*/
 
-.tag_table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
+/*.tag_table tr:nth-child(even) {*/
+/*    background-color: #f2f2f2;*/
+/*}*/
 
 
-.tag_table th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #a8d6d9;
-    color: #d45545;
+/*.tag_table th {*/
+/*    padding-top: 12px;*/
+/*    padding-bottom: 12px;*/
+/*    text-align: left;*/
+/*    background-color: #a8d6d9;*/
+/*    color: #d45545;*/
 
-}
+/*}*/
 
-#tag_table_profile {
-    font-family: system-ui;
-    font-weight: normal;
-}
+/*#tag_table_profile {*/
+/*    font-family: system-ui;*/
+/*    font-weight: normal;*/
+/*}*/
 
 .black_colored_link {
     color: black;
