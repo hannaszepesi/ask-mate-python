@@ -336,10 +336,10 @@ a {
 
 /*}*/
 
-/*#tag_table_profile {*/
-/*    font-family: system-ui;*/
-/*    font-weight: normal;*/
-/*}*/
+#tag_table_profile {
+    font-family: system-ui;
+    font-weight: normal;
+}
 #bonus_question_body{
     background-color: #d45545;
 }
@@ -348,7 +348,16 @@ a {
     color: black;
 }
 
+/*#bonus_question_body {*/
+/*  background-color: black;*/
+/*  color: white;*/
+/*}*/
+
 .dark-mode {
-  background-color: black;
-  color: white;
+background-color: black;
+color: white;
+}
+.light-mode {
+background-color: white;
+color: black;
 }

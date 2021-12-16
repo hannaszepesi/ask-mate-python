@@ -55,8 +55,19 @@ function getFilteredItems(items, filterValue) {
     return result
 }
 
-function toggleTheme() {
+function darkMode() {
     console.log("toggle theme")
+    var element = document.body;
+    var content = document.getElementById("theme-button");
+    element.className = "dark-mode";
+    content.innerText = "Dark Mode is ON";
+}
+
+function lightMode() {
+    var element = document.body;
+    var content = document.getElementById("DarkModetext");
+    element.className = "light-mode";
+    content.innerText = "Dark Mode is OFF";
 }
 
 function increaseFont() {
