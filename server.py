@@ -263,7 +263,7 @@ def registration():
         return render_template('register.html')
     else:
         username = request.form.get('username')
-        password = request.form.get('password')
+        password = request.args.get('password')
         hashed_password = password_util.hash_password(str(password))
         reg_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         data_manager.add_new_user(username, hashed_password, reg_date)

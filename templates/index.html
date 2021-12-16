@@ -26,27 +26,21 @@
         <th><strong>View</strong></th>
         <th><strong>Vote</strong></th>
         <th><strong>Message Title</strong></th>
-        <th><strong>Delete</strong></th>
-        <th><strong>Edit</strong></th>
+        {% if session['logged_in'] %}
         <th><strong>Like</strong></th>
         <th><strong>Dislike</strong></th>
+        {%  endif %}
         </thead>
         {% for question in questions %}
+            {% if question['user_id'] != session['id'] or not session['id'] %}
             <tr>
                 <td>{{ question['view_number'] }}</td>
                 <td>{{ question['vote_number'] }}</td>
+
                 <td>
                     <a href="/question/{{ question['id'] }}" style="color:black">{{ question['title'] }}<br></a>
                 </td>
-                <td><a href="question/{{ question['id'] }}/delete">
-                    <button type="submit"><img src="{{ url_for("static", filename='images/bin.png') }}" width="35">
-                    </button>
-                </a>
-                </td>
-                <td><a href="question/{{ question['id'] }}/edit">
-                    <button type="submit"><img src="{{ url_for("static", filename='images/edit.jpg') }}" width="30">
-                    </button></a>
-                </td>
+                {% if session['logged_in'] %}
                 <td>
                     <form action="{{ url_for("question_vote", id = question['id'], vote='vote_up') }}" method="POST">
                         <button type="submit"><img src="{{ url_for("static", filename='images/like.jpg') }}" width="30">
@@ -60,12 +54,14 @@
                         </button>
                     </form>
                 </td>
+            {% endif %}
             </tr>
-
+            {% endif %}
         {% endfor %}
     </table>
 
    <p><div clas="bottom-buttons">
+        {% if session['logged_in'] %}
         <div class="buttons">
         <form action="{{ url_for("add_question") }}">
             <button type="submit" class="buttons" id=ask_question_button">Ask question</button>
@@ -77,7 +73,7 @@
         <button type="submit" class="buttons" id="list_users_button">List all users</button>
         </form>
         </div>
-
+        {% endif %}
         <div class="buttons">
         <form action="{{ url_for("tags") }}">
         <button type="submit" class="buttons" id="tags_button">See tags</button>
