@@ -85,12 +85,18 @@ function increaseFont() {
     txt = document.getElementById('doNotModifyThisId_QuestionsTableBody');
     style = window.getComputedStyle(txt, null).getPropertyValue('font-size');
     currentSize = parseFloat(style);
-    txt.style.fontSize = (currentSize + 1) + 'px';
+    console.log(currentSize);
+    if (currentSize <= 25){
+        txt.style.fontSize = (currentSize + 1) + 'px';
+    }
 }
 
 function decreaseFont() {
     txt = document.getElementById('doNotModifyThisId_QuestionsTableBody');
     style = window.getComputedStyle(txt, null).getPropertyValue('font-size');
     currentSize = parseFloat(style);
-    txt.style.fontSize = (currentSize - 1) + 'px';
+    console.log(currentSize);
+    if (currentSize >= 3){
+        txt.style.fontSize = (currentSize - 1) + 'px';
+    }
 }
