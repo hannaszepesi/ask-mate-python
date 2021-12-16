@@ -24,6 +24,11 @@ body {
     width: 30px;
     top: 20px;
     right: 70px;
+    /*background-color: #6cbcc4;*/
+    /*background-repeat:no-repeat;*/
+    /*border: none;*/
+    /*cursor:pointer;*/
+    /*overflow: hidden;*/
 }
 
 footer {
@@ -56,22 +61,7 @@ footer {
     border-radius: 12px;
 }
 
-.list_users_button{
-    border: none;
-    cursor: pointer;
-    font-family: system-ui;
-    background-color: #6cbcc4;
-    font-size: 18px;
-    color: white;
-    font-weight: bold;
-    padding: 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border-radius: 12px;
-}
-
-.tags_button{
+.buttons{
     border: none;
     cursor: pointer;
     font-family: system-ui;
@@ -86,20 +76,6 @@ footer {
     border-radius: 12px;
 }
 
-.ask_question_button{
-    border: none;
-    cursor: pointer;
-    font-family: system-ui;
-    background-color: #6cbcc4;
-    font-size: 18px;
-    color: white;
-    font-weight: bold;
-    padding: 8px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border-radius: 12px;
-}
 
 .sort_button{
     border: none;
@@ -146,20 +122,6 @@ footer {
     border-radius: 10px;
 }
 
-.submit_button{
-    border: none;
-    cursor: pointer;
-    font-family: system-ui;
-    background-color: #6cbcc4;
-    font-size: 14px;
-    color: white;
-    font-weight: bold;
-    padding: 6px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border-radius: 10px;
-}
 
 .login_buttons{
     border: none;
