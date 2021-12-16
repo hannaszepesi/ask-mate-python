@@ -57,27 +57,38 @@ function getFilteredItems(items, filterValue) {
 
 function redMode() {
     console.log("toggle theme")
-    var element = document.body;
-    var red_button = document.getElementById("red-theme-button");
-    var blue_button = document.getElementById("blue-theme-button");
+    let element = document.body;
+    let red_button = document.getElementById("red-theme-button");
+    let blue_button = document.getElementById("blue-theme-button");
     element.className = "red-mode";
     red_button.innerText = "Red Mode is ON";
     blue_button.innerText = "Blue Mode is OFF";
 }
 
 function blueMode() {
-    var element = document.body;
-    var blue_button = document.getElementById("blue-theme-button");
-    var red_button = document.getElementById("red-theme-button");
+    let element = document.body;
+    let blue_button = document.getElementById("blue-theme-button");
+    let red_button = document.getElementById("red-theme-button");
     element.className = "blue-mode";
     blue_button.innerText = "Blue Mode in ON";
     red_button.innerText = "Red Mode in OFF";
 }
 
+// function increaseFont() {
+//     console.log("increaseFont")
+//     let element = document.getElementById("doNotModifyThisId_QuestionsTableBody");
+//     element.className = "increase-font";
+// }
 function increaseFont() {
-    console.log("increaseFont")
+    txt = document.getElementById('doNotModifyThisId_QuestionsTableBody');
+    style = window.getComputedStyle(txt, null).getPropertyValue('font-size');
+    currentSize = parseFloat(style);
+    txt.style.fontSize = (currentSize + 1) + 'px';
 }
 
 function decreaseFont() {
-    console.log("decreaseFont")
+    txt = document.getElementById('doNotModifyThisId_QuestionsTableBody');
+    style = window.getComputedStyle(txt, null).getPropertyValue('font-size');
+    currentSize = parseFloat(style);
+    txt.style.fontSize = (currentSize - 1) + 'px';
 }
