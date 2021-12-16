@@ -136,6 +136,6 @@ addTableOrderEventListeners(tableHeaderIds)
 const inputIds = ["doNotModifyThisId_QuestionsFilter"]
 addInputFilterEventListeners(inputIds)
 
-document.getElementById("theme-button").addEventListener("click", darkMode)
+document.getElementById("theme-button").addEventListener("click", redMode)
 document.getElementById("increase-font-button").addEventListener("click", increaseFont)
 document.getElementById("decrease-font-button").addEventListener("click", decreaseFont)

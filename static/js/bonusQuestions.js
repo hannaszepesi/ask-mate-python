@@ -55,19 +55,23 @@ function getFilteredItems(items, filterValue) {
     return result
 }
 
-function darkMode() {
+function redMode() {
     console.log("toggle theme")
     var element = document.body;
-    var content = document.getElementById("theme-button");
-    element.className = "dark-mode";
-    content.innerText = "Dark Mode is ON";
+    var red_button = document.getElementById("red-theme-button");
+    var blue_button = document.getElementById("blue-theme-button");
+    element.className = "red-mode";
+    red_button.innerText = "Red Mode is ON";
+    blue_button.innerText = "Blue Mode is OFF";
 }
 
-function lightMode() {
+function blueMode() {
     var element = document.body;
-    var content = document.getElementById("DarkModetext");
-    element.className = "light-mode";
-    content.innerText = "Dark Mode is OFF";
+    var blue_button = document.getElementById("blue-theme-button");
+    var red_button = document.getElementById("red-theme-button");
+    element.className = "blue-mode";
+    blue_button.innerText = "Blue Mode in ON";
+    red_button.innerText = "Red Mode in OFF";
 }
 
 function increaseFont() {

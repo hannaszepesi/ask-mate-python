@@ -353,11 +353,13 @@ a {
 /*  color: white;*/
 /*}*/
 
-.dark-mode {
-background-color: black;
+.red-mode {
+background-color: #d45545 !important;
 color: white;
 }
-.light-mode {
-background-color: white;
+
+.blue-mode {
+background-color: #6cbcc4 !important;
 color: black;
 }
+
