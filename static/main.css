@@ -340,12 +340,15 @@ a {
 /*    font-family: system-ui;*/
 /*    font-weight: normal;*/
 /*}*/
+#bonus_question_body{
+    background-color: #d45545;
+}
 
 .black_colored_link {
     color: black;
 }
 
-.theme-button {
+.dark-mode {
   background-color: black;
   color: white;
 }
