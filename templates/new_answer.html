@@ -9,10 +9,15 @@
     <p> Upload image: </p>
     <p> <input accept="image/*" type="file" name="image"> {# this is  comment not seen on the web #}</p>
     <br>
-    <button type="submit" value="Submit comment" class="submit_button" id="submit_button">Submit</button>
-    <br><br>
+    <div clas="bottom-buttons">
+        <div class="buttons">
+    <button type="submit" value="Submit" class="buttons" id="submit_button">Submit</button>
+        </div>
 </form>
-<a href="/list">Cancel</a>
-
+    <div class="buttons">
+    <form action="/list">
+        <button type="submit" value="Cancel" class="buttons" id="submit_button">Cancel</button>
+    </form>
+    </div>
 {% include 'footer.html' %}
 {% endblock %}
