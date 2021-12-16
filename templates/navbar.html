@@ -22,7 +22,7 @@
 	let searched = document.getElementById("searched_expression").value.trim();
     if (searched !== "") {
   	let text = document.getElementById("searched_table").innerHTML;
-  	let re = new RegExp(searched,"g"); // search for all instances("g")
+  	let re = new RegExp(searched,"ig"); // search for all instances("g"), "i" means case insensitive
 		let newText = text.replace(re, `<mark>${searched}</mark>`);
 		document.getElementById("text").innerHTML = newText;
         }
