@@ -34,7 +34,7 @@ def already_logged_in(function):
             return function(*args, **kwargs)
         else:
             flash(f"You are already logged in, {session['username']}")
-            return redirect(url_for('main_page'))
+            return redirect(url_for('list_questions'))
     return wrap
 
 
@@ -240,8 +240,9 @@ def registration():
         return render_template('register.html')
     else:
         username = request.form.get('username')
-        password = request.args.get('password')
-        hashed_password = password_util.hash_password(str(password))
+        password = request.form.get('password')
+        print(password)
+        hashed_password = password_util.hash_password(password)
         reg_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         data_manager.add_new_user(username, hashed_password, reg_date)
         return redirect(url_for('list_questions'))

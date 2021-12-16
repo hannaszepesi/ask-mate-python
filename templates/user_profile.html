@@ -51,7 +51,10 @@
                         <a href="/question/{{ comment['question_id'] }}"
                            class="black_colored_link"> {{ comment['message'] }} </a>
                         {% endif %}
-                    </td>
+                    {% if comment['answer_id'] %}
+                       {{ comment['message'] }}
+                    {% endif %}
+                </td>
                 </tr>
             {% endfor %}
         </TABLE>
