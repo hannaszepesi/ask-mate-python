@@ -10,8 +10,9 @@
         <h4>
             {% for tag in tags %}
                 {{ '#' + tag['name'] + " " }}
+                {% if session['logged_in'] %}
                 <button><a href="/question/{{ question['id'] }}/tag/{{ tag['id'] }}/delete">
-                    <img src="{{ url_for('static', filename='images/delete.png') }}" width="10"></a></button>
+                    <img src="{{ url_for('static', filename='images/delete.png') }}" width="10"></a></button> {% endif %}
             {% endfor %}
         </h4>
     {% endif %}
@@ -23,22 +24,23 @@
     {% for comment in question_comments %}
         <ul>
             <li> {{ comment['message'] }} - {{ comment['submission_time'] }}
+                {% if session['logged_in'] and session['id'] == comment['user_id'] %}
                 <button><a href="/comment/{{ comment['id'] }}/delete">
                     <img src="{{ url_for('static', filename='images/bin.png') }}" width="25"></a></button>
                 <button><a href="/comment/{{ comment['id'] }}/edit">
-                    <img src={{ url_for('static', filename='images/edit.jpg') }} width="20"></a></button>
+                    <img src={{ url_for('static', filename='images/edit.jpg') }} width="20"></a></button>{% endif %}
             </li>
         </ul>
 
     {% endfor %}
-
+    {% if session['logged_in'] %}
     <form action="/question/{{ question['id'] }}/new-comment" method="POST">
         <label for="new-comment"> Add a comment: </label><br>
         <textarea name="new-comment" id="new-comment" rows="3" cols="110" required></textarea></br>
         <button type="submit" class="submit_button" id="submit_comment_button">Submit Comment</button>
         {#        <input type="submit" value="Submit comment" class="" method='POST'>#}
     </form>
-
+    {% endif %}
     <br>
     <h3 id="answer_on_display_question"><strong>Answers:</strong></h3>
     {% for answer in answers %}
@@ -50,10 +52,13 @@
             <p><strong>Vote:</strong>{{ answer['vote_number'] }}</p>
         </ul>
         <table>
+        {% if session['logged_in'] and session['id'] == answer['user_id'] %}
             <td>
                 <button><a href="/answer/{{ answer['id'] }}/delete"><img
                         src="{{ url_for("static", filename='images/bin.png') }}" width="35"></a></button>
             </td>
+            {% endif %}
+            {% if session['logged_in'] %}
             <td>
                 <form action={{ url_for("answer_vote", id = answer['id'], vote='vote_up') }} method="POST">
                     <button type="submit"><img src="{{ url_for("static", filename='images/like.jpg') }}" width="30"
@@ -67,14 +72,17 @@
                     </button>
                 </form>
             </td>
+            {% endif %}
+            {% if session['logged_in'] and session['id'] == answer['user_id'] %}
             <td>
                 <form action= {{ url_for("edit_answer", answer_id = answer['id']) }}>
                     <button type="submit"><img src="{{ url_for("static", filename='images/edit.jpg') }}" width="30">
                     </button>
                 </form>
             </td>
-            {% if session['logged_in'] and session['id'] == answer['user_id'] %}
+            {% endif %}
                 <td>
+                    {% if session['logged_in'] and session['id'] == question['user_id'] %}
                     {% if answer['accepted'] == False %}
                         <form action="{{ url_for("mark_answer", answer_id = answer['id']) }}" method="POST">
                             <button type="submit"><img src="{{ url_for("static", filename='images/accepted.png') }}"
@@ -83,15 +91,15 @@
                             </button>
                         </form>
                     {% else %}
-                        <form>
+                        <form action="{{ url_for("mark_answer", answer_id = answer['id']) }}" method="POST">
                         <button type="submit"><img src="{{ url_for("static", filename='images/not_accepted.png') }}"
                                                    width="30">
                             MARK NOT ACCEPTED
                         </button>
                     {% endif %}
+                    {% endif %}
                     </form>
                 </td>
-            {% endif %}
 
         </table>
 
@@ -101,29 +109,33 @@
         {% for comment in answer['comments'] %}
             <ul>
                 <li> {{ comment['message'] }} - {{ comment['submission_time'] }}
+                    {% if session['logged_in'] and session['id'] == comment['user_id'] %}
                     <button><a href="/comment/{{ comment['id'] }}/delete">
                         <img src="{{ url_for("static", filename='images/bin.png') }}" width="25"></a></button>
                     <button><a href="/comment/{{ comment['id'] }}/edit">
-                        <img src="{{ url_for("static", filename='images/edit.jpg') }}" width="20"></a></button>
+                        <img src="{{ url_for("static", filename='images/edit.jpg') }}" width="20"></a></button> {% endif %}
                 </li>
             </ul>
 
         {% endfor %}
+        {% if session['logged_in'] %}
         <form action="/answer/{{ answer['id'] }}/new-comment" method="POST">
             <label for="new-comment"> Add a comment: </label><br>
             <textarea name="new-comment" id="new-comment" rows="3" cols="105" required></textarea></br>
             <button type="submit" class="submit_button" id="submit_comment_button">Submit Comment</button>
         </form>
+        {% endif %}
     {% endfor %}
 
     <p>
     <div clas="bottom-buttons">
+        {% if session['logged_in'] %}
         <div class="buttons">
             <form action="/question/{{ question['id'] }}/new-answer">
                 <button type="submit" class="buttons" id=ask_question_button">Add a new answer</button>
             </form>
         </div>
-
+        {% if session['id'] == question['user_id'] %}
         <div class="buttons">
             <form action="/question/{{ question['id'] }}/edit">
                 <button type="submit" class="buttons" id=ask_question_button">Edit question</button>
@@ -135,14 +147,22 @@
                 <button type="submit" class="buttons" id=ask_question_button">Add new tag</button>
             </form>
         </div>
-
+        {% endif %}
+        {% endif %}
         <div class="buttons">
             <form action="/tags">
                 <button type="submit" class="buttons" id=ask_question_button">See tags</button>
             </form>
         </div>
-    </div>
+            {% if session['logged_in'] and session['id'] == question['user_id'] %}
+         <div class="buttons">
+            <form action="question/{{ question['id'] }}/delete">
+                <button type="submit" class="buttons" id=ask_question_button">Delete</button>
+            </form>
+        </div>
+            {% endif %}
 
+    </div>
     </body>
     {% include 'footer.html' %}
 {% endblock %}

@@ -17,9 +17,11 @@ function getSortedItems(items, sortField, sortDirection) {
         }
     }
     else {
-        const lastItem = items.pop()
-        if (lastItem) {
-            items.push(lastItem)
+        for (let i=0; i<items.length; i++) {
+            const lastItem = items.pop()
+            if (lastItem) {
+                items.push(lastItem)
+            }
         }
     }
 
