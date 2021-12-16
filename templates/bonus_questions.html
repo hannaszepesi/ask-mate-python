@@ -33,7 +33,13 @@
                         <td>{{ question['view_number'] }}</td>
                     </tr>
                 {% endfor %}
+
             </tbody>
         </table>
+        <div class="buttons">
+            <form action="{{ url_for("list_questions") }}">
+                <button type="submit" class="buttons">Back to home</button>
+            </form>
+        </div>
     </body>
 </html>
