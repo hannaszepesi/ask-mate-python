@@ -384,7 +384,6 @@ def mark_answer(answer_id):
 @app.route('/bonus-questions')
 def filter_bonus_questions():
     questions = bonus_questions.SAMPLE_QUESTIONS
-    print(questions)
     return render_template("bonus_questions.html", questions=questions)
 
 if __name__ == "__main__":
