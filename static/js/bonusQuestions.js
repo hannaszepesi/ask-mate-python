@@ -33,7 +33,10 @@ function getFilteredItems(items, filterValue) {
     // effect this function has on the table
     //
     for (let i=0; i<items.length; i++) {
-        if (items[i]['Title'].includes(filterValue) || items[i]['Description'].includes(filterValue)) {
+        if (filterValue[0] === "!" && !(items[i]['Title'].includes(filterValue.substring(1, filterValue.length)) || items[i]['Description'].includes(filterValue.substring(1, filterValue.length)))) {
+            result.push(items[i])
+        }
+        else if (items[i]['Title'].includes(filterValue) || items[i]['Description'].includes(filterValue)) {
             result.push(items[i])
         }
 
