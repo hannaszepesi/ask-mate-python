@@ -262,7 +262,7 @@ def registration():
     if request.method == 'GET':
         return render_template('register.html')
     else:
-        username = request.form.get('username')
+        username = request.args.get('username')
         password = request.args.get('password')
         hashed_password = password_util.hash_password(str(password))
         reg_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
