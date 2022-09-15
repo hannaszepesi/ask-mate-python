@@ -1,17 +1,15 @@
 
 # AskMate
 
-In this team project out task was to implement a crowdsourced Q&A site, 
-similar to Stack Overflow. We designed it in 3 sprints, in 3 weeks. 
-This project is the most lasting for me during Codecool, because there 
-was fantastic teamwork behind it, we were all very motivated in 
-its preparation and planning and often even worked on it in the evening.
 
 
+This is a webpage where users can exchange information by asking questions and writing comments. Furthermore, this is my very first project to learn the basics of web development. My Team and I were working on this for 3 weeks and our high motivation lasted until the end, as this project was really enjoyable. I participated in the development on the server and on the client side as well. It is an important project in my journey of learning in Codecool.
 
 ## Tech Stack
 
-JavaScript, Python, Flask, HTML, CSS
+**Client:** HTML, CSS, JavaScript
+
+**Server:** Python, Flask
 
 
 ## Screenshots
