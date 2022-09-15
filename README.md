@@ -11,6 +11,8 @@ This is a webpage where users can exchange information by asking questions and w
 
 **Server:** Python, Flask
 
+**Database:** PostgreSQL
+
 
 ## Screenshots
 
